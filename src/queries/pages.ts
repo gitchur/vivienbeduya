@@ -22,7 +22,8 @@ export const pageFields = defineQuery(`
   _type == "article" => {
     publishDate,
     tags[]->{ name },
-    image { ${imageFields} }
+    image { ${imageFields} },
+    author->{ firstName, lastName, image { ${imageFields} } }
   },
 `);
 

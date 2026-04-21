@@ -11,7 +11,6 @@ export const globals = css`
     body {
       --color-black: #1b1b2f;
       --color-white: #f5f0e8;
-      --color-blue: #0000ff;
       --color-violet: #3d348b;
       --color-mango: #f2c744;
       --color-red: #e8503a;

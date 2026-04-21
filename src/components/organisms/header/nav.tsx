@@ -86,7 +86,7 @@ const Wrapper = styled.nav`
     width: 100%;
     height: calc(100dvh - var(--header-height));
     background-color: var(--color-white);
-    color: var(--color-blue);
+    color: var(--color-violet);
     z-index: 100;
     transform: translateX(100%);
     transition: transform 300ms cubic-bezier(0.77, 0.2, 0.5, 1);
@@ -141,7 +141,7 @@ const Wrapper = styled.nav`
     ul {
       background-color: var(--color-white);
       border: 1px solid grey;
-      color: var(--color-blue);
+      color: var(--color-violet);
       padding: 4rwd;
       border-radius: 4rwd;
       list-style: none;

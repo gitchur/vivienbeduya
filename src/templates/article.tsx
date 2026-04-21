@@ -3,7 +3,6 @@ import PostTitle from "@/components/molecules/postTitle";
 import { styled } from "@linaria/react";
 import { getNextReadPost } from "@/queries/global";
 import Link from "@/components/atoms/link";
-import Image from "@/components/atoms/image";
 import { ArticleCard } from "@/components/blocks/articlesList/articleCard";
 import { AltText } from "@/components/atoms/altText";
 

@@ -112,6 +112,7 @@ type Article = Document & {
   readonly _updatedAt: Maybe<Scalars['DateTime']['output']>;
   readonly alternativeDescription: Maybe<Scalars['String']['output']>;
   readonly alternativeTitle: Maybe<Scalars['String']['output']>;
+  readonly author: Maybe<Author>;
   readonly blocks: Maybe<Blocks>;
   readonly description: Maybe<Scalars['String']['output']>;
   readonly image: Maybe<AdaptiveImage>;
@@ -135,6 +136,7 @@ type ArticleFilter = {
   readonly _updatedAt: InputMaybe<DatetimeFilter>;
   readonly alternativeDescription: InputMaybe<StringFilter>;
   readonly alternativeTitle: InputMaybe<StringFilter>;
+  readonly author: InputMaybe<AuthorFilter>;
   readonly blocks: InputMaybe<BlocksFilter>;
   readonly description: InputMaybe<StringFilter>;
   readonly image: InputMaybe<AdaptiveImageFilter>;
@@ -164,6 +166,53 @@ type ArticleSorting = {
   readonly seo: InputMaybe<SeoSorting>;
   readonly slug: InputMaybe<SlugWithPrefixSorting>;
   readonly title: InputMaybe<SortOrder>;
+};
+
+type Author = Document & {
+  readonly __typename?: 'Author';
+  /** Date the document was created */
+  readonly _createdAt: Maybe<Scalars['DateTime']['output']>;
+  /** Document ID */
+  readonly _id: Maybe<Scalars['ID']['output']>;
+  readonly _key: Maybe<Scalars['String']['output']>;
+  /** Current document revision */
+  readonly _rev: Maybe<Scalars['String']['output']>;
+  /** Document type */
+  readonly _type: Maybe<Scalars['String']['output']>;
+  /** Date the document was last modified */
+  readonly _updatedAt: Maybe<Scalars['DateTime']['output']>;
+  readonly bio: Maybe<RichText>;
+  readonly firstName: Maybe<Scalars['String']['output']>;
+  readonly image: Maybe<AdaptiveImage>;
+  readonly lastName: Maybe<Scalars['String']['output']>;
+};
+
+type AuthorFilter = {
+  /** Apply filters on document level */
+  readonly _: InputMaybe<Sanity_DocumentFilter>;
+  readonly _createdAt: InputMaybe<DatetimeFilter>;
+  readonly _id: InputMaybe<IdFilter>;
+  readonly _key: InputMaybe<StringFilter>;
+  readonly _rev: InputMaybe<StringFilter>;
+  readonly _type: InputMaybe<StringFilter>;
+  readonly _updatedAt: InputMaybe<DatetimeFilter>;
+  readonly bio: InputMaybe<RichTextFilter>;
+  readonly firstName: InputMaybe<StringFilter>;
+  readonly image: InputMaybe<AdaptiveImageFilter>;
+  readonly lastName: InputMaybe<StringFilter>;
+};
+
+type AuthorSorting = {
+  readonly _createdAt: InputMaybe<SortOrder>;
+  readonly _id: InputMaybe<SortOrder>;
+  readonly _key: InputMaybe<SortOrder>;
+  readonly _rev: InputMaybe<SortOrder>;
+  readonly _type: InputMaybe<SortOrder>;
+  readonly _updatedAt: InputMaybe<SortOrder>;
+  readonly bio: InputMaybe<RichTextSorting>;
+  readonly firstName: InputMaybe<SortOrder>;
+  readonly image: InputMaybe<AdaptiveImageSorting>;
+  readonly lastName: InputMaybe<SortOrder>;
 };
 
 type Block = {
@@ -1688,6 +1737,7 @@ type RichTextSorting = {
 type RootQuery = {
   readonly __typename?: 'RootQuery';
   readonly Article: Maybe<Article>;
+  readonly Author: Maybe<Author>;
   readonly ComponentBlueprint: Maybe<ComponentBlueprint>;
   readonly Document: Maybe<Document>;
   readonly Footer: Maybe<Footer>;
@@ -1702,6 +1752,7 @@ type RootQuery = {
   readonly Theme: Maybe<Theme>;
   readonly Wiki: Maybe<Wiki>;
   readonly allArticle: ReadonlyArray<Article>;
+  readonly allAuthor: ReadonlyArray<Author>;
   readonly allComponentBlueprint: ReadonlyArray<ComponentBlueprint>;
   readonly allDocument: ReadonlyArray<Document>;
   readonly allFooter: ReadonlyArray<Footer>;
@@ -1719,6 +1770,11 @@ type RootQuery = {
 
 
 type RootQueryArticleArgs = {
+  id: Scalars['ID']['input'];
+};
+
+
+type RootQueryAuthorArgs = {
   id: Scalars['ID']['input'];
 };
 
@@ -1793,6 +1849,14 @@ type RootQueryAllArticleArgs = {
   offset: InputMaybe<Scalars['Int']['input']>;
   sort: InputMaybe<ReadonlyArray<ArticleSorting>>;
   where: InputMaybe<ArticleFilter>;
+};
+
+
+type RootQueryAllAuthorArgs = {
+  limit: InputMaybe<Scalars['Int']['input']>;
+  offset: InputMaybe<Scalars['Int']['input']>;
+  sort: InputMaybe<ReadonlyArray<AuthorSorting>>;
+  where: InputMaybe<AuthorFilter>;
 };
 
 

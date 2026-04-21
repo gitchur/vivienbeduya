@@ -76,6 +76,12 @@ export default defineType({
       of: [{ type: "reference", to: [{ type: "tag" }] }],
       group: fieldgroups.articleDetails.name,
     }),
+    defineField({
+      name: "author",
+      type: "reference",
+      to: [{ type: "author" }],
+      group: fieldgroups.articleDetails.name,
+    }),
   ],
   preview: formatPagePreview(null, { publishDate: "publishDate" }, (props) => ({
     title: props.label || props.title,

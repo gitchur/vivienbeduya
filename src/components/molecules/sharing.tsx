@@ -3,6 +3,7 @@
 import { mergeClassNames } from "@flight-digital/flightdeck/helpers";
 import { styled } from "@linaria/react";
 import React, { useEffect, useState } from "react";
+import { Icon } from "@/components/atoms/icon";
 
 export type SharePlatform = "linkedin" | "facebook";
 
@@ -35,6 +36,7 @@ export const Sharing = ({
   className,
 }: Props): React.ReactElement | null => {
   const [shareUrl, setShareUrl] = useState(url ?? "");
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     if (typeof url === "string" && url.length > 0) {
@@ -53,9 +55,17 @@ export const Sharing = ({
     window.open(href, "_blank", "noopener,noreferrer,width=600,height=400");
   };
 
+  const handleCopy = () => {
+    navigator.clipboard.writeText(window.location.href);
+    setCopied(true);
+  };
+
   return (
     <Wrapper className={mergeClassNames("sharing", className)} role="group" aria-label="Share">
       Share:
+      <ShareButton onClick={handleCopy}>
+        <Icon size={20} asset={copied ? "check" : "copy"} />
+      </ShareButton>
       {platforms.map((platform) => (
         <ShareButton
           key={platform}
@@ -109,7 +119,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 4rwd;
+  gap: 8rwd;
 `;
 
 const ShareButton = styled.button`
@@ -133,10 +143,10 @@ const ShareButton = styled.button`
 
   &:hover {
     svg {
-    fill: var(--color-violet, #3d348b);
-    color: var(--color-white);
-  }
-  transform: translateY(-2rwd);
+      fill: var(--color-mango);
+      color: var(--color-white);
+    }
+    transform: translateY(-2rwd);
   }
 
   &:focus-visible {

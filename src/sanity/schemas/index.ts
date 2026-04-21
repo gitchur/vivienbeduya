@@ -5,6 +5,7 @@ import page from "./pages/page";
 // -------------- Documents --------------- //
 // import exampleDocument from "./documents/exampleDocument";
 import tag from "./documents/tag";
+import author from "./documents/author";
 // -------------- Navigation --------------- //
 import footer from "./navigation/footer/footer";
 import navList from "./navigation/footer/navMenu";
@@ -22,8 +23,9 @@ const schemas = [
   // Pages
   page,
   article,
-  tag,
   // Documents
+  tag,
+  author,
   // exampleDocument,
 
   // Navigation
