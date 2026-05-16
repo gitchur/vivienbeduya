@@ -7,7 +7,7 @@ const StudioComponent = () => {
   return (
     <NextSanityStudio
       sanityConfigLoader={() => import("../../../../sanity.config")}
-      loadingLogoUrl="https://cdn.sanity.io/images/bm3737yn/production/0cf15d9cab6fa84ddd0b37e5d66a6fb9aebf1287-2000x2000.png?auto=format&fit=max&q=75&w=408"
+      loadingLogoUrl="https://cdn.sanity.io/images/bm3737yn/production/8347c2b6167823c1197d63cf21eba7ec331053fc-1068x640.png"
     />
   );
 };

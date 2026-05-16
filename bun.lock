@@ -6,7 +6,7 @@
       "name": "flightdeck-starter-next",
       "dependencies": {
         "@flight-digital/flightdeck": "^6.4.1",
-        "@flight-digital/sanity-plugin-flightdeck": "^6.5.0",
+        "@flight-digital/sanity-plugin-flightdeck": "^6.5.1",
         "@linaria/core": "^6.3.0",
         "@linaria/react": "^6.3.0",
         "@next/env": "^15.5.4",
@@ -419,7 +419,7 @@
 
     "@flight-digital/flightdeck": ["@flight-digital/flightdeck@6.4.1", "https://npm.pkg.github.com/download/@flight-digital/flightdeck/6.4.1/a83850bf5e1a9e99f7076ec0dccc3e35eb8706c2", { "dependencies": { "@linaria/core": "^6.1.0", "@linaria/react": "^6.1.0", "@portabletext/react": "^3.0.7", "@wyw-in-js/babel-preset": "^0.4.0", "@wyw-in-js/vite": "^0.4.0", "embla-carousel": "^8.3.1", "embla-carousel-auto-scroll": "^8.3.1", "embla-carousel-autoplay": "^8.3.1", "embla-carousel-fade": "^8.3.1", "embla-carousel-react": "^8.3.1", "lenis": "^1.3.15", "picosanity": "^5.0.0", "react": "^19", "react-dom": "^19", "sanity-image": "^1.0.0" } }, "sha512-8jYiG9xHVZjLIDi/yxkVbJsWHZslF21mq5zmPvpEn/U1YQkpbmqCxujfqjYVSyQ7zNQEARsR/pdbTlQkafpUhw=="],
 
-    "@flight-digital/sanity-plugin-flightdeck": ["@flight-digital/sanity-plugin-flightdeck@6.5.0", "https://npm.pkg.github.com/download/@flight-digital/sanity-plugin-flightdeck/6.5.0/d115b467986529478e63d759c31257281f671ed8#d115b467986529478e63d759c31257281f671ed8", { "dependencies": { "@codemirror/lang-html": "6.4.0", "@codemirror/lang-javascript": "6.1.0", "@codemirror/lang-json": "6.0.0", "@codemirror/language": "6.0.0", "@codemirror/legacy-modes": "6.3.0", "@sanity/icons": "^3.7.4", "@sanity/incompatible-plugin": "^1.0.5", "@uiw/codemirror-theme-vscode": "^4.23.7", "@uiw/react-codemirror": "4.23.7", "react-color": "^2.19.3", "react-tag-autocomplete": "^7.3.0", "sanity-plugin-icon-picker": "^4.0.0", "sanity-plugin-media": "^4.1.1" }, "optionalDependencies": { "@rollup/rollup-linux-x64-gnu": "^4.9.6" } }, "sha512-pFsmT7kIfH5X6H/xgjrIgsYsfSGXax/qRWuuVwz7BpZT/nzVFN5o7RTMdqBV22DyQ+XmAH9WruK4eJ96THA4ag=="],
+    "@flight-digital/sanity-plugin-flightdeck": ["@flight-digital/sanity-plugin-flightdeck@6.6.2", "https://npm.pkg.github.com/download/@flight-digital/sanity-plugin-flightdeck/6.6.2/9c5c7d1704306b280cb5330a64dad2ad249e0be6", { "dependencies": { "@codemirror/lang-html": "6.4.0", "@codemirror/lang-javascript": "6.1.0", "@codemirror/lang-json": "6.0.0", "@codemirror/language": "6.0.0", "@codemirror/legacy-modes": "6.3.0", "@sanity/icons": "^3.7.4", "@sanity/incompatible-plugin": "^1.0.5", "@uiw/codemirror-theme-vscode": "^4.23.7", "@uiw/react-codemirror": "4.23.7", "react-color": "^2.19.3", "react-tag-autocomplete": "^7.3.0", "sanity-plugin-icon-picker": "^4.0.0", "sanity-plugin-media": "^4.1.1" }, "optionalDependencies": { "@rollup/rollup-linux-x64-gnu": "^4.9.6" }, "peerDependencies": { "react": "^19", "react-dom": "^19", "react-icons": "^4", "sanity": "^4", "styled-components": "^6.1.19" } }, "sha512-UsP4AMhRzdqP8Gg5q0yEjF24iBzEvGOUOj/6sqY9hyR6MDFR9LoZrmbwtSchd0xFU6Mxmdp0O9YZaL75uwYQQA=="],
 
     "@floating-ui/core": ["@floating-ui/core@1.7.3", "", { "dependencies": { "@floating-ui/utils": "^0.2.10" } }, "sha512-sGnvb5dmrJaKEZ+LDIpguvdX3bDlEllmv4/ClQ9awcmCZrlx5jQyyMWFM5kBI+EyNOCDDiKk8il0zeuX3Zlg/w=="],
 
@@ -2199,7 +2199,7 @@
 
     "styled-jsx": ["styled-jsx@5.1.6", "", { "dependencies": { "client-only": "0.0.1" } }, "sha512-qSVyDTeMotdvQYoHWLNGwRFJHC+i+ZvdBRYosOFgC+Wg1vx4frN2/RG/NA7SYqqvKNLf39P2LSRA2pu6n0XYZA=="],
 
-    "stylis": ["stylis@4.3.6", "", {}, "sha512-yQ3rwFWRfwNUY7H5vpU0wfdkNSnvnJinhF9830Swlaxl03zsOjCfmX0ugac+3LtK0lYSgwL/KXc8oYL3mG4YFQ=="],
+    "stylis": ["stylis@4.3.2", "", {}, "sha512-bhtUjWd/z6ltJiQwg0dUfxEJ+W+jdqQd8TbWLWyeIJHlnsqmGLRFFd8e5mA0AZi/zx90smXRlN66YMTcaSFifg=="],
 
     "supports-color": ["supports-color@7.2.0", "", { "dependencies": { "has-flag": "^4.0.0" } }, "sha512-qpCAvRl9stuOHveKsn7HncJRvv501qIacKzQlO/+Lwxc9+0q2wLyv4Dfvt80/DPn2pqOBsJdDiogXGR9+OvwRw=="],
 
@@ -2645,6 +2645,8 @@
 
     "@wyw-in-js/transform/cosmiconfig": ["cosmiconfig@8.3.6", "", { "dependencies": { "import-fresh": "^3.3.0", "js-yaml": "^4.1.0", "parse-json": "^5.2.0", "path-type": "^4.0.0" } }, "sha512-kcZ6+W5QzcJ3P1Mt+83OUv/oHFqZHIx8DuxG6eZ5RGMERoLqp4BuGjhHLYGK+Kf5XVkQvqBSmAy/nGWN3qDgEA=="],
 
+    "@wyw-in-js/transform/stylis": ["stylis@4.3.6", "", {}, "sha512-yQ3rwFWRfwNUY7H5vpU0wfdkNSnvnJinhF9830Swlaxl03zsOjCfmX0ugac+3LtK0lYSgwL/KXc8oYL3mG4YFQ=="],
+
     "@wyw-in-js/vite/@wyw-in-js/shared": ["@wyw-in-js/shared@0.4.1", "", { "dependencies": { "debug": "^4.3.4", "find-up": "^5.0.0", "minimatch": "^9.0.3" } }, "sha512-luKAAP6augn+j7EE9bcVP1chs5RdtmJx1PbRIqT8j12oP2YV32fvhHFX/99XxPujYLxFIexZrhJkNKHnL5uyKA=="],
 
     "@wyw-in-js/vite/@wyw-in-js/transform": ["@wyw-in-js/transform@0.4.1", "", { "dependencies": { "@babel/core": "^7.23.5", "@babel/generator": "^7.23.5", "@babel/helper-module-imports": "^7.22.15", "@babel/plugin-transform-modules-commonjs": "^7.23.3", "@babel/template": "^7.22.15", "@babel/traverse": "^7.23.5", "@babel/types": "^7.23.5", "@wyw-in-js/processor-utils": "0.4.1", "@wyw-in-js/shared": "0.4.1", "babel-merge": "^3.0.0", "cosmiconfig": "^8.0.0", "happy-dom": "^12.5.0", "source-map": "^0.7.4", "stylis": "^4.3.0", "ts-invariant": "^0.10.3" } }, "sha512-MhU/A58QJ7SkAjVNgvmoa5kbg7h28u4RkwGxm0/qt49sPMSlY8AsIW4wXX2k0rX5GTKHASVcNKrSywE2acjzxQ=="],
@@ -2873,8 +2875,6 @@
 
     "styled-components/postcss": ["postcss@8.4.49", "", { "dependencies": { "nanoid": "^3.3.7", "picocolors": "^1.1.1", "source-map-js": "^1.2.1" } }, "sha512-OCVPnIObs4N29kxTjzLfUryOkvZEq+pf8jTF0lg8E7uETuWHA+v7j3c/xJmiqpX450191LlmZfUKkXxkTry7nA=="],
 
-    "styled-components/stylis": ["stylis@4.3.2", "", {}, "sha512-bhtUjWd/z6ltJiQwg0dUfxEJ+W+jdqQd8TbWLWyeIJHlnsqmGLRFFd8e5mA0AZi/zx90smXRlN66YMTcaSFifg=="],
-
     "styled-components/tslib": ["tslib@2.6.2", "", {}, "sha512-AEYxH93jGFPn/a2iVAwW87VuUIkR1FVUKB77NwMF7nBTDkDrrT/Hpt/IrCJ0QXhW27jTBDcf5ZY7w6RiqTMw2Q=="],
 
     "swap-case/tslib": ["tslib@2.8.1", "", {}, "sha512-oJFu94HQb+KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w=="],
@@ -2976,6 +2976,8 @@
     "@wyw-in-js/vite/@wyw-in-js/transform/cosmiconfig": ["cosmiconfig@8.3.6", "", { "dependencies": { "import-fresh": "^3.3.0", "js-yaml": "^4.1.0", "parse-json": "^5.2.0", "path-type": "^4.0.0" } }, "sha512-kcZ6+W5QzcJ3P1Mt+83OUv/oHFqZHIx8DuxG6eZ5RGMERoLqp4BuGjhHLYGK+Kf5XVkQvqBSmAy/nGWN3qDgEA=="],
 
     "@wyw-in-js/vite/@wyw-in-js/transform/happy-dom": ["happy-dom@12.10.3", "", { "dependencies": { "css.escape": "^1.5.1", "entities": "^4.5.0", "iconv-lite": "^0.6.3", "webidl-conversions": "^7.0.0", "whatwg-encoding": "^2.0.0", "whatwg-mimetype": "^3.0.0" } }, "sha512-JzUXOh0wdNGY54oKng5hliuBkq/+aT1V3YpTM+lrN/GoLQTANZsMaIvmHiHe612rauHvPJnDZkZ+5GZR++1Abg=="],
+
+    "@wyw-in-js/vite/@wyw-in-js/transform/stylis": ["stylis@4.3.6", "", {}, "sha512-yQ3rwFWRfwNUY7H5vpU0wfdkNSnvnJinhF9830Swlaxl03zsOjCfmX0ugac+3LtK0lYSgwL/KXc8oYL3mG4YFQ=="],
 
     "babel-plugin-macros/cosmiconfig/yaml": ["yaml@1.10.2", "", {}, "sha512-r3vXyErRCYJ7wg28yvBY5VSoAF8ZvlcW9/BwUzEtUsjvX/DKs24dIkuwjtuprwJJHsbyUbLApepYTR1BN4uHrg=="],
 
@@ -3138,6 +3140,8 @@
     "@flight-digital/flightdeck/@wyw-in-js/babel-preset/@wyw-in-js/transform/cosmiconfig": ["cosmiconfig@8.3.6", "", { "dependencies": { "import-fresh": "^3.3.0", "js-yaml": "^4.1.0", "parse-json": "^5.2.0", "path-type": "^4.0.0" } }, "sha512-kcZ6+W5QzcJ3P1Mt+83OUv/oHFqZHIx8DuxG6eZ5RGMERoLqp4BuGjhHLYGK+Kf5XVkQvqBSmAy/nGWN3qDgEA=="],
 
     "@flight-digital/flightdeck/@wyw-in-js/babel-preset/@wyw-in-js/transform/happy-dom": ["happy-dom@12.10.3", "", { "dependencies": { "css.escape": "^1.5.1", "entities": "^4.5.0", "iconv-lite": "^0.6.3", "webidl-conversions": "^7.0.0", "whatwg-encoding": "^2.0.0", "whatwg-mimetype": "^3.0.0" } }, "sha512-JzUXOh0wdNGY54oKng5hliuBkq/+aT1V3YpTM+lrN/GoLQTANZsMaIvmHiHe612rauHvPJnDZkZ+5GZR++1Abg=="],
+
+    "@flight-digital/flightdeck/@wyw-in-js/babel-preset/@wyw-in-js/transform/stylis": ["stylis@4.3.6", "", {}, "sha512-yQ3rwFWRfwNUY7H5vpU0wfdkNSnvnJinhF9830Swlaxl03zsOjCfmX0ugac+3LtK0lYSgwL/KXc8oYL3mG4YFQ=="],
 
     "@inquirer/core/wrap-ansi/strip-ansi/ansi-regex": ["ansi-regex@5.0.1", "", {}, "sha512-quJQXlTSUGL2LH9SUXo8VwsY4soanhgo6LNSm84E1LBcE8s3O0wpdiRzyR9z/ZZJMlMWv37qOOb9pdJlMUEKFQ=="],
 
