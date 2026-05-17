@@ -3,17 +3,10 @@ import PageTemplate from "@/templates/page";
 import validateType from "@/utils/validateType";
 import Blocks from "../blocks/blocks";
 
-const TemplateRenderer = ({
-  data,
-  enablePreview,
-}: {
-  data: AllPagesData | Sanity.ComponentBlueprint;
-  enablePreview?: boolean;
-}) => {
-  if (validateType.isComponentBlueprint(data))
-    return <Blocks data={{ list: data.blocks }} enablePreview={enablePreview} />;
-  if (validateType.isArticle(data)) return <ArticleTemplate data={data} enablePreview={enablePreview} />;
-  return <PageTemplate data={data} enablePreview={enablePreview} />;
+const TemplateRenderer = ({ data }: { data: AllPagesData | Sanity.ComponentBlueprint }) => {
+  if (validateType.isComponentBlueprint(data)) return <Blocks data={{ list: data.blocks }} />;
+  if (validateType.isArticle(data)) return <ArticleTemplate data={data} />;
+  return <PageTemplate data={data} />;
 };
 
 export default TemplateRenderer;

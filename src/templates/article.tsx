@@ -8,10 +8,9 @@ import { AltText } from "@/components/atoms/altText";
 
 interface Props {
   data: Sanity.Article;
-  enablePreview?: boolean;
 }
 
-export default async function ArticleTemplate({ data, enablePreview }: Props) {
+export default async function ArticleTemplate({ data }: Props) {
   const nextRead = await getNextReadPost(data?._id);
 
   const NextRead = () => (
@@ -27,7 +26,7 @@ export default async function ArticleTemplate({ data, enablePreview }: Props) {
         <NextRead />
       </PostTitle>
       <div className="article-content-area">
-        <Blocks data={data?.blocks} enablePreview={enablePreview} />
+        <Blocks data={data?.blocks} />
       </div>
       <div className="next-read-mobile">
         <NextRead />

@@ -18,8 +18,16 @@ const getProjection = (type: string) => {
 
 export default async function PreviewPage({ searchParams }: PageProps<"/preview">) {
   return (
-    <NextPreview searchParams={searchParams} projection={getProjection}>
-      {(data) => <TemplateRenderer data={data} enablePreview />}
+    <NextPreview
+      searchParams={searchParams}
+      projection={getProjection}
+      previewActions={{
+        enabled: true,
+        targetOrigin: process.env.NEXT_PUBLIC_WEBSITE_URL,
+        logActions: true,
+      }}
+    >
+      {(data) => <TemplateRenderer data={data} />}
     </NextPreview>
   );
 }

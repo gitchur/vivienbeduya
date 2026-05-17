@@ -2,11 +2,10 @@ import Blocks from "@/components/blocks/blocks";
 
 interface Props {
   data: Sanity.Page;
-  enablePreview?: boolean;
 }
 
-const PageTemplate = ({ data, enablePreview }: Props) => {
-  return <Blocks data={data?.blocks} enablePreview={enablePreview} />;
+const PageTemplate = ({ data }: Props) => {
+  return <Blocks data={data?.blocks} />;
 };
 
 export default PageTemplate;
