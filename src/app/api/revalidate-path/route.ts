@@ -5,7 +5,8 @@ import { type NextRequest, NextResponse } from "next/server";
 type WebhookPayload = {
   _type: string;
   _id: string;
-  slug: {
+  paths?: string[];
+  slug?: {
     current: string;
   };
 };
@@ -30,7 +31,7 @@ export async function POST(req: NextRequest) {
       return new Response(JSON.stringify({ message, body }), { status: 400 });
     }
 
-    const { _type, slug } = body;
+    const { _type, paths, slug } = body;
 
     switch (_type) {
       case "article":
@@ -43,8 +44,20 @@ export async function POST(req: NextRequest) {
         break;
     }
 
+    // Revalidate by paths array (sent by Sanity webhook)
+    if (paths?.length) {
+      for (const path of paths) {
+        const lastSegment = path.split("/").filter(Boolean).pop();
+        if (lastSegment) {
+          console.log("Revalidating slug from path: ", lastSegment);
+          revalidateTag(`slug:${lastSegment}`, "max");
+        }
+      }
+    }
+
+    // Fallback: revalidate by slug.current if present
     if (slug?.current) {
-      console.log("Revalidating slug: ", slug?.current);
+      console.log("Revalidating slug: ", slug.current);
       revalidateTag(`slug:${slug?.current}`, "max");
     }
 

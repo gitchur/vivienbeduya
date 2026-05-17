@@ -9,6 +9,7 @@ import ErrorFeedback from "@flight-digital/flightdeck/pebbles/errorFeedback";
 import { styled } from "@linaria/react";
 import { useState } from "react";
 import { ITEMS_PER_PAGE } from "./articlesList";
+import NextLink from "next/link";
 
 interface Props {
   data: Sanity.BlockArticlesList;
@@ -61,6 +62,9 @@ const List = ({ data, initialList }: Props) => {
     >
       <div className="top-area">
         <RichText data={data.content} data-sanity-path="content" />
+        <NextLink href="/articles" className="violet design">
+          <span>Browse all stories</span>
+        </NextLink>
       </div>
       {listData?.length ? (
         <div className="articles-list">
@@ -106,6 +110,7 @@ const Wrapper = styled.div`
     display: flex;
     gap: 24rwd;
     justify-content: space-between;
+    align-items: center;
     padding: 32rwd 0;
 
     @media --base-down {

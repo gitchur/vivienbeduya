@@ -97,7 +97,7 @@ const Wrapper = styled.header`
     gap: 32rwd;
     padding: 0 var(--theme-page-horizontal-padding);
     color: var(--color-fg);
-    background: color-mix(in oklch, var(--color-bg) 82%, transparent);
+    background: color-mix(in oklch, var(--color-bg) 75%, transparent);
     backdrop-filter: blur(14px);
     border-bottom: 1px solid var(--color-border);
 

@@ -99,7 +99,7 @@ export const getNextReadPost = async (articleId?: Sanity.Maybe<string>) => {
   const data = await sanityFetch({
     query: nextReadPostQuery,
     params: { articleId: articleId ?? null },
-    tags: ["next-read-post"],
+    tags: [`next-read-${articleId}`],
   });
   return data as Sanity.Maybe<Sanity.Article>;
 };

@@ -19,6 +19,11 @@ export default defineBlock({
       type: "richText",
       title: "Title",
     }),
+    defineField({
+      name: "showAll",
+      type: "boolean",
+      title: "Show all articles",
+    }),
   ],
   preview: formatBlockPreview({
     fields: "content.blocks",

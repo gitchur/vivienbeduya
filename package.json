@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@flight-digital/flightdeck": "^6.6.6",
-    "@flight-digital/sanity-plugin-flightdeck": "^6.5.1",
+    "@flight-digital/sanity-plugin-flightdeck": "^6.6.2",
     "@linaria/core": "^6.3.0",
     "@linaria/react": "^6.3.0",
     "@next/env": "^15.5.4",

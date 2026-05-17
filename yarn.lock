@@ -1747,10 +1747,10 @@
     react-dom "^19"
     sanity-image "^1.0.0"
 
-"@flight-digital/sanity-plugin-flightdeck@^6.5.1":
-  version "6.5.1"
-  resolved "https://npm.pkg.github.com/download/@flight-digital/sanity-plugin-flightdeck/6.5.1/bd7fa46923123531801d931b0edcb0e4d409b0e4#bd7fa46923123531801d931b0edcb0e4d409b0e4"
-  integrity sha512-ZDOXyoKiRxWDtUJYBeSB9vWg8gwAid0G+aQacw2RNXfkXoJ53O0EcL/V1CR1q0pcQBik0a7QRSEnfALZQwmnfg==
+"@flight-digital/sanity-plugin-flightdeck@^6.6.2":
+  version "6.6.2"
+  resolved "https://npm.pkg.github.com/download/@flight-digital/sanity-plugin-flightdeck/6.6.2/9c5c7d1704306b280cb5330a64dad2ad249e0be6#9c5c7d1704306b280cb5330a64dad2ad249e0be6"
+  integrity sha512-UsP4AMhRzdqP8Gg5q0yEjF24iBzEvGOUOj/6sqY9hyR6MDFR9LoZrmbwtSchd0xFU6Mxmdp0O9YZaL75uwYQQA==
   dependencies:
     "@codemirror/lang-html" "6.4.0"
     "@codemirror/lang-javascript" "6.1.0"

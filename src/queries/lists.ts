@@ -20,7 +20,7 @@ export const getArticlesList = async (
       end: (page + 1) * itemsPerPage,
       articleId: currentArticleId ?? null,
     },
-    tags: ["articles-list"],
+    tags: [`articles-list`],
   });
 
   return data as Sanity.Maybe<Sanity.Article[]>;

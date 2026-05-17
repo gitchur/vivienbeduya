@@ -5,7 +5,7 @@ interface Props {
   data: Sanity.Maybe<Sanity.BlockArticlesList>;
 }
 
-export const ITEMS_PER_PAGE = 12;
+export const ITEMS_PER_PAGE = 3;
 
 // THIS IS JUST AN EXAMPLE BLOCK, PLEASE DELETE THIS FILE IF YOU DON'T NEED IT OR MODIFY IT ACCORDINGLY
 const BlockArticlesList = async ({ data }: Props) => {
