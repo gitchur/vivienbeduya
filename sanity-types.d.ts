@@ -241,6 +241,7 @@ type BlockArticlesList = {
   readonly customCss: Maybe<Scalars['String']['output']>;
   readonly label: Maybe<Scalars['String']['output']>;
   readonly layoutEditor: Maybe<Scalars['String']['output']>;
+  readonly showAll: Maybe<Scalars['Boolean']['output']>;
 };
 
 type BlockArticlesListFilter = {
@@ -251,6 +252,7 @@ type BlockArticlesListFilter = {
   readonly customCss: InputMaybe<StringFilter>;
   readonly label: InputMaybe<StringFilter>;
   readonly layoutEditor: InputMaybe<StringFilter>;
+  readonly showAll: InputMaybe<BooleanFilter>;
 };
 
 type BlockArticlesListOrBlockCarouselOrBlockContainerOrBlockGapOrBlockGridOrBlockParagraph = BlockArticlesList | BlockCarousel | BlockContainer | BlockGap | BlockGrid | BlockParagraph;
@@ -265,6 +267,7 @@ type BlockArticlesListSorting = {
   readonly customCss: InputMaybe<SortOrder>;
   readonly label: InputMaybe<SortOrder>;
   readonly layoutEditor: InputMaybe<SortOrder>;
+  readonly showAll: InputMaybe<SortOrder>;
 };
 
 type BlockCarousel = {

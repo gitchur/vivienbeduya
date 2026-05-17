@@ -119,7 +119,7 @@ const Wrapper = styled.div`
       padding: 16rwm 0;
     }
     .block {
-      padding: 8rwm;
+      padding: 16rwm;
       margin: 0 8rwm;
       background-color: var(--color-bg);
     }

@@ -11,7 +11,7 @@ import { Code } from "../molecules/code";
 import { AnimatedBlockWrapper } from "./animatedBlockWrapper";
 
 interface Props {
-  data: Maybe<Sanity.AccordionOrAdaptiveImageOrButtonsListOrCodeBlockOrCtaCardOrGapOrRichText>;
+  data: Maybe<Sanity.AccordionOrAdaptiveImageOrButtonsListOrCodeBlockOrCtaCardOrGapOrRichTextOrVideo>;
   columnSpaces?: Maybe<number>;
 }
 
