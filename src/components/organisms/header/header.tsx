@@ -42,7 +42,6 @@ const Header = ({ data }: Props) => {
       <div className="header-bar">
         <Link data={{ url: "/" }} aria-label="Go to Homepage" className="logo-area">
           <Image data={data.logo} loading="eager" width={230} className="logo" alt="Logo" />
-          <pre className="h6">bisaya banter</pre>
         </Link>
         <Nav data={data.navigation} sideMenuOpen={sideMenuOpen} />
         <div className="mobile-menu">
@@ -52,9 +51,9 @@ const Header = ({ data }: Props) => {
             aria-label="toggle side menu"
           >
             {sideMenuOpen ? (
-              <IconClose size={24} color="var(--color-black)" />
+              <IconClose size={24} color="var(--color-fg)" />
             ) : (
-              <IconHamburger size={24} color="var(--color-black)" />
+              <IconHamburger size={24} color="var(--color-fg)" />
             )}
           </button>
         </div>
@@ -87,25 +86,23 @@ const Wrapper = styled.header`
     left: 0;
     width: 100%;
     z-index: 20;
-    height: var(--header-height);
     min-height: var(--header-height);
     transform: translateY(-102%);
     transition:
       transform 300ms cubic-bezier(0.77, 0.2, 0.5, 1),
       background-color 300ms cubic-bezier(0.77, 0.2, 0.5, 1);
     display: flex;
+    align-items: center;
     justify-content: space-between;
     gap: 32rwd;
-    padding: 16rwd var(--theme-page-horizontal-padding);
-    color: var(--color-white);
-    background-color: var(--color-violet);
-
-    a {
-      font-size: 16rwd;
-    }
+    padding: 0 var(--theme-page-horizontal-padding);
+    color: var(--color-fg);
+    background: color-mix(in oklch, var(--color-bg) 82%, transparent);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--color-border);
 
     @media --base-down {
-      padding: 16rwm;
+      padding: 0 16rwm;
       gap: 16rwm;
       display: flex;
       justify-content: space-between;
@@ -114,14 +111,18 @@ const Wrapper = styled.header`
   }
 
   .logo-area {
-    /* height: 60rwd;
-    width: 150rwd; */
     display: flex;
-    gap: 8rwd;
+    gap: 12rwd;
+    max-width: 100rwd;
+    padding: 8rwd 0;
     align-items: center;
+    text-decoration: none;
 
     pre {
       font-family: var(--font-secondary);
+      font-weight: var(--font-weight-bold);
+      letter-spacing: -0.01em;
+      color: var(--color-fg);
     }
 
     @media --base-down {

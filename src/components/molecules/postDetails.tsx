@@ -1,6 +1,3 @@
-"use client";
-
-import usePostReadingTime from "@/hooks/usePostReadingTime";
 import { styled } from "@linaria/react";
 import Image from "@/components/atoms/image";
 
@@ -9,25 +6,23 @@ interface Props {
 }
 
 export default function PostDetails({ data }: Props) {
-  const readTime = usePostReadingTime();
   if (!data) return null;
-  const { tags, author } = data;
-
+  const { tags, author, suggestedReadTime } = data;
 
   return (
     <Wrapper>
       <div className="tags">
         {/* TODO: Add tags logic */}
-        {tags?.map((tag) => (
-          <span key={tag?._key} className="tag-item">{tag?.name}</span>
+        {tags?.map((tag, index) => (
+          <span key={tag?._key || index} className="tag-item">{tag?.name}</span>
         ))}
       </div>
 
       <div className="author-info">
         {author?.image && <Image data={author?.image} loading="eager" className="author-image" />}
-        {author?.firstName && <b>Written by {author?.firstName} {author?.lastName || ""}</b>} • {Boolean(readTime) && `${readTime} min read`}
+        {author?.firstName && <b>Written by {author?.firstName} {author?.lastName || ""}</b>}
+        {Boolean(suggestedReadTime) && <> • {suggestedReadTime} min read</>}
       </div>
-
     </Wrapper>
   );
 }
@@ -43,7 +38,7 @@ const Wrapper = styled.div`
 
   .tag-item {
     padding: 0rwd 8rwd;
-    border: 1px solid var(--color-white);
+    border: 1px solid var(--color-fg-on-dark);
   }
 
   .author-info {

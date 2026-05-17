@@ -130,11 +130,11 @@ const ShareButton = styled.button`
   height: auto;
   padding: 0;
   border: none;
-  color: var(--color-black);
+  color: var(--color-fg);
   cursor: pointer;
 
   svg {
-    fill: var(--color-white);
+    fill: var(--color-fg-on-dark);
   }
   transition:
     fill 0.2s ease,
@@ -143,14 +143,14 @@ const ShareButton = styled.button`
 
   &:hover {
     svg {
-      fill: var(--color-mango);
-      color: var(--color-white);
+      fill: var(--color-highlight);
+      color: var(--color-fg-on-dark);
     }
     transform: translateY(-2rwd);
   }
 
   &:focus-visible {
-    outline: 2px solid var(--color-violet);
+    outline: 2px solid var(--color-accent);
     outline-offset: 2px;
   }
 `;

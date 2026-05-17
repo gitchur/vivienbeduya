@@ -106,7 +106,6 @@ const Wrapper = styled.div`
     display: flex;
     gap: 24rwd;
     justify-content: space-between;
-    border-bottom: 1px solid var(--color-grey);
     padding: 32rwd 0;
 
     @media --base-down {

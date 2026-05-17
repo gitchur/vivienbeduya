@@ -1,3 +1,4 @@
+import { ReadingTimeInput } from "@/sanity/components/readingTimeInput";
 import sharedFields from "@/sanity/utils/sharedFields";
 import { formatPagePreview } from "@flight-digital/sanity-plugin-flightdeck";
 import { MdOutlineArticle } from "react-icons/md";
@@ -81,6 +82,17 @@ export default defineType({
       type: "reference",
       to: [{ type: "author" }],
       group: fieldgroups.articleDetails.name,
+    }),
+    defineField({
+      name: "suggestedReadTime",
+      title: "Suggested Read Time (min)",
+      type: "number",
+      readOnly: true,
+      description: "Auto-calculated from article content. Re-opens and saves to update.",
+      group: fieldgroups.articleDetails.name,
+      components: {
+        input: ReadingTimeInput,
+      },
     }),
   ],
   preview: formatPagePreview(null, { publishDate: "publishDate" }, (props) => ({

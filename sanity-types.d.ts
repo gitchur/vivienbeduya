@@ -121,6 +121,8 @@ type Article = Document & {
   readonly publishDate: Maybe<Scalars['Date']['output']>;
   readonly seo: Maybe<Seo>;
   readonly slug: Maybe<SlugWithPrefix>;
+  /** Auto-calculated from article content. Re-opens and saves to update. */
+  readonly suggestedReadTime: Maybe<Scalars['Float']['output']>;
   readonly tags: Maybe<ReadonlyArray<Maybe<Tag>>>;
   readonly title: Maybe<Scalars['String']['output']>;
 };
@@ -144,6 +146,7 @@ type ArticleFilter = {
   readonly publishDate: InputMaybe<DateFilter>;
   readonly seo: InputMaybe<SeoFilter>;
   readonly slug: InputMaybe<SlugWithPrefixFilter>;
+  readonly suggestedReadTime: InputMaybe<FloatFilter>;
   readonly title: InputMaybe<StringFilter>;
 };
 
@@ -165,6 +168,7 @@ type ArticleSorting = {
   readonly publishDate: InputMaybe<SortOrder>;
   readonly seo: InputMaybe<SeoSorting>;
   readonly slug: InputMaybe<SlugWithPrefixSorting>;
+  readonly suggestedReadTime: InputMaybe<SortOrder>;
   readonly title: InputMaybe<SortOrder>;
 };
 

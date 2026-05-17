@@ -5,6 +5,7 @@ import { mergeClassNames } from "@flight-digital/flightdeck/helpers";
 import { styled } from "@linaria/react";
 import { useState } from "react";
 import Link from "@/components/atoms/link";
+import { format } from "date-fns";
 
 interface Props {
   data: Sanity.Maybe<Sanity.Article>;
@@ -21,61 +22,65 @@ export const ArticleCard = ({ data, className, horizontal = false }: Props) => {
   const altDescription = data?.alternativeDescription?.trim() ?? "";
   const hasAlt = !!(altTitle || altDescription);
   const showAlt = hovered && hasAlt;
+  const postDate = data?.publishDate ? format(new Date(data?.publishDate), "dd MMMM yyyy") : null;
 
   return (
     <Card
       className={mergeClassNames("article-card", className, horizontal ? "horizontal" : "")}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
+      data={{ slug: data?.slug }}
     >
       <Image data={data?.image} />
       <ContentBlock>
         <FadeLayer $visible={!hasAlt || !showAlt} $isAlt={false}>
-          <h4 className="article-card__title">{title}</h4>
+          <h5 className="article-card__title">{title}</h5>
         </FadeLayer>
         {hasAlt && (
           <FadeLayer $visible={showAlt} $isAlt>
-            <h4 className="article-card__title" aria-label={altTitle}>
+            <h5 className="article-card__title alternative" aria-label={altTitle}>
               {altTitle}
-            </h4>
+            </h5>
           </FadeLayer>
         )}
       </ContentBlock>
-      {!horizontal && <ContentBlock>
-        <FadeLayer $visible={!hasAlt || !showAlt} $isAlt={false}>
-          <p className="article-card__description">{description}</p>
-        </FadeLayer>
-        {hasAlt && (
-          <FadeLayer $visible={showAlt} $isAlt>
-            <p className="article-card__description" aria-label={altDescription}>
-              {altDescription}
-            </p>
-          </FadeLayer>
-        )}
-      </ContentBlock>
-      }
-
       {!horizontal &&
-        <Link data={{ slug: data?.slug }} className="violet design">
-          Read more
-        </Link>
+        <ContentBlock>
+          <FadeLayer $visible={!hasAlt || !showAlt} $isAlt={false}>
+            <p className="article-card__description">{description}</p>
+          </FadeLayer>
+          {hasAlt && (
+            <FadeLayer $visible={showAlt} $isAlt>
+              <p className="article-card__description alternative" aria-label={altDescription}>
+                {altDescription}
+              </p>
+            </FadeLayer>
+          )}
+        </ContentBlock>
       }
+      <div className="article-meta">
+        <p className="article-meta__date">{postDate}</p>
+        <div className="article-meta__separator">•</div>
+        <p className="article-meta__read-time">{data?.suggestedReadTime} min read</p>
+      </div>
     </Card>
   );
 };
 
 const CARD_TRANSITION = "0.35s ease";
 
-const Card = styled.article`
+const Card = styled(Link)`
   display: flex;
   flex-direction: column;
   gap: 16rwd;
   padding: 16rwd;
+  border: 1px solid var(--color-border);
   transition:
     border-color ${CARD_TRANSITION},
     box-shadow ${CARD_TRANSITION},
     transform ${CARD_TRANSITION};
 
+  color: var(--bark-800) !important;
   &.horizontal {
     flex-direction: row;
     gap: 8rwd;
@@ -84,7 +89,7 @@ const Card = styled.article`
   }
 
   &:hover {
-    border-color: var(--color-black);
+    border-color: var(--color-fg);
     box-shadow: 0 4rwd 20rwd rgba(0, 0, 0, 0.2);
     transform: translateY(-2rwd);
   }
@@ -98,16 +103,32 @@ const Card = styled.article`
   .article-card__title {
     margin: 0;
     display: inline;
-    color: var(--color-white);
-    background: var(--color-violet);
+    color: var(--color-fg-on-dark);
+    background: var(--bark-900);
     line-height: 1.4;
     padding: 0 8rwd;
     box-decoration-break: clone;
     -webkit-box-decoration-break: clone;
   }
 
+  .alternative {
+    font-style: italic;
+  }
+
   .article-card__description {
     margin: 0;
+  }
+
+  .article-meta {
+    display: flex;
+    gap: 8rwd;
+    font-family: monospace;
+    margin-top: auto;
+    opacity: 0.5;
+    align-items: center;
+    p {
+      font-size: 12rwd;
+    }
   }
 
   @media --base-down {

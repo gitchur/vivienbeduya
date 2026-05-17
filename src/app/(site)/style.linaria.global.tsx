@@ -9,11 +9,88 @@ export const globals = css`
     }
 
     body {
-      --color-black: #1b1b2f;
-      --color-white: #f5f0e8;
-      --color-violet: #3d348b;
-      --color-mango: #f2c744;
-      --color-red: #e8503a;
+      /* ── Raw palette ───────────────────────────────────────────
+       * Reference by semantic tokens only. Components must not
+       * reach for these directly.
+       */
+
+      /* Teal family */
+      --deep-teal:          #00695c;
+      --deep-teal-hover:    #005548;
+      --coastal-teal:       #299d8f;
+      --coastal-teal-hover: #1a8a7d;
+
+      /* Green family */
+      --forest-700: #2e5e3e;
+
+      /* Sand family */
+      --sand-200: #d9c6a1;
+      --sand-300: #c9af82;
+
+      /* Cream family */
+      --cream-50:  #f4f1ec;
+      --cream-100: #ece8df;
+      --cream-200: #e0d9ce;
+
+      /* Mist family */
+      --mist-50:  #eef4f3;
+      --mist-100: #e4edeb;
+
+      /* Bark family — text only, never backgrounds */
+      --bark-700: #2c413f;
+      --bark-800: #0e1d1a;
+      --bark-900: #050e0d;
+
+      /* Stone */
+      --stone-400: #a8a293;
+
+      /* Status */
+      --brick-600: #8b2120;
+      --amber-600: #8a5c00;
+
+      /* ── Semantic tokens ────────────────────────────────────────
+       * Components always use these. Raw tokens are only referenced
+       * here and in the gradient definitions below.
+       */
+
+      /* Surfaces */
+      --color-bg:              var(--cream-50);
+      --color-bg-elevated:     var(--cream-100);
+      --color-bg-recessed:     var(--cream-200);
+      --color-bg-mist:         var(--mist-50);
+      --color-bg-warm:         var(--sand-200);
+      --color-bg-inverted:     var(--deep-teal);
+      --color-bg-inverted-alt: var(--forest-700);
+
+      /* Text */
+      --color-fg:         var(--bark-800);
+      --color-fg-muted:   var(--bark-700);
+      --color-fg-subtle:  color-mix(in oklch, var(--bark-700) 55%, transparent);
+      --color-fg-on-dark: var(--cream-50);
+
+      /* Brand & interaction */
+      --color-accent:       var(--deep-teal);
+      --color-accent-hover: var(--deep-teal-hover);
+      --color-link:         var(--deep-teal);
+      --color-link-hover:   var(--deep-teal-hover);
+      --color-tag:          var(--forest-700);
+      --color-highlight:    var(--coastal-teal);
+
+      /* Borders & rules */
+      --color-border:        color-mix(in oklch, var(--bark-700) 14%, transparent);
+      --color-border-strong: color-mix(in oklch, var(--bark-700) 28%, transparent);
+      --color-rule:          var(--stone-400);
+      --color-text-muted:    var(--stone-400);
+
+      /* Status */
+      --color-error:   var(--brick-600);
+      --color-success: var(--forest-700);
+      --color-warning: var(--amber-600);
+      --color-info:    var(--coastal-teal);
+
+      /* Gradients */
+      --gradient-button: linear-gradient(90deg, var(--deep-teal), var(--coastal-teal), var(--forest-700));
+      --gradient-footer: linear-gradient(-45deg, var(--deep-teal), var(--coastal-teal), var(--sand-200));
 
       --header-height: 72rwd;
 
@@ -31,8 +108,8 @@ export const globals = css`
       font-family: var(--font-primary);
       font-size: 17rwd;
       font-weight: var(--font-weight-light);
-      background-color: var(--color-white);
-      color: var(--color-black);
+      background-color: var(--color-bg-recessed);
+      color: var(--color-fg);
       line-height: 1.5;
 
       main {
@@ -62,7 +139,7 @@ export const globals = css`
 
       .popup-button {
         text-decoration: underline;
-        color: var(--color-yellow);
+        color: var(--color-accent-hover);
         cursor: pointer;
       }
 
@@ -72,7 +149,7 @@ export const globals = css`
       }
 
       hr {
-        border-color: #9FA6A2 !important;
+        border-color: var(--color-rule) !important;
       }
 
       @media --base-down {
@@ -268,7 +345,7 @@ export const globals = css`
         }
 
         &:hover {
-          color: var(--color-yellow);
+          color: var(--color-accent-hover);
         }
 
         &.design {
@@ -285,7 +362,7 @@ export const globals = css`
           background: transparent;
           height: 40rwd;
           min-height: 40rwd;
-          color: var(--color-white);
+          color: var(--color-fg-on-dark);
           font-family: var(--font-primary);
 
           &::before {
@@ -295,7 +372,7 @@ export const globals = css`
             z-index: -1;
             border-radius: inherit;
             pointer-events: none;
-            background: linear-gradient(90deg, #f2c744, #e8503a, #3d348b);
+            background: var(--gradient-button);
           }
 
           &::after {
@@ -304,7 +381,7 @@ export const globals = css`
             inset: 0;
             z-index: 0;
             border-radius: inherit;
-            background-color: var(--color-violet);
+            background-color: var(--color-accent);
             pointer-events: none;
             border: 1px solid transparent;
             transition: transform 250ms;
@@ -320,7 +397,7 @@ export const globals = css`
           &:hover > * {
             transform: translate(-4rwd, -4rwd);
             font-weight: var(--font-weight-bold);
-            background-color: var(--color-white);
+            background-color: var(--color-bg);
           }
 
           &:active::after,
@@ -349,19 +426,19 @@ export const globals = css`
           }
 
           &.violet {
-            color: var(--color-white);
+            color: var(--color-fg-on-dark);
 
             &::after {
-              background-color: var(--color-violet);
-              border-color: var(--color-violet);
+              background-color: var(--bark-900);
+              border-color: var(--bark-900);
             }
 
             &:hover {
-              color: var(--color-violet);
+              color: var(--color-accent);
 
               &::after {
-                background-color: var(--color-white);
-                border-color: var(--color-violet);
+                background-color: var(--color-bg);
+                border-color: var(--color-accent);
               }
             }
           }
@@ -442,7 +519,7 @@ export const globals = css`
 
       .error-message {
         text-align: center;
-        color: rgb(229, 63, 63);
+        color: var(--color-error);
         font-size: 14rw;
       }
 

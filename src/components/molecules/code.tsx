@@ -77,9 +77,9 @@ const SkeletonLine = styled.div<{ width?: string }>`
   width: ${({ width }) => width ?? "100%"};
   background: linear-gradient(
     90deg,
-    #005d50 25%,
-    color-mix(in srgb, #005d50 60%, var(--color-white)) 50%,
-    #005d50 75%
+    var(--deep-teal) 25%,
+    color-mix(in srgb, var(--deep-teal) 60%, var(--color-bg)) 50%,
+    var(--deep-teal) 75%
   );
   background-size: 200% 100%;
   animation: skeleton-shimmer 1.2s ease-in-out infinite;

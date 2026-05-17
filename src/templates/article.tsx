@@ -49,21 +49,21 @@ const Wrapper = styled.div`
       font-size: 55rwd;
       line-height: 0.85;
       font-weight: var(--font-weight-bold);
-      color: var(--color-violet);
+      color: var(--color-accent);
       text-transform: uppercase;
       letter-spacing: -0.02em;
       transition: all 0.3s ease;
 
       background: linear-gradient(
         135deg,
-        color-mix(in srgb, var(--color-violet) 12%, transparent) 0%,
-        color-mix(in srgb, var(--color-mango) 8%, transparent) 100%
+        color-mix(in srgb, var(--color-accent) 12%, transparent) 0%,
+        color-mix(in srgb, var(--color-highlight) 8%, transparent) 100%
       );
-      border-left: 3rwd solid var(--color-mango);
+      border-left: 3rwd solid var(--color-highlight);
       border-radius: 4rwd 0 0 4rwd;
       padding: 8rwd 10rwd 8rwd 12rwd;
       margin: 0 12rwd 0 0;
-      box-shadow: 0 8rwd 8rwd color-mix(in srgb, var(--color-violet) 0.15, transparent);
+      box-shadow: 0 8rwd 8rwd color-mix(in srgb, var(--color-accent) 0.15, transparent);
 
       &:hover {
         margin: 0;
@@ -93,8 +93,8 @@ const Wrapper = styled.div`
     .next-read-mobile {
       display: flex;
       margin: 0 16rwm;
-      .next-read {
-        color: var(--color-white);
+        .next-read {
+          color: var(--color-fg-on-dark);
         display: flex;
         flex-direction: column;
         gap: 8rwm;
@@ -117,7 +117,7 @@ const Wrapper = styled.div`
     .block {
       padding: 8rwm;
       margin: 0 8rwm;
-      background-color: var(--color-white);
+      background-color: var(--color-bg);
     }
   }
 

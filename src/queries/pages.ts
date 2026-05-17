@@ -21,6 +21,7 @@ export const pageFields = defineQuery(`
   blocks { ${blocksFields} },
   _type == "article" => {
     publishDate,
+    suggestedReadTime,
     tags[]->{ name },
     image { ${imageFields} },
     author->{ firstName, lastName, image { ${imageFields} } }

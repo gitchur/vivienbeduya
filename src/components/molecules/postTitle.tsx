@@ -45,8 +45,7 @@ const Wrapper = styled.div`
   min-height: 100dvh;
   height: fit-content;
   padding: 32rwd;
-  color: var(--color-white);
-
+  color: var(--color-fg-on-dark);
 
   .background-image {
     position: absolute;

@@ -65,16 +65,30 @@ const Wrapper = styled.footer`
   width: 100%;
   position: relative;
   padding: 64rwd var(--theme-page-horizontal-padding) 16rwd;
-  border-top: 1px solid grey;
+  border-top: 1px solid var(--color-border);
   display: flex;
   flex-direction: column;
   gap: 24rwd;
-  color: var(--color-white);
+  color: var(--color-fg-on-dark);
   overflow: hidden;
 
-	background: linear-gradient(-45deg, #ef9283, #3d348b, #8e84e8);
-	background-size: 400% 400%;
-	animation: gradient 15s ease infinite;
+  background: var(--gradient-footer);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: oklch(45% 0.077 188 / 0.55);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  & > * {
+    position: relative;
+    z-index: 1;
+  }
 
 
 @keyframes gradient {
@@ -93,6 +107,31 @@ const Wrapper = styled.footer`
   @media --base-down {
     padding: 32rwm var(--theme-page-horizontal-padding);
     gap: 16rwm;
+  }
+
+  .nav-link {
+    display: inline-block;
+    color: inherit;
+    text-decoration: none;
+    position: relative;
+    padding: 4rwd 0;
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -2px;
+      height: 1px;
+      background: currentColor;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 200ms cubic-bezier(0.2, 0.7, 0.2, 1);
+    }
+
+    &:hover::after {
+      transform: scaleX(1);
+    }
   }
 
   .nav-menus {
@@ -118,7 +157,7 @@ const Wrapper = styled.footer`
         margin-bottom: 32rwd;
         text-transform: uppercase;
         font-weight: var(--font-weight-bold);
-        color: var(--color-white);
+        color: var(--color-fg-on-dark);
 
         @media --base-down {
           font-size: 14rwm;
@@ -135,6 +174,7 @@ const Wrapper = styled.footer`
       flex-direction: column;
       gap: 4rw;
     }
+
   }
 
   .social-media-links {
@@ -164,7 +204,7 @@ const Wrapper = styled.footer`
 
     * {
       font-size: 13rw;
-      color: #aaa;
+      color: var(--color-text-muted);
     }
 
     .rich-text {
