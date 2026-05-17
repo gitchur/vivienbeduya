@@ -113,10 +113,6 @@ export const globals = css`
       color: var(--color-fg);
       line-height: 1.5;
 
-      main {
-        padding-bottom: 32rwd;
-      }
-
       .modal{
         z-index: 1000;
       }

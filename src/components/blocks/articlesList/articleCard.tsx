@@ -99,6 +99,7 @@ const Card = styled(Link)`
 
   .article-card__image-wrapper {
     position: relative;
+    flex-shrink: 0;
   }
 
   .image {

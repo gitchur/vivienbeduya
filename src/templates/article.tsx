@@ -14,10 +14,10 @@ export default async function ArticleTemplate({ data }: Props) {
   const nextRead = await getNextReadPost(data?._id);
 
   const NextRead = () => (
-    <Link data={nextRead} alwaysReturnLink className="next-read">
+    <div className="next-read">
       <AlternativeText text="Next Read" altText="Sunod nga basahonon" />
       <ArticleCard data={nextRead} horizontal />
-    </Link>
+    </div>
   )
 
   return (
@@ -39,12 +39,12 @@ export default async function ArticleTemplate({ data }: Props) {
 const Wrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 20rwd;
   .article-content-area {
     padding-top: 64rwd;
     display: flex;
     flex-direction: column;
     gap: 32rwd;
+    padding-bottom: 32rwd;
 
     > .block.paragraph:not(.block.paragraph ~ .block.paragraph) p:first-of-type::first-letter {
       float: left;
@@ -79,7 +79,7 @@ const Wrapper = styled.div`
   }
 
   .next-read-desktop {
-    width: 75%;
+    width: 80%;
     cursor: pointer;
     img {
       max-width: 170rwd;
