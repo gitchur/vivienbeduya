@@ -47,7 +47,7 @@ const Footer = ({ data, socialMedias }: Props) => {
       </div>
       <div className="footer-bottom">
         <span className="small">&copy; {copyrightYear} Bisaya Banter</span>
-        <span className="small">Made with kape ❤️ in Aotearoa</span>
+        <span className="small">Made with gugma ❤️ in Aotearoa</span>
       </div>
     </Wrapper>
   );
