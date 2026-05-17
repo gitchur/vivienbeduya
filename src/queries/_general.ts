@@ -138,5 +138,6 @@ export const articlePreviewFields = defineQuery(`
   alternativeDescription,
   image { ${imageFields} },
   "publishDate": coalesce(publishDate, _createdAt),
-  suggestedReadTime
+  suggestedReadTime,
+  tags[] -> { _id, name }
 `);

@@ -6,6 +6,7 @@ import BlockGap from "@flight-digital/flightdeck/blocks/gap";
 import BlockGrid from "@flight-digital/flightdeck/blocks/grid";
 import RichText from "../molecules/richText";
 import BlockArticlesList from "./articlesList/articlesList";
+import { FeaturedPost } from "./featuredPost";
 // import { BlockStaggerProvider } from "./animatedBlockWrapper";
 import PrimitiveBlock from "./primitiveBlocks";
 
@@ -63,6 +64,10 @@ const Blocks = ({ data }: Props) => {
       <CustomBlock<Sanity.BlockArticlesList>
         blockType="block.articlesList"
         element={(elData) => <BlockArticlesList data={elData} />}
+      />
+      <CustomBlock<Sanity.BlockFeaturedPost>
+        blockType="block.featuredPost"
+        element={(elData) => <FeaturedPost data={elData} />}
       />
     </BlocksList>
   );

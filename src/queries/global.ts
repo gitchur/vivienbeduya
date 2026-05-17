@@ -7,6 +7,7 @@ import {
   linkFields,
   richTextFields,
   seoFields,
+  slugWithPrefixFields,
 } from "./_general";
 
 interface GetNavigationResponse {
@@ -110,6 +111,35 @@ export const getSiteSettings = async () => {
     tags: ["settings"],
   });
   return data as Sanity.Maybe<Sanity.Settings>;
+};
+
+const latestArticleQuery = defineQuery(`
+  *[_type == "article" && ${draftsFilter}] | order(publishDate desc)[0] {
+    _id,
+    _type,
+    title,
+    alternativeTitle,
+    description,
+    alternativeDescription,
+    image { ${imageFields} },
+    slug { ${slugWithPrefixFields} },
+    "publishDate": coalesce(publishDate, _createdAt),
+    suggestedReadTime,
+    tags[] -> { _id, name },
+    author -> {
+      firstName,
+      lastName,
+      image { ${imageFields} }
+    }
+  }
+`);
+
+export const getLatestArticle = async (): Promise<Sanity.Maybe<Sanity.Article>> => {
+  const data = await sanityFetch({
+    query: latestArticleQuery,
+    tags: ["latest-article"],
+  });
+  return data as Sanity.Maybe<Sanity.Article>;
 };
 
 export const getLayoutRelatedData = async () => {

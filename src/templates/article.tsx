@@ -91,6 +91,10 @@ const Wrapper = styled.div`
     padding-top: 8rwd;
   }
 
+  .alt-text {
+    font-family: var(--font-secondary);
+  }
+
   @media --base-down {
     display: flex;
     flex-direction: column;

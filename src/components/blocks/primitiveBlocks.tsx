@@ -8,7 +8,6 @@ import ButtonsList from "../molecules/buttonsList";
 import CtaCard from "../molecules/ctaCard";
 import RichText from "../molecules/richText";
 import { Code } from "../molecules/code";
-import { AnimatedBlockWrapper } from "./animatedBlockWrapper";
 
 interface Props {
   data: Maybe<Sanity.AccordionOrAdaptiveImageOrButtonsListOrCodeBlockOrCtaCardOrGapOrRichTextOrVideo>;

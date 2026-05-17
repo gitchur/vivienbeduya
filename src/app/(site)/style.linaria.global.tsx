@@ -13,7 +13,7 @@ export const globals = css`
        * Reference by semantic tokens only. Components must not
        * reach for these directly.
        */
-
+      
       /* Teal family */
       --deep-teal:          #00695c;
       --deep-teal-hover:    #005548;
@@ -54,6 +54,7 @@ export const globals = css`
        */
 
       /* Surfaces */
+      --color-white: #ffffff;
       --color-bg:              var(--cream-50);
       --color-bg-elevated:     var(--cream-100);
       --color-bg-recessed:     var(--cream-200);
@@ -364,6 +365,9 @@ export const globals = css`
           min-height: 40rwd;
           color: var(--color-fg-on-dark);
           font-family: var(--font-primary);
+          span {
+            white-space: nowrap;
+          }
 
           &::before {
             content: "";
@@ -425,7 +429,7 @@ export const globals = css`
             justify-content: center;
           }
 
-          &.violet {
+          &.bark {
             color: var(--color-fg-on-dark);
 
             &::after {

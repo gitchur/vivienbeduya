@@ -62,7 +62,7 @@ const List = ({ data, initialList }: Props) => {
     >
       <div className="top-area">
         <RichText data={data.content} data-sanity-path="content" />
-        <NextLink href="/articles" className="violet design">
+        <NextLink href="/articles" className="bark design">
           <span>Browse all stories</span>
         </NextLink>
       </div>

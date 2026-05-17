@@ -5,6 +5,7 @@ import {
   imageFields,
   linkFields,
   richTextFields,
+  slugWithPrefixFields,
 } from "./_general";
 
 const defaultBlockFields = defineQuery(`
@@ -121,12 +122,37 @@ const blockArticlesListFields = defineBlockQuery("block.articlesList")(
 `,
 );
 
+const blockFeaturedPostFields = defineBlockQuery("block.featuredPost")(
+  `
+  getLatest,
+  post -> {
+    _id,
+    _type,
+    title,
+    alternativeTitle,
+    description,
+    alternativeDescription,
+    image { ${imageFields} },
+    slug { ${slugWithPrefixFields} },
+    "publishDate": coalesce(publishDate, _createdAt),
+    suggestedReadTime,
+    tags[] -> { _id, name },
+    author -> {
+      firstName,
+      lastName,
+      image { ${imageFields} }
+    }
+  }
+`,
+);
+
 const blocksListFields = defineQuery(`
   ${blockGapFields},
   ${blockParagraphFields},
   ${blockGridFields},
   ${blockContainerFields},
-  ${blockArticlesListFields}
+  ${blockArticlesListFields},
+  ${blockFeaturedPostFields}
 `);
 
 const componentFields = defineQuery(`

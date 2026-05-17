@@ -15,14 +15,14 @@ export default defineBlock({
   icon: FaList,
   fields: [
     defineField({
-      name: "content",
-      type: "richText",
-      title: "Title",
-    }),
-    defineField({
       name: "showAll",
       type: "boolean",
       title: "Show all articles",
+    }),
+    defineField({
+      name: "content",
+      type: "richText",
+      title: "Title",
     }),
   ],
   preview: formatBlockPreview({

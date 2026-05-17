@@ -15,14 +15,16 @@ interface Props {
 
 export const ArticleCard = ({ data, className, horizontal = false }: Props) => {
   const [hovered, setHovered] = useState(false);
+  if (!data) return null;
 
-  const title = data?.title ?? "";
-  const description = data?.description ?? "";
-  const altTitle = data?.alternativeTitle?.trim() ?? "";
-  const altDescription = data?.alternativeDescription?.trim() ?? "";
+  const { title, description, alternativeTitle, alternativeDescription, publishDate, tags } = data;
+
+  const altTitle = alternativeTitle?.trim() ?? "";
+  const altDescription = alternativeDescription?.trim() ?? "";
   const hasAlt = !!(altTitle || altDescription);
   const showAlt = hovered && hasAlt;
-  const postDate = data?.publishDate ? format(new Date(data?.publishDate), "dd MMMM yyyy") : null;
+  const postDate = publishDate ? format(new Date(publishDate), "dd MMMM yyyy") : null;
+  const firstTag = tags?.[0];
 
   return (
     <Card
@@ -31,7 +33,12 @@ export const ArticleCard = ({ data, className, horizontal = false }: Props) => {
       onMouseLeave={() => setHovered(false)}
       data={{ slug: data?.slug }}
     >
-      <Image data={data?.image} />
+      <div className="article-card__image-wrapper">
+        <Image data={data?.image} />
+        {firstTag?.name && (
+          <span className="article-card__tag small">{firstTag.name}</span>
+        )}
+      </div>
       <ContentBlock>
         <FadeLayer $visible={!hasAlt || !showAlt} $isAlt={false}>
           <h5 className="article-card__title">{title}</h5>
@@ -90,17 +97,32 @@ const Card = styled(Link)`
     transform: translateY(-2rwd);
   }
 
+  .article-card__image-wrapper {
+    position: relative;
+  }
+
   .image {
     width: 100%;
     height: 250rwd;
     object-fit: cover;
   }
 
+  .article-card__tag {
+    position: absolute;
+    top: 12rwd;
+    left: 12rwd;
+    padding: 4rwd 10rwd;
+    border-radius: 999px;
+    background-color: var(--color-bg-recessed);
+    color: var(--bark-700);
+    pointer-events: none;
+  }
+
   .article-card__title {
     margin: 0;
     display: inline;
     color: var(--color-fg-on-dark);
-    background: var(--bark-900);
+    background: var(--bark-700);
     line-height: 1.4;
     padding: 0 8rwd;
     box-decoration-break: clone;
@@ -147,6 +169,16 @@ const Card = styled(Link)`
 
     .image {
       height: 200rwm;
+    }
+
+    .article-card__tag {
+      top: 8rwm;
+      left: 8rwm;
+      padding: 4rwm 8rwm;
+    }
+
+    &.horizontal {
+      flex-direction: column;
     }
   }
 `;
