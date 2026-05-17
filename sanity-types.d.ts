@@ -255,9 +255,9 @@ type BlockArticlesListFilter = {
   readonly showAll: InputMaybe<BooleanFilter>;
 };
 
-type BlockArticlesListOrBlockCarouselOrBlockContainerOrBlockFeaturedPostOrBlockGapOrBlockGridOrBlockParagraph = BlockArticlesList | BlockCarousel | BlockContainer | BlockFeaturedPost | BlockGap | BlockGrid | BlockParagraph;
+type BlockArticlesListOrBlockCarouselOrBlockContainerOrBlockFeaturedPostOrBlockGapOrBlockGridOrBlockMarqueeOrBlockParagraph = BlockArticlesList | BlockCarousel | BlockContainer | BlockFeaturedPost | BlockGap | BlockGrid | BlockMarquee | BlockParagraph;
 
-type BlockArticlesListOrBlockCarouselOrBlockContainerOrBlockFeaturedPostOrBlockGapOrBlockGridOrBlockParagraphOrComponent = BlockArticlesList | BlockCarousel | BlockContainer | BlockFeaturedPost | BlockGap | BlockGrid | BlockParagraph | Component;
+type BlockArticlesListOrBlockCarouselOrBlockContainerOrBlockFeaturedPostOrBlockGapOrBlockGridOrBlockMarqueeOrBlockParagraphOrComponent = BlockArticlesList | BlockCarousel | BlockContainer | BlockFeaturedPost | BlockGap | BlockGrid | BlockMarquee | BlockParagraph | Component;
 
 type BlockArticlesListSorting = {
   readonly _key: InputMaybe<SortOrder>;
@@ -598,6 +598,36 @@ type BlockGridSubGridSorting = {
   readonly rowGap: InputMaybe<CssUnitSorting>;
 };
 
+type BlockMarquee = {
+  readonly __typename?: 'BlockMarquee';
+  readonly _key: Maybe<Scalars['String']['output']>;
+  readonly _type: Maybe<Scalars['String']['output']>;
+  readonly backgroundImage: Maybe<AdaptiveImage>;
+  readonly classNames: Maybe<ReadonlyArray<Maybe<Scalars['String']['output']>>>;
+  readonly customCss: Maybe<Scalars['String']['output']>;
+  readonly items: Maybe<ReadonlyArray<Maybe<Scalars['String']['output']>>>;
+  readonly label: Maybe<Scalars['String']['output']>;
+  readonly layoutEditor: Maybe<Scalars['String']['output']>;
+};
+
+type BlockMarqueeFilter = {
+  readonly _key: InputMaybe<StringFilter>;
+  readonly _type: InputMaybe<StringFilter>;
+  readonly backgroundImage: InputMaybe<AdaptiveImageFilter>;
+  readonly customCss: InputMaybe<StringFilter>;
+  readonly label: InputMaybe<StringFilter>;
+  readonly layoutEditor: InputMaybe<StringFilter>;
+};
+
+type BlockMarqueeSorting = {
+  readonly _key: InputMaybe<SortOrder>;
+  readonly _type: InputMaybe<SortOrder>;
+  readonly backgroundImage: InputMaybe<AdaptiveImageSorting>;
+  readonly customCss: InputMaybe<SortOrder>;
+  readonly label: InputMaybe<SortOrder>;
+  readonly layoutEditor: InputMaybe<SortOrder>;
+};
+
 type BlockOrGap = Block | Gap;
 
 type BlockOrImage = Block | Image;
@@ -638,7 +668,7 @@ type Blocks = {
   readonly __typename?: 'Blocks';
   readonly _key: Maybe<Scalars['String']['output']>;
   readonly _type: Maybe<Scalars['String']['output']>;
-  readonly list: Maybe<ReadonlyArray<Maybe<BlockArticlesListOrBlockCarouselOrBlockContainerOrBlockFeaturedPostOrBlockGapOrBlockGridOrBlockParagraphOrComponent>>>;
+  readonly list: Maybe<ReadonlyArray<Maybe<BlockArticlesListOrBlockCarouselOrBlockContainerOrBlockFeaturedPostOrBlockGapOrBlockGridOrBlockMarqueeOrBlockParagraphOrComponent>>>;
 };
 
 type BlocksFilter = {
@@ -777,7 +807,7 @@ type ComponentBlueprint = Document & {
   readonly _type: Maybe<Scalars['String']['output']>;
   /** Date the document was last modified */
   readonly _updatedAt: Maybe<Scalars['DateTime']['output']>;
-  readonly blocks: Maybe<ReadonlyArray<Maybe<BlockArticlesListOrBlockCarouselOrBlockContainerOrBlockFeaturedPostOrBlockGapOrBlockGridOrBlockParagraph>>>;
+  readonly blocks: Maybe<ReadonlyArray<Maybe<BlockArticlesListOrBlockCarouselOrBlockContainerOrBlockFeaturedPostOrBlockGapOrBlockGridOrBlockMarqueeOrBlockParagraph>>>;
   readonly hiddenForDocumentTypes: Maybe<ReadonlyArray<Maybe<Scalars['String']['output']>>>;
   readonly image: Maybe<Image>;
   readonly name: Maybe<Scalars['String']['output']>;

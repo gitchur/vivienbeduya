@@ -19,6 +19,7 @@ import code from "./objects/code";
 // -------------- Blocks --------------- //
 import blockArticlesList from "./blocks/articlesList";
 import blockFeaturedPost from "./blocks/featuredPost";
+import blockMarquee from "./blocks/marquee";
 
 const schemas = [
   // Pages
@@ -41,6 +42,7 @@ const schemas = [
   // Blocks
   blockArticlesList,
   blockFeaturedPost,
+  blockMarquee,
 ];
 
 export default schemas;

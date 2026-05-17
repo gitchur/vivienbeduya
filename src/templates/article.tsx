@@ -4,7 +4,7 @@ import { styled } from "@linaria/react";
 import { getNextReadPost } from "@/queries/global";
 import Link from "@/components/atoms/link";
 import { ArticleCard } from "@/components/blocks/articlesList/articleCard";
-import { AltText } from "@/components/atoms/altText";
+import { AlternativeText } from "@/components/atoms/altText";
 
 interface Props {
   data: Sanity.Article;
@@ -15,7 +15,7 @@ export default async function ArticleTemplate({ data }: Props) {
 
   const NextRead = () => (
     <Link data={nextRead} alwaysReturnLink className="next-read">
-      <AltText text="Next Read" altText="Sunod nga basahonon" />
+      <AlternativeText text="Next Read" altText="Sunod nga basahonon" />
       <ArticleCard data={nextRead} horizontal />
     </Link>
   )

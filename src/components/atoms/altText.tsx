@@ -15,7 +15,7 @@ const INITIAL_DELAY_MS = 600;
 
 type Phase = "text" | "typing" | "alt" | "backspacing";
 
-export const AltText = ({
+export const AlternativeText = ({
   text,
   altText,
   animMS = 2000,

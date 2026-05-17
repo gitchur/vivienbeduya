@@ -8,6 +8,7 @@ import RichText from "../molecules/richText";
 import BlockArticlesList from "./articlesList/articlesList";
 import { FeaturedPost } from "./featuredPost";
 // import { BlockStaggerProvider } from "./animatedBlockWrapper";
+import { Marquee } from "./marquee";
 import PrimitiveBlock from "./primitiveBlocks";
 
 interface Props {
@@ -68,6 +69,10 @@ const Blocks = ({ data }: Props) => {
       <CustomBlock<Sanity.BlockFeaturedPost>
         blockType="block.featuredPost"
         element={(elData) => <FeaturedPost data={elData} />}
+      />
+      <CustomBlock<Sanity.BlockMarquee>
+        blockType="block.marquee"
+        element={(elData) => <Marquee data={elData} />}
       />
     </BlocksList>
   );

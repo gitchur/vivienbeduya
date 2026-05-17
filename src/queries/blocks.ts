@@ -146,13 +146,20 @@ const blockFeaturedPostFields = defineBlockQuery("block.featuredPost")(
 `,
 );
 
+const blockMarqueeFields = defineBlockQuery("block.marquee")(
+  `
+  items[]
+`,
+);
+
 const blocksListFields = defineQuery(`
   ${blockGapFields},
   ${blockParagraphFields},
   ${blockGridFields},
   ${blockContainerFields},
   ${blockArticlesListFields},
-  ${blockFeaturedPostFields}
+  ${blockFeaturedPostFields},
+  ${blockMarqueeFields}
 `);
 
 const componentFields = defineQuery(`

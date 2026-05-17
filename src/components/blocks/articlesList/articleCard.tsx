@@ -156,6 +156,10 @@ const Card = styled(Link)`
     align-items: center;
     background-color: transparent;
 
+    .article-card__tag {
+      display: none;
+    }
+
     .image {
       aspect-ratio: 4 / 3;
       height: 100%;

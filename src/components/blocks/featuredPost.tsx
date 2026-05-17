@@ -4,7 +4,7 @@ import { format } from "date-fns";
 import Image from "@/components/atoms/image";
 import Link from "@/components/atoms/link";
 import { getLatestArticle } from "@/queries/global";
-import { AltText } from "../atoms/altText";
+import { AlternativeText } from "@/components/atoms/altText";
 
 interface Props {
   data: Sanity.BlockFeaturedPost;
@@ -45,14 +45,14 @@ export const FeaturedPost = async ({ data, className }: Props) => {
               </p>
             )}
           </div>
-          <h2 className={mergeClassNames("featured-post__title", "h2")}>{title}</h2>
+          <h1 className={mergeClassNames("featured-post__title", "h2")}>{title}</h1>
         </div>
 
         <div className="featured-post__side">
-          {description && <AltText text={description} altText={alternativeDescription} />}
+          {description && <AlternativeText text={description} altText={alternativeDescription} />}
           <Link
             data={{ slug: article.slug, _type: article._type, _id: article._id, title } as Sanity.Article}
-            className=" design bark"
+            className="design accent"
           >
             Read the story →
           </Link>

@@ -388,20 +388,23 @@ export const globals = css`
             background-color: var(--color-accent);
             pointer-events: none;
             border: 1px solid transparent;
-            transition: transform 250ms;
+            transition: transform 300ms;
           }
 
           & > * {
             position: relative;
             z-index: 1;
-            transition: transform 250ms;
+            transition: transform 300ms;
           }
 
-          &:hover::after,
+          &:hover::after {
+            transform: translate(-4rwd, -4rwd);
+            background-color: var(--color-bg);
+          }
+
           &:hover > * {
             transform: translate(-4rwd, -4rwd);
             font-weight: var(--font-weight-bold);
-            background-color: var(--color-bg);
           }
 
           &:active::after,
@@ -429,23 +432,67 @@ export const globals = css`
             justify-content: center;
           }
 
-          &.bark {
-            color: var(--color-fg-on-dark);
+          &.bark,
+          &.accent {
+            --btn-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+            --btn-fg: var(--color-fg-on-dark);
+            --btn-surface: var(--bark-700);
+            --btn-border: var(--bark-700);
+            --btn-fg-hover: var(--color-accent);
+            --btn-surface-hover: var(--color-bg);
+            --btn-border-hover: var(--color-accent);
+
+            transition: color 300ms var(--btn-ease);
 
             &::after {
-              background-color: var(--bark-900);
-              border-color: var(--bark-900);
+              transition:
+                transform 300ms var(--btn-ease),
+                background-color 300ms var(--btn-ease),
+                border-color 300ms var(--btn-ease);
+            }
+
+            & > * {
+              background-color: transparent;
+              transition: transform 300ms var(--btn-ease);
+            }
+          }
+
+          &.bark {
+            color: var(--btn-fg);
+
+            &::after {
+              background-color: var(--btn-surface);
+              border-color: var(--btn-border);
             }
 
             &:hover {
-              color: var(--color-accent);
+              color: var(--btn-fg-hover);
 
               &::after {
-                background-color: var(--color-bg);
-                border-color: var(--color-accent);
+                background-color: var(--btn-surface-hover);
+                border-color: var(--btn-border-hover);
               }
             }
           }
+
+          &.accent {
+            color: var(--btn-fg-hover);
+
+            &::after {
+              background-color: var(--btn-surface-hover);
+              border-color: var(--btn-border-hover);
+            }
+
+            &:hover {
+              color: var(--btn-fg);
+
+              &::after {
+                background-color: var(--btn-surface);
+                border-color: var(--btn-border);
+              }
+            }
+          }
+        
         }
       }
 

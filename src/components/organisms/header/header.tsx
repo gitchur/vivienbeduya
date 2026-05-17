@@ -40,10 +40,12 @@ const Header = ({ data }: Props) => {
       onTouchMove={(e) => e.stopPropagation()}
     >
       <div className="header-bar">
+
+        <Nav data={data.navigation} sideMenuOpen={sideMenuOpen} />
         <Link data={{ url: "/" }} aria-label="Go to Homepage" className="logo-area">
           <Image data={data.logo} loading="eager" width={230} className="logo" alt="Logo" />
         </Link>
-        <Nav data={data.navigation} sideMenuOpen={sideMenuOpen} />
+        <div />
         <div className="mobile-menu">
           <button
             className="mobile-menu-button"
@@ -117,6 +119,9 @@ const Wrapper = styled.header`
     padding: 8rwd 0;
     align-items: center;
     text-decoration: none;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
 
     pre {
       font-family: var(--font-secondary);
