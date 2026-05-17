@@ -16,7 +16,7 @@ export default async function ArticleTemplate({ data }: Props) {
   const NextRead = () => (
     <Link data={nextRead} alwaysReturnLink className="next-read">
       <AlternativeText text="Next Read" altText="Sunod nga basahonon" />
-      <ArticleCard data={nextRead} horizontal />
+      <ArticleCard data={nextRead} horizontal asLink={false} />
     </Link>
   )
 
@@ -42,8 +42,11 @@ const Wrapper = styled.div`
   gap: 20rwd;
   .article-content-area {
     padding-top: 64rwd;
+    display: flex;
+    flex-direction: column;
+    gap: 32rwd;
 
-    p:first-of-type::first-letter {
+    > .block.paragraph:not(.block.paragraph ~ .block.paragraph) p:first-of-type::first-letter {
       float: left;
       font-family: var(--font-secondary);
       font-size: 55rwd;

@@ -5,6 +5,21 @@ function isRootSegment(segment: string | undefined | null): boolean {
 }
 
 /**
+ * Maps a Sanity slug.current or URL path to the cache tag used in sanityFetch (e.g. slug:/ for home).
+ */
+export function slugToCacheTag(slugOrPath: string | undefined | null): string | null {
+  if (slugOrPath == null) return null;
+
+  const trimmed = slugOrPath.trim();
+  if (isRootSegment(trimmed)) return "/";
+
+  const segments = trimmed.split("/").filter(Boolean);
+  if (segments.length === 0) return "/";
+
+  return segments[segments.length - 1] ?? null;
+}
+
+/**
  * Builds a path array like ["parent", "child", "my-page"] from a Sanity page document with prefix.
  * Used for both generateStaticParams (so the URL includes the prefix) and getPage (to match the request path).
  * Skips root-like prefix segments (empty or "/") so paths stay consistent with URL segments.
