@@ -40,13 +40,11 @@ type AccordionFilter = {
   readonly title: InputMaybe<StringFilter>;
 };
 
-type AccordionOrAdaptiveImageOrBlockGridSubGridOrButtonsListOrCodeBlockOrCtaCardOrGapOrRichTextOrVideo = Accordion | AdaptiveImage | BlockGridSubGrid | ButtonsList | CodeBlock | CtaCard | Gap | RichText | Video;
+type AccordionOrAdaptiveImageOrButtonOrButtonsListOrComponentPrimitiveValueOrCssUnitOrCtaCardOrGapOrHeadingOrImageWithMetaOrLinkOrLinkWithoutTextOrResponsiveImageOrResponsiveNumberOrResponsiveStringOrRichText = Accordion | AdaptiveImage | Button | ButtonsList | ComponentPrimitiveValue | CssUnit | CtaCard | Gap | Heading | ImageWithMeta | Link | LinkWithoutText | ResponsiveImage | ResponsiveNumber | ResponsiveString | RichText;
 
-type AccordionOrAdaptiveImageOrButtonOrButtonsListOrComponentPrimitiveValueOrCssUnitOrCtaCardOrGapOrHeadingOrImageWithMetaOrLinkOrLinkWithoutTextOrResponsiveImageOrResponsiveNumberOrResponsiveStringOrRichTextOrVideo = Accordion | AdaptiveImage | Button | ButtonsList | ComponentPrimitiveValue | CssUnit | CtaCard | Gap | Heading | ImageWithMeta | Link | LinkWithoutText | ResponsiveImage | ResponsiveNumber | ResponsiveString | RichText | Video;
+type AccordionOrAdaptiveImageOrButtonOrButtonsListOrCtaCardOrGapOrHeadingOrImageWithMetaOrLinkOrLinkWithoutTextOrResponsiveImageOrResponsiveNumberOrResponsiveStringOrRichText = Accordion | AdaptiveImage | Button | ButtonsList | CtaCard | Gap | Heading | ImageWithMeta | Link | LinkWithoutText | ResponsiveImage | ResponsiveNumber | ResponsiveString | RichText;
 
-type AccordionOrAdaptiveImageOrButtonOrButtonsListOrCtaCardOrGapOrHeadingOrImageWithMetaOrLinkOrLinkWithoutTextOrResponsiveImageOrResponsiveNumberOrResponsiveStringOrRichTextOrVideo = Accordion | AdaptiveImage | Button | ButtonsList | CtaCard | Gap | Heading | ImageWithMeta | Link | LinkWithoutText | ResponsiveImage | ResponsiveNumber | ResponsiveString | RichText | Video;
-
-type AccordionOrAdaptiveImageOrButtonsListOrCodeBlockOrCtaCardOrGapOrRichTextOrVideo = Accordion | AdaptiveImage | ButtonsList | CodeBlock | CtaCard | Gap | RichText | Video;
+type AccordionOrAdaptiveImageOrButtonsListOrCodeBlockOrCtaCardOrGapOrRichText = Accordion | AdaptiveImage | ButtonsList | CodeBlock | CtaCard | Gap | RichText;
 
 type AccordionSorting = {
   readonly _key: InputMaybe<SortOrder>;
@@ -84,7 +82,7 @@ type AdaptiveImageFilter = {
   readonly objectFit: InputMaybe<StringFilter>;
 };
 
-type AdaptiveImageOrButtonOrIconOrSpan = AdaptiveImage | Button | Icon | Span;
+type AdaptiveImageOrBlockOrGap = AdaptiveImage | Block | Gap;
 
 type AdaptiveImageSorting = {
   readonly _key: InputMaybe<SortOrder>;
@@ -315,13 +313,15 @@ type BlockContainer = {
   readonly _type: Maybe<Scalars['String']['output']>;
   readonly backgroundImage: Maybe<AdaptiveImage>;
   readonly classNames: Maybe<ReadonlyArray<Maybe<Scalars['String']['output']>>>;
-  readonly containerItems: Maybe<ReadonlyArray<Maybe<AccordionOrAdaptiveImageOrButtonsListOrCodeBlockOrCtaCardOrGapOrRichTextOrVideo>>>;
+  readonly containerItems: Maybe<ReadonlyArray<Maybe<AccordionOrAdaptiveImageOrButtonsListOrCodeBlockOrCtaCardOrGapOrRichText>>>;
   readonly customCss: Maybe<Scalars['String']['output']>;
   readonly label: Maybe<Scalars['String']['output']>;
   readonly layoutEditor: Maybe<Scalars['String']['output']>;
   /** If enabled, the items will be displayed in reverse order on mobile */
   readonly reverseOnMobile: Maybe<Scalars['Boolean']['output']>;
   readonly rowGap: Maybe<CssUnit>;
+  /** @deprecated Use the gap field instead */
+  readonly spaceBetween: Maybe<CssUnit>;
 };
 
 type BlockContainerFilter = {
@@ -333,6 +333,7 @@ type BlockContainerFilter = {
   readonly layoutEditor: InputMaybe<StringFilter>;
   readonly reverseOnMobile: InputMaybe<BooleanFilter>;
   readonly rowGap: InputMaybe<CssUnitFilter>;
+  readonly spaceBetween: InputMaybe<CssUnitFilter>;
 };
 
 type BlockContainerSorting = {
@@ -344,6 +345,7 @@ type BlockContainerSorting = {
   readonly layoutEditor: InputMaybe<SortOrder>;
   readonly reverseOnMobile: InputMaybe<SortOrder>;
   readonly rowGap: InputMaybe<CssUnitSorting>;
+  readonly spaceBetween: InputMaybe<CssUnitSorting>;
 };
 
 type BlockGap = {
@@ -402,6 +404,8 @@ type BlockGrid = {
   /** If enabled, the items will be displayed in reverse order on mobile */
   readonly reverseOnMobile: Maybe<Scalars['Boolean']['output']>;
   readonly rowGap: Maybe<CssUnit>;
+  /** @deprecated Use the gap field instead */
+  readonly spaceBetween: Maybe<CssUnit>;
 };
 
 type BlockGridColumn = {
@@ -410,7 +414,7 @@ type BlockGridColumn = {
   readonly _type: Maybe<Scalars['String']['output']>;
   readonly backgroundImage: Maybe<AdaptiveImage>;
   readonly classNames: Maybe<ReadonlyArray<Maybe<Scalars['String']['output']>>>;
-  readonly columnItems: Maybe<ReadonlyArray<Maybe<AccordionOrAdaptiveImageOrBlockGridSubGridOrButtonsListOrCodeBlockOrCtaCardOrGapOrRichTextOrVideo>>>;
+  readonly columnItems: Maybe<ReadonlyArray<Maybe<AccordionOrAdaptiveImageOrButtonsListOrCodeBlockOrCtaCardOrGapOrRichText>>>;
   readonly columnSize: Maybe<GridColumnSize>;
   readonly customCss: Maybe<Scalars['String']['output']>;
   readonly horizontalAlign: Maybe<Scalars['String']['output']>;
@@ -418,6 +422,10 @@ type BlockGridColumn = {
   /** If enabled, the items will be displayed in reverse order on mobile */
   readonly reverseOnMobile: Maybe<Scalars['Boolean']['output']>;
   readonly rowGap: Maybe<CssUnit>;
+  /** @deprecated Use the gap field instead */
+  readonly spaceBetween: Maybe<CssUnit>;
+  /** @deprecated Use the new Column Size field above instead */
+  readonly spaces: Maybe<Scalars['Float']['output']>;
   readonly verticalAlign: Maybe<Scalars['String']['output']>;
 };
 
@@ -431,6 +439,8 @@ type BlockGridColumnFilter = {
   readonly layoutEditor: InputMaybe<StringFilter>;
   readonly reverseOnMobile: InputMaybe<BooleanFilter>;
   readonly rowGap: InputMaybe<CssUnitFilter>;
+  readonly spaceBetween: InputMaybe<CssUnitFilter>;
+  readonly spaces: InputMaybe<FloatFilter>;
   readonly verticalAlign: InputMaybe<StringFilter>;
 };
 
@@ -444,6 +454,8 @@ type BlockGridColumnSorting = {
   readonly layoutEditor: InputMaybe<SortOrder>;
   readonly reverseOnMobile: InputMaybe<SortOrder>;
   readonly rowGap: InputMaybe<CssUnitSorting>;
+  readonly spaceBetween: InputMaybe<CssUnitSorting>;
+  readonly spaces: InputMaybe<SortOrder>;
   readonly verticalAlign: InputMaybe<SortOrder>;
 };
 
@@ -458,6 +470,7 @@ type BlockGridFilter = {
   readonly layoutEditor: InputMaybe<StringFilter>;
   readonly reverseOnMobile: InputMaybe<BooleanFilter>;
   readonly rowGap: InputMaybe<CssUnitFilter>;
+  readonly spaceBetween: InputMaybe<CssUnitFilter>;
 };
 
 type BlockGridSorting = {
@@ -471,93 +484,8 @@ type BlockGridSorting = {
   readonly layoutEditor: InputMaybe<SortOrder>;
   readonly reverseOnMobile: InputMaybe<SortOrder>;
   readonly rowGap: InputMaybe<CssUnitSorting>;
+  readonly spaceBetween: InputMaybe<CssUnitSorting>;
 };
-
-type BlockGridSubColumn = {
-  readonly __typename?: 'BlockGridSubColumn';
-  readonly _key: Maybe<Scalars['String']['output']>;
-  readonly _type: Maybe<Scalars['String']['output']>;
-  readonly backgroundImage: Maybe<AdaptiveImage>;
-  readonly classNames: Maybe<ReadonlyArray<Maybe<Scalars['String']['output']>>>;
-  readonly columnItems: Maybe<ReadonlyArray<Maybe<AccordionOrAdaptiveImageOrButtonsListOrCodeBlockOrCtaCardOrGapOrRichTextOrVideo>>>;
-  readonly columnSize: Maybe<GridColumnSize>;
-  readonly customCss: Maybe<Scalars['String']['output']>;
-  readonly horizontalAlign: Maybe<Scalars['String']['output']>;
-  readonly layoutEditor: Maybe<Scalars['String']['output']>;
-  /** If enabled, the items will be displayed in reverse order on mobile */
-  readonly reverseOnMobile: Maybe<Scalars['Boolean']['output']>;
-  readonly rowGap: Maybe<CssUnit>;
-  readonly verticalAlign: Maybe<Scalars['String']['output']>;
-};
-
-type BlockGridSubColumnFilter = {
-  readonly _key: InputMaybe<StringFilter>;
-  readonly _type: InputMaybe<StringFilter>;
-  readonly backgroundImage: InputMaybe<AdaptiveImageFilter>;
-  readonly columnSize: InputMaybe<GridColumnSizeFilter>;
-  readonly customCss: InputMaybe<StringFilter>;
-  readonly horizontalAlign: InputMaybe<StringFilter>;
-  readonly layoutEditor: InputMaybe<StringFilter>;
-  readonly reverseOnMobile: InputMaybe<BooleanFilter>;
-  readonly rowGap: InputMaybe<CssUnitFilter>;
-  readonly verticalAlign: InputMaybe<StringFilter>;
-};
-
-type BlockGridSubColumnSorting = {
-  readonly _key: InputMaybe<SortOrder>;
-  readonly _type: InputMaybe<SortOrder>;
-  readonly backgroundImage: InputMaybe<AdaptiveImageSorting>;
-  readonly columnSize: InputMaybe<GridColumnSizeSorting>;
-  readonly customCss: InputMaybe<SortOrder>;
-  readonly horizontalAlign: InputMaybe<SortOrder>;
-  readonly layoutEditor: InputMaybe<SortOrder>;
-  readonly reverseOnMobile: InputMaybe<SortOrder>;
-  readonly rowGap: InputMaybe<CssUnitSorting>;
-  readonly verticalAlign: InputMaybe<SortOrder>;
-};
-
-type BlockGridSubGrid = {
-  readonly __typename?: 'BlockGridSubGrid';
-  readonly _key: Maybe<Scalars['String']['output']>;
-  readonly _type: Maybe<Scalars['String']['output']>;
-  readonly backgroundImage: Maybe<AdaptiveImage>;
-  readonly classNames: Maybe<ReadonlyArray<Maybe<Scalars['String']['output']>>>;
-  readonly columnGap: Maybe<CssUnit>;
-  readonly customCss: Maybe<Scalars['String']['output']>;
-  /** If enabled, all the columns will be displayed in a single row with the same width (The column spaces will be ignored) */
-  readonly fluidGrid: Maybe<Scalars['Boolean']['output']>;
-  readonly layoutEditor: Maybe<Scalars['String']['output']>;
-  /** If enabled, the items will be displayed in reverse order on mobile */
-  readonly reverseOnMobile: Maybe<Scalars['Boolean']['output']>;
-  readonly rowGap: Maybe<CssUnit>;
-  readonly subColumns: Maybe<ReadonlyArray<Maybe<BlockGridSubColumn>>>;
-};
-
-type BlockGridSubGridFilter = {
-  readonly _key: InputMaybe<StringFilter>;
-  readonly _type: InputMaybe<StringFilter>;
-  readonly backgroundImage: InputMaybe<AdaptiveImageFilter>;
-  readonly columnGap: InputMaybe<CssUnitFilter>;
-  readonly customCss: InputMaybe<StringFilter>;
-  readonly fluidGrid: InputMaybe<BooleanFilter>;
-  readonly layoutEditor: InputMaybe<StringFilter>;
-  readonly reverseOnMobile: InputMaybe<BooleanFilter>;
-  readonly rowGap: InputMaybe<CssUnitFilter>;
-};
-
-type BlockGridSubGridSorting = {
-  readonly _key: InputMaybe<SortOrder>;
-  readonly _type: InputMaybe<SortOrder>;
-  readonly backgroundImage: InputMaybe<AdaptiveImageSorting>;
-  readonly columnGap: InputMaybe<CssUnitSorting>;
-  readonly customCss: InputMaybe<SortOrder>;
-  readonly fluidGrid: InputMaybe<SortOrder>;
-  readonly layoutEditor: InputMaybe<SortOrder>;
-  readonly reverseOnMobile: InputMaybe<SortOrder>;
-  readonly rowGap: InputMaybe<CssUnitSorting>;
-};
-
-type BlockOrGap = Block | Gap;
 
 type BlockOrImage = Block | Image;
 
@@ -720,7 +648,7 @@ type Component = {
   /** The component blueprint that this component is based on, only for reference */
   readonly componentBlueprint: Maybe<ComponentBlueprint>;
   readonly label: Maybe<Scalars['String']['output']>;
-  readonly values: Maybe<ReadonlyArray<Maybe<AccordionOrAdaptiveImageOrButtonOrButtonsListOrComponentPrimitiveValueOrCssUnitOrCtaCardOrGapOrHeadingOrImageWithMetaOrLinkOrLinkWithoutTextOrResponsiveImageOrResponsiveNumberOrResponsiveStringOrRichTextOrVideo>>>;
+  readonly values: Maybe<ReadonlyArray<Maybe<AccordionOrAdaptiveImageOrButtonOrButtonsListOrComponentPrimitiveValueOrCssUnitOrCtaCardOrGapOrHeadingOrImageWithMetaOrLinkOrLinkWithoutTextOrResponsiveImageOrResponsiveNumberOrResponsiveStringOrRichText>>>;
 };
 
 type ComponentBlueprint = Document & {
@@ -785,7 +713,7 @@ type ComponentPrimitiveValue = {
   readonly arrayOfBoolean: Maybe<ReadonlyArray<Maybe<Scalars['Boolean']['output']>>>;
   readonly arrayOfDate: Maybe<ReadonlyArray<Maybe<Scalars['String']['output']>>>;
   readonly arrayOfNumber: Maybe<ReadonlyArray<Maybe<Scalars['Float']['output']>>>;
-  readonly arrayOfObject: Maybe<ReadonlyArray<Maybe<AccordionOrAdaptiveImageOrButtonOrButtonsListOrCtaCardOrGapOrHeadingOrImageWithMetaOrLinkOrLinkWithoutTextOrResponsiveImageOrResponsiveNumberOrResponsiveStringOrRichTextOrVideo>>>;
+  readonly arrayOfObject: Maybe<ReadonlyArray<Maybe<AccordionOrAdaptiveImageOrButtonOrButtonsListOrCtaCardOrGapOrHeadingOrImageWithMetaOrLinkOrLinkWithoutTextOrResponsiveImageOrResponsiveNumberOrResponsiveStringOrRichText>>>;
   readonly arrayOfString: Maybe<ReadonlyArray<Maybe<Scalars['String']['output']>>>;
   readonly arrayOfText: Maybe<ReadonlyArray<Maybe<Scalars['String']['output']>>>;
   readonly arrayOfUrl: Maybe<ReadonlyArray<Maybe<Scalars['String']['output']>>>;
@@ -1349,21 +1277,6 @@ type IdFilter = {
   readonly nin: InputMaybe<ReadonlyArray<Scalars['ID']['input']>>;
 };
 
-type Icon = {
-  readonly __typename?: 'Icon';
-  readonly _key: Maybe<Scalars['String']['output']>;
-  readonly _type: Maybe<Scalars['String']['output']>;
-  readonly icon: Maybe<IconPicker>;
-  readonly size: Maybe<CssUnit>;
-};
-
-type IconFilter = {
-  readonly _key: InputMaybe<StringFilter>;
-  readonly _type: InputMaybe<StringFilter>;
-  readonly icon: InputMaybe<IconPickerFilter>;
-  readonly size: InputMaybe<CssUnitFilter>;
-};
-
 type IconPicker = {
   readonly __typename?: 'IconPicker';
   readonly _key: Maybe<Scalars['String']['output']>;
@@ -1387,13 +1300,6 @@ type IconPickerSorting = {
   readonly name: InputMaybe<SortOrder>;
   readonly provider: InputMaybe<SortOrder>;
   readonly svg: InputMaybe<SortOrder>;
-};
-
-type IconSorting = {
-  readonly _key: InputMaybe<SortOrder>;
-  readonly _type: InputMaybe<SortOrder>;
-  readonly icon: InputMaybe<IconPickerSorting>;
-  readonly size: InputMaybe<CssUnitSorting>;
 };
 
 type Image = {
@@ -1671,6 +1577,8 @@ type Redirect = Document & {
   readonly _type: Maybe<Scalars['String']['output']>;
   /** Date the document was last modified */
   readonly _updatedAt: Maybe<Scalars['DateTime']['output']>;
+  /** If checked, it will make the redirect take preference over a page with same path. By default, if a page with same path exists on the CMS, the redirect will be ignored */
+  readonly force: Maybe<Scalars['Boolean']['output']>;
   readonly fromPath: Maybe<Scalars['String']['output']>;
   readonly note: Maybe<Scalars['String']['output']>;
   readonly statusCode: Maybe<Scalars['String']['output']>;
@@ -1686,6 +1594,7 @@ type RedirectFilter = {
   readonly _rev: InputMaybe<StringFilter>;
   readonly _type: InputMaybe<StringFilter>;
   readonly _updatedAt: InputMaybe<DatetimeFilter>;
+  readonly force: InputMaybe<BooleanFilter>;
   readonly fromPath: InputMaybe<StringFilter>;
   readonly note: InputMaybe<StringFilter>;
   readonly statusCode: InputMaybe<StringFilter>;
@@ -1699,6 +1608,7 @@ type RedirectSorting = {
   readonly _rev: InputMaybe<SortOrder>;
   readonly _type: InputMaybe<SortOrder>;
   readonly _updatedAt: InputMaybe<SortOrder>;
+  readonly force: InputMaybe<SortOrder>;
   readonly fromPath: InputMaybe<SortOrder>;
   readonly note: InputMaybe<SortOrder>;
   readonly statusCode: InputMaybe<SortOrder>;
@@ -2786,34 +2696,6 @@ type ThemeTypographySorting = {
   readonly size: InputMaybe<CssUnitSorting>;
   readonly type: InputMaybe<SortOrder>;
   readonly weight: InputMaybe<SortOrder>;
-};
-
-type Video = {
-  readonly __typename?: 'Video';
-  readonly _key: Maybe<Scalars['String']['output']>;
-  readonly _type: Maybe<Scalars['String']['output']>;
-  readonly autoplay: Maybe<Scalars['Boolean']['output']>;
-  readonly loop: Maybe<Scalars['Boolean']['output']>;
-  readonly thumbnail: Maybe<AdaptiveImage>;
-  readonly url: Maybe<Scalars['String']['output']>;
-};
-
-type VideoFilter = {
-  readonly _key: InputMaybe<StringFilter>;
-  readonly _type: InputMaybe<StringFilter>;
-  readonly autoplay: InputMaybe<BooleanFilter>;
-  readonly loop: InputMaybe<BooleanFilter>;
-  readonly thumbnail: InputMaybe<AdaptiveImageFilter>;
-  readonly url: InputMaybe<StringFilter>;
-};
-
-type VideoSorting = {
-  readonly _key: InputMaybe<SortOrder>;
-  readonly _type: InputMaybe<SortOrder>;
-  readonly autoplay: InputMaybe<SortOrder>;
-  readonly loop: InputMaybe<SortOrder>;
-  readonly thumbnail: InputMaybe<AdaptiveImageSorting>;
-  readonly url: InputMaybe<SortOrder>;
 };
 
 type Wiki = Document & {

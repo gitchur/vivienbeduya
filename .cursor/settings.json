@@ -1,0 +1,16 @@
+{
+  "plugins": {
+    "figma": {
+      "enabled": true
+    },
+    "deploy-on-aws": {
+      "enabled": true
+    },
+    "sanity": {
+      "enabled": true
+    },
+    "shopify-plugin": {
+      "enabled": true
+    }
+  }
+}

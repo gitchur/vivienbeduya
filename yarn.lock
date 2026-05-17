@@ -1726,10 +1726,10 @@
   resolved "https://registry.yarnpkg.com/@fastify/busboy/-/busboy-3.2.0.tgz#13ed8212f3b9ba697611529d15347f8528058cea"
   integrity sha512-m9FVDXU3GT2ITSe0UaMA5rU3QkfC/UXtCU8y0gSN/GugTqtVldOBWIB5V6V3sbmenVZUIpU6f+mPEO2+m5iTaA==
 
-"@flight-digital/flightdeck@^6.4.1":
-  version "6.4.2"
-  resolved "https://npm.pkg.github.com/download/@flight-digital/flightdeck/6.4.2/3f5ef17a6a6dd3d79d31b908e95e4f0051c7f885#3f5ef17a6a6dd3d79d31b908e95e4f0051c7f885"
-  integrity sha512-HPBMP0/PDgXROyt0ntxUQ7kiKklhuy8bn+bsp4yVTRh7TeQllFWov7IBjRUarwPZoK3QW9LsmM0+Uz9xXqfAiA==
+"@flight-digital/flightdeck@^6.6.6":
+  version "6.6.6"
+  resolved "https://npm.pkg.github.com/download/@flight-digital/flightdeck/6.6.6/7055cfca6c20494b7728e152228cb101b8e6b165#7055cfca6c20494b7728e152228cb101b8e6b165"
+  integrity sha512-zi38l1k1MV5VSMNY4zRI22nF//FTrtI/Ib6Gfz2ZIPzeOifDD9LBjT2kfxDM9b0gLcd2eQpA+RKUwcNifjU49Q==
   dependencies:
     "@linaria/core" "^6.1.0"
     "@linaria/react" "^6.1.0"
