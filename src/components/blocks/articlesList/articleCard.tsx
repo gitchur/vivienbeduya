@@ -58,11 +58,13 @@ export const ArticleCard = ({ data, className, horizontal = false }: Props) => {
           )}
         </ContentBlock>
       }
-      <div className="article-meta">
-        <p className="article-meta__date">{postDate}</p>
-        <div className="article-meta__separator">•</div>
-        <p className="article-meta__read-time">{data?.suggestedReadTime} min read</p>
-      </div>
+      {!horizontal &&
+        <div className="article-meta">
+          <p className="article-meta__date">{postDate}</p>
+          <div className="article-meta__separator">•</div>
+          <p className="article-meta__read-time">{data?.suggestedReadTime} min read</p>
+        </div>
+      }
     </Card>
   );
 };
@@ -73,20 +75,14 @@ const Card = styled(Link)`
   display: flex;
   flex-direction: column;
   gap: 16rwd;
-  padding: 16rwd;
-  border: 1px solid var(--color-border);
+  padding: 24rwd;
+  background-color: var(--color-bg-recessed);
   transition:
     border-color ${CARD_TRANSITION},
     box-shadow ${CARD_TRANSITION},
     transform ${CARD_TRANSITION};
 
   color: var(--bark-800) !important;
-  &.horizontal {
-    flex-direction: row;
-    gap: 8rwd;
-    padding: 0;
-    align-items: flex-end;
-  }
 
   &:hover {
     border-color: var(--color-fg);
@@ -128,6 +124,20 @@ const Card = styled(Link)`
     align-items: center;
     p {
       font-size: 12rwd;
+    }
+  }
+
+  &.horizontal {
+    flex-direction: row;
+    gap: 8rwd;
+    padding: 0;
+    align-items: center;
+    background-color: transparent;
+
+    .image {
+      aspect-ratio: 4 / 3;
+      height: 100%;
+      object-fit: cover;
     }
   }
 

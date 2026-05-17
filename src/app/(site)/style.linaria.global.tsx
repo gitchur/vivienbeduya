@@ -94,13 +94,13 @@ export const globals = css`
 
       --header-height: 72rwd;
 
-      --font-primary: "Outfit", Arial, system-ui, "Open Sans", sans-serif;
-      --font-secondary: "Tilt Warp", Arial, system-ui, "Open Sans", sans-serif;
+      --font-primary: "DM Sans", Arial, system-ui, "Open Sans", sans-serif;
+      --font-secondary: "Fraunces", Arial, system-ui, "Open Sans", sans-serif;
       --font-weight-light: 300;
       --font-weight-regular: 400;
       --font-weight-bold: 600;
 
-      --theme-page-horizontal-padding: 32rwd;
+      --theme-page-horizontal-padding: 64rwd;
 
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
@@ -108,7 +108,7 @@ export const globals = css`
       font-family: var(--font-primary);
       font-size: 17rwd;
       font-weight: var(--font-weight-light);
-      background-color: var(--color-bg-recessed);
+      background-color: var(--color-bg-elevated);
       color: var(--color-fg);
       line-height: 1.5;
 

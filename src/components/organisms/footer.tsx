@@ -1,7 +1,6 @@
 import SanityIcon from "@flight-digital/flightdeck/pebbles/sanityIcon";
 import { styled } from "@linaria/react";
 import Link from "../atoms/link";
-import RichText from "../molecules/richText";
 
 interface Props {
   data: Sanity.Maybe<Sanity.Footer>;
@@ -11,7 +10,8 @@ interface Props {
 const Footer = ({ data, socialMedias }: Props) => {
   if (!data) return null;
 
-  const { bottomLinks, copyright, navigation } = data;
+  const copyrightYear = new Date().getFullYear();
+  const { navigation } = data;
 
   return (
     <Wrapper>
@@ -45,15 +45,9 @@ const Footer = ({ data, socialMedias }: Props) => {
           </ul>
         </div>
       </div>
-      <div className="bottom-area">
-        <RichText data={copyright} />
-        <ul className="bottom-links">
-          {bottomLinks?.map((link) => (
-            <li key={link?._key}>
-              <Link data={link} className="nav-link" />
-            </li>
-          ))}
-        </ul>
+      <div className="footer-bottom">
+        <span className="small">&copy; {copyrightYear} Bisaya Banter</span>
+        <span className="small">Made with kape ❤️ in Aotearoa</span>
       </div>
     </Wrapper>
   );
@@ -154,9 +148,9 @@ const Wrapper = styled.footer`
 
       .title {
         font-size: 14rwd;
-        margin-bottom: 32rwd;
+        margin-bottom: 8rwd;
         text-transform: uppercase;
-        font-weight: var(--font-weight-bold);
+        font-family: monospace;
         color: var(--color-fg-on-dark);
 
         @media --base-down {
@@ -187,36 +181,22 @@ const Wrapper = styled.footer`
     }
   }
 
-  .bottom-area {
+  .footer-bottom {
     display: flex;
-    gap: 20rwd;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
-    padding-top: 20rwd;
-    padding-bottom: 4rwd;
+    gap: 16rwd;
+    margin-top: 32rwd;
+    padding-top: 24rwd;
+    border-top: 1px solid var(--color-border);
+    letter-spacing: 0.08em;
 
     @media --base-down {
       gap: 16rwm;
+      margin-top: 16rwm;
       padding-top: 16rwm;
       flex-direction: column;
-      padding-bottom: 0;
-    }
-
-    * {
-      font-size: 13rw;
-      color: var(--color-text-muted);
-    }
-
-    .rich-text {
-      text-align: center;
-    }
-
-    .bottom-links {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      gap: 20rw;
+      align-items: flex-start;
     }
   }
 `;

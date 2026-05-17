@@ -115,6 +115,7 @@ export const AltText = ({
 
 const Wrapper = styled.span`
   display: inline;
+  color: white !important;
 `;
 
 const Cursor = styled.span`

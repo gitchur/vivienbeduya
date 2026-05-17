@@ -87,6 +87,10 @@ const Wrapper = styled.div`
     }
   }
 
+  .article-card {
+    padding-top: 8rwd;
+  }
+
   @media --base-down {
     display: flex;
     flex-direction: column;
