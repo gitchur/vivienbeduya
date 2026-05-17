@@ -2,7 +2,6 @@
 
 import Image from "@/components/atoms/image";
 import { mergeClassNames } from "@flight-digital/flightdeck/helpers";
-import { css } from "@linaria/core";
 import { styled } from "@linaria/react";
 import { useState } from "react";
 import Link from "@/components/atoms/link";
@@ -12,16 +11,9 @@ interface Props {
   data: Sanity.Maybe<Sanity.Article>;
   className?: string;
   horizontal?: boolean;
-  /** When false, renders a static card (use when already wrapped in a parent link). Default true. */
-  asLink?: boolean;
 }
 
-export const ArticleCard = ({
-  data,
-  className,
-  horizontal = false,
-  asLink = true,
-}: Props): React.JSX.Element | null => {
+export const ArticleCard = ({ data, className, horizontal = false }: Props) => {
   const [hovered, setHovered] = useState(false);
   if (!data) return null;
 
@@ -34,17 +26,18 @@ export const ArticleCard = ({
   const postDate = publishDate ? format(new Date(publishDate), "dd MMMM yyyy") : null;
   const firstTag = tags?.[0];
 
-  const cardClassName = mergeClassNames("article-card", className, horizontal ? "horizontal" : "");
-  const cardHandlers = {
-    onMouseEnter: () => setHovered(true),
-    onMouseLeave: () => setHovered(false),
-  };
-
-  const cardContent = (
-    <>
+  return (
+    <Card
+      className={mergeClassNames("article-card", className, horizontal ? "horizontal" : "")}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      data={{ slug: data?.slug }}
+    >
       <div className="article-card__image-wrapper">
-        <Image data={data.image} />
-        {firstTag?.name && <span className="article-card__tag small">{firstTag.name}</span>}
+        <Image data={data?.image} />
+        {firstTag?.name && (
+          <span className="article-card__tag small">{firstTag.name}</span>
+        )}
       </div>
       <ContentBlock>
         <FadeLayer $visible={!hasAlt || !showAlt} $isAlt={false}>
@@ -58,7 +51,7 @@ export const ArticleCard = ({
           </FadeLayer>
         )}
       </ContentBlock>
-      {!horizontal && (
+      {!horizontal &&
         <ContentBlock>
           <FadeLayer $visible={!hasAlt || !showAlt} $isAlt={false}>
             <p className="article-card__description">{description}</p>
@@ -71,35 +64,21 @@ export const ArticleCard = ({
             </FadeLayer>
           )}
         </ContentBlock>
-      )}
-      {!horizontal && (
+      }
+      {!horizontal &&
         <div className="article-meta">
           <p className="article-meta__date">{postDate}</p>
           <div className="article-meta__separator">•</div>
-          <p className="article-meta__read-time">{data.suggestedReadTime} min read</p>
+          <p className="article-meta__read-time">{data?.suggestedReadTime} min read</p>
         </div>
-      )}
-    </>
-  );
-
-  if (!asLink) {
-    return (
-      <CardStatic className={cardClassName} {...cardHandlers}>
-        {cardContent}
-      </CardStatic>
-    );
-  }
-
-  return (
-    <CardLink className={cardClassName} {...cardHandlers} data={{ slug: data.slug }}>
-      {cardContent}
-    </CardLink>
+      }
+    </Card>
   );
 };
 
 const CARD_TRANSITION = "0.35s ease";
 
-const articleCardStyles = css`
+const Card = styled(Link)`
   display: flex;
   flex-direction: column;
   gap: 16rwd;
@@ -208,14 +187,6 @@ const articleCardStyles = css`
   }
 `;
 
-const CardLink = styled(Link)`
-  ${articleCardStyles};
-`;
-
-const CardStatic = styled.article`
-  ${articleCardStyles};
-`;
-
 const FADE_DURATION = "0.25s ease";
 
 /* Grid: both layers sit in the same cell so row height = max(default, alt) */
@@ -229,7 +200,9 @@ const FadeLayer = styled.div<{ $visible: boolean; $isAlt?: boolean }>`
   grid-column: 1;
   grid-row: 1;
   opacity: ${(p) => (p.$visible ? 1 : 0)};
-  pointer-events: ${(p) => (p.$isAlt ? (p.$visible ? "auto" : "none") : "auto")};
+  pointer-events: ${(p) =>
+    p.$isAlt ? (p.$visible ? "auto" : "none") : "auto"};
   transition: opacity ${FADE_DURATION};
   min-height: 0;
 `;
+

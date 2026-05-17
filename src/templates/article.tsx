@@ -16,7 +16,7 @@ export default async function ArticleTemplate({ data }: Props) {
   const NextRead = () => (
     <Link data={nextRead} alwaysReturnLink className="next-read">
       <AlternativeText text="Next Read" altText="Sunod nga basahonon" />
-      <ArticleCard data={nextRead} horizontal asLink={false} />
+      <ArticleCard data={nextRead} horizontal />
     </Link>
   )
 
