@@ -154,7 +154,7 @@ const Card = styled(Link)`
     flex-direction: row;
     gap: 8rwd;
     padding: 0;
-    align-items: center;
+    align-items: flex-end;
     background-color: transparent;
 
     .article-card__tag {

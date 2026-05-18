@@ -1,5 +1,6 @@
 import Blocks from "@/components/blocks/blocks";
 import PostTitle from "@/components/molecules/postTitle";
+import { ArticleExpandButton } from "@/components/molecules/articleExpandButton";
 import { styled } from "@linaria/react";
 import { getNextReadPost } from "@/queries/global";
 import { ArticleCard } from "@/components/blocks/articlesList/articleCard";
@@ -20,9 +21,12 @@ export default async function ArticleTemplate({ data }: Props) {
   )
 
   return (
-    <Wrapper>
+    <Wrapper className="article-wrapper">
       <PostTitle data={data}>
         <NextRead />
+        <div className="expand-btn-track">
+          <ArticleExpandButton />
+        </div>
       </PostTitle>
       <div className="article-content-area">
         <Blocks data={data?.blocks} />
@@ -37,7 +41,33 @@ export default async function ArticleTemplate({ data }: Props) {
 
 const Wrapper = styled.div`
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 1fr 1fr;
+  transition: grid-template-columns 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+  &[data-expanded] {
+    grid-template-columns: 1fr 3fr;
+  }
+
+  .expand-btn-track {
+    grid-column: 1;
+    grid-row: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+    pointer-events: none;
+    z-index: 10;
+    position: absolute;
+    right: -18rwd;
+    bottom: 50%;
+    align-self: start;
+    height: 0;
+    overflow: visible;
+
+    @media --base-down {
+      display: none;
+    }
+  }
+
   .article-content-area {
     padding-top: 64rwd;
     display: flex;
@@ -78,7 +108,7 @@ const Wrapper = styled.div`
   }
 
   .next-read-desktop {
-    width: 80%;
+    width: 90%;
     cursor: pointer;
     img {
       max-width: 170rwd;

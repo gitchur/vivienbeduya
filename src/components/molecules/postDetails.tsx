@@ -45,6 +45,7 @@ const Wrapper = styled.div`
     display: flex;
     align-items: center;
     gap: 8rwd;
+    flex-flow: wrap;
   }
 
   .author-image {

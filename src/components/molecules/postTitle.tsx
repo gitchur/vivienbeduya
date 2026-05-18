@@ -16,14 +16,14 @@ export default async function PostTitle({ data, children }: Props) {
   const publishDate = data?.publishDate ? format(new Date(data?.publishDate), "dd MMMM yyyy") : null;
 
   return (
-    <Wrapper>
+    <Wrapper className="post-title-area">
       {data?.image?.desktopImage?.asset && (
         <Image data={data?.image} loading="eager" className="background-image" />
       )}
       <div className="date-and-read-time">
         <p className="date">{publishDate}</p>
       </div>
-      <h1 className="h2">{title}</h1>
+      <h1 className="h3">{title}</h1>
       <PostDetails data={data} />
       <div className="social-medias">
         <Sharing />
