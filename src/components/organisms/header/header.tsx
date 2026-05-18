@@ -1,15 +1,16 @@
 "use client";
 
-import { IconClose, IconHamburger } from "@/components/atoms/icon";
+import { IconClose, IconHamburger, IconSearch } from "@/components/atoms/icon";
 import Image from "@/components/atoms/image";
 import Link from "@/components/atoms/link";
-import { mergeClassNames } from "@flight-digital/flightdeck/helpers";
+import { mergeClassNames, updateLenisScroll } from "@flight-digital/flightdeck/helpers";
 import useHasScrolled from "@flight-digital/flightdeck/hooks/useHasScrolled";
 import useScrollDirection from "@flight-digital/flightdeck/hooks/useScrollDirection";
 import { styled } from "@linaria/react";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import Nav from "./nav";
+import SearchMenu from "./searchMenu";
 
 interface Props {
   data?: Sanity.Maybe<Sanity.Header>;
@@ -20,6 +21,22 @@ const Header = ({ data }: Props) => {
   const direction = useScrollDirection(20);
   const pathname = usePathname();
   const [sideMenuOpen, setSideMenuOpen] = useState(false);
+  const [searchMenuOpen, setSearchMenuOpen] = useState(false);
+
+  const handleChangeSearchMenuVisibility = (visible: boolean) => {
+    setSearchMenuOpen(visible);
+    setSideMenuOpen(false);
+  };
+
+  // biome-ignore lint/correctness/useExhaustiveDependencies: pathname is needed to close the side menu on route change
+  useEffect(() => {
+    // Close side menu on route change
+    setSideMenuOpen(false);
+    setSearchMenuOpen(false);
+    updateLenisScroll("start");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pathname]);
+
 
   const headerVisible = sideMenuOpen || !Boolean(data?.hideOnScroll) || !scrolled || direction === "up";
 
@@ -45,7 +62,12 @@ const Header = ({ data }: Props) => {
         <Link data={{ url: "/" }} aria-label="Go to Homepage" className="logo-area">
           <Image data={data.logo} loading="eager" width={230} className="logo" alt="Logo" />
         </Link>
-        <div />
+        <button
+          className="search-button"
+          onClick={() => handleChangeSearchMenuVisibility(true)}
+          aria-label="Search">
+          <IconSearch size={36} />
+        </button>
         <div className="mobile-menu">
           <button
             className="mobile-menu-button"
@@ -60,6 +82,7 @@ const Header = ({ data }: Props) => {
           </button>
         </div>
       </div>
+      <SearchMenu open={searchMenuOpen} onClose={() => handleChangeSearchMenuVisibility(false)} />
     </Wrapper>
   );
 };
@@ -110,6 +133,10 @@ const Wrapper = styled.header`
       justify-content: space-between;
       align-items: center;
     }
+  }
+
+  .search-button {
+    font-size: 36rwd;
   }
 
   .logo-area {

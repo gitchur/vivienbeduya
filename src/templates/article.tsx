@@ -2,7 +2,6 @@ import Blocks from "@/components/blocks/blocks";
 import PostTitle from "@/components/molecules/postTitle";
 import { styled } from "@linaria/react";
 import { getNextReadPost } from "@/queries/global";
-import Link from "@/components/atoms/link";
 import { ArticleCard } from "@/components/blocks/articlesList/articleCard";
 import { AlternativeText } from "@/components/atoms/altText";
 

@@ -5,11 +5,11 @@ interface Props {
   data: Sanity.Maybe<Sanity.BlockArticlesList>;
 }
 
-export const ITEMS_PER_PAGE = 3;
+export const ITEMS_LIMIT = 3;
 
-// THIS IS JUST AN EXAMPLE BLOCK, PLEASE DELETE THIS FILE IF YOU DON'T NEED IT OR MODIFY IT ACCORDINGLY
 const BlockArticlesList = async ({ data }: Props) => {
-  const listData = await getArticlesList(0, ITEMS_PER_PAGE);
+  const itemsPerPage = data?.showAll ? 9 : ITEMS_LIMIT;
+  const listData = await getArticlesList(0, itemsPerPage, undefined);
 
   if (!data) return null;
   return <List data={data} initialList={listData} />;

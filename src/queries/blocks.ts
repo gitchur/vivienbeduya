@@ -118,6 +118,7 @@ const blockContainerFields = defineBlockQuery("block.container")(
 
 const blockArticlesListFields = defineBlockQuery("block.articlesList")(
   `
+  showAll,
   content { ${richTextFields} }
 `,
 );

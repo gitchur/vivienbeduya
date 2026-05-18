@@ -8,7 +8,7 @@ import Button from "@flight-digital/flightdeck/pebbles/button";
 import ErrorFeedback from "@flight-digital/flightdeck/pebbles/errorFeedback";
 import { styled } from "@linaria/react";
 import { useState } from "react";
-import { ITEMS_PER_PAGE } from "./articlesList";
+import { ITEMS_LIMIT } from "./articlesList";
 import NextLink from "next/link";
 
 interface Props {
@@ -20,7 +20,7 @@ const getInitialSettings = (initialList?: Sanity.Maybe<Sanity.Article[]>) => {
   return {
     loading: false,
     page: 0,
-    hasLoadMore: initialList?.length === ITEMS_PER_PAGE,
+    hasLoadMore: initialList?.length === ITEMS_LIMIT,
   };
 };
 
@@ -41,14 +41,14 @@ const List = ({ data, initialList }: Props) => {
 
     try {
       handleChangeSetting("loading", true);
-      const newList = await getArticlesList(settings.page + 1, ITEMS_PER_PAGE);
+      const newList = await getArticlesList(settings.page + 1, ITEMS_LIMIT);
 
       setListData((prev) => [...prev, ...(newList ?? [])]);
       setSettings((prev) => ({
         ...prev,
         page: prev.page + 1,
         loading: false,
-        hasLoadMore: newList?.length === ITEMS_PER_PAGE,
+        hasLoadMore: newList?.length === ITEMS_LIMIT,
       }));
     } catch (error) {
       console.error(error);
@@ -62,9 +62,11 @@ const List = ({ data, initialList }: Props) => {
     >
       <div className="top-area">
         <RichText data={data.content} data-sanity-path="content" />
-        <NextLink href="/articles" className="bark design">
-          <span>Browse all stories</span>
-        </NextLink>
+        {!data.showAll &&
+          <NextLink href="/articles" className="bark design">
+            <span>Browse all stories</span>
+          </NextLink>
+        }
       </div>
       {listData?.length ? (
         <div className="articles-list">
@@ -78,7 +80,7 @@ const List = ({ data, initialList }: Props) => {
       {settings.hasLoadMore ? (
         <Button
           design="underline"
-          className="load-more-button"
+          className="load-more-button bark"
           loading={settings.loading ? "Loading..." : undefined}
           onClick={() => handleLoadArticles("loadMore")}
         >

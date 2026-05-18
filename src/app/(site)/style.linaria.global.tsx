@@ -149,6 +149,12 @@ export const globals = css`
         border-color: var(--color-rule) !important;
       }
 
+      .rich-text {
+        p {
+          margin-bottom: 16rwd;
+        }
+      }
+
       @media --base-down {
         --theme-page-horizontal-padding: 16rwm;
         font-size: 15rwm;
