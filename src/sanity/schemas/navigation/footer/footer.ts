@@ -15,12 +15,8 @@ export default defineType({
     }),
     defineField({
       name: "copyright",
+      title: "Footer Excerpt",
       type: "heading",
-    }),
-    defineField({
-      name: "bottomLinks",
-      type: "array",
-      of: [{ type: "link" }],
     }),
   ],
   preview: {

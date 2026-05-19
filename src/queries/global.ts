@@ -44,8 +44,7 @@ const footerFields = defineQuery(`
     title,
     links[] { ${linkFields} }
   },
-  copyright { ${richTextFields} },
-  bottomLinks[] { ${linkFields} }
+  copyright { ${richTextFields} }
 `);
 
 const siteSettingsFields = defineQuery(`

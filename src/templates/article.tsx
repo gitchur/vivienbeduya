@@ -127,6 +127,23 @@ const Wrapper = styled.div`
     font-family: var(--font-secondary);
   }
 
+  .post-content {
+    --theme-page-horizontal-padding: 0;
+    padding: 20rwd 0;
+
+    @media --base-down {
+      padding: 0;
+    }
+
+    .block {
+      scroll-margin-top: 120rwd;
+
+      @media --base-down {
+        scroll-margin-top: 100rwm;
+      }
+    }
+  }
+
   @media --base-down {
     display: flex;
     flex-direction: column;
@@ -152,29 +169,15 @@ const Wrapper = styled.div`
 
     .article-content-area {
       z-index: 1;
-      padding: 16rwm 0;
+      padding: 32rwm 0;
     }
     .block {
       padding: 16rwm;
       margin: 0 8rwm;
       background-color: var(--color-bg);
     }
-  }
-
-  .post-content {
-    --theme-page-horizontal-padding: 0;
-    padding: 20rwd 0;
-
-    @media --base-down {
-      padding: 0;
-    }
-
-    .block {
-      scroll-margin-top: 120rwd;
-
-      @media --base-down {
-        scroll-margin-top: 100rwm;
-      }
+    &.article-wrapper {
+      padding-bottom: 32rwm;
     }
   }
 `;

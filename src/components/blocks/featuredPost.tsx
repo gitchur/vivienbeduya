@@ -29,7 +29,6 @@ export const FeaturedPost = async ({ data, className }: Props) => {
     <Wrapper className={mergeClassNames("featured-post", className)}>
       {image && <Image data={image} className="featured-post__bg" loading="eager" />}
       <div className="featured-post__overlay" />
-      <div />
 
       <div className="featured-post__body">
         <div>
@@ -68,7 +67,7 @@ const Wrapper = styled.div`
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-end;
   min-height: 80dvh;
   padding: 48rwd var(--theme-page-horizontal-padding);
   color: var(--color-white);
@@ -86,9 +85,9 @@ const Wrapper = styled.div`
     position: absolute;
     inset: 0;
     background: linear-gradient(
-      to bottom,
-      color-mix(in srgb, var(--bark-900) 10%, transparent) 0%,
-      color-mix(in srgb, var(--bark-900) 80%, transparent) 100%
+      to left,
+      color-mix(in srgb, var(--bark-900) 0%, transparent) 0%,
+      color-mix(in srgb, var(--bark-900) 100%, transparent) 100%
     );
     z-index: 1;
   }
@@ -122,8 +121,9 @@ const Wrapper = styled.div`
     position: relative;
     z-index: 2;
     display: flex;
-    align-items: flex-end;
-    gap: 48rwd;
+    flex-direction: column;
+    gap: 36rwd;
+    width: 420rwd;
   }
 
   .featured-post__title {

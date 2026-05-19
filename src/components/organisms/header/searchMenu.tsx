@@ -129,6 +129,8 @@ export default SearchMenu;
 const Wrapper = styled.div`
   background-color: var(--color-bg-elevated);
   flex: 1;
+  background: color-mix(in oklch, var(--color-bg) 75%, transparent);
+  backdrop-filter: blur(4px);
 
   .search-input-area {
     height: var(--header-height);
@@ -156,7 +158,8 @@ const Wrapper = styled.div`
   }
 
   .results-area {
-    padding: 64rwd 32rwd 128rwd 32rwd;
+    padding: 32rwd 32rwd 128rwd 32rwd;
+    border-top: 1px solid var(--color-border);
 
     @media --base-down {
       padding: 20rwm 0 100rwm;

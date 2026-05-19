@@ -1,6 +1,8 @@
 import SanityIcon from "@flight-digital/flightdeck/pebbles/sanityIcon";
 import { styled } from "@linaria/react";
 import Link from "../atoms/link";
+import RichText from "../molecules/richText";
+import KlaviyoEmbed from "../molecules/klaviyoEmbed";
 
 interface Props {
   data: Sanity.Maybe<Sanity.Footer>;
@@ -11,11 +13,30 @@ const Footer = ({ data, socialMedias }: Props) => {
   if (!data) return null;
 
   const copyrightYear = new Date().getFullYear();
-  const { navigation } = data;
+  const { navigation, copyright } = data;
 
   return (
     <Wrapper>
       <div className="nav-menus">
+        <div className="footer-excerpt">
+          {copyright && <RichText data={copyright} />}
+          <div className="social-media-links">
+            <ul>
+              {socialMedias?.map((socialMedia) => (
+                <li key={socialMedia?._key}>
+                  <a
+                    href={socialMedia?.url ?? "#"}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="social-media-link"
+                  >
+                    <SanityIcon data={socialMedia?.icon} />
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
         {navigation?.map((nav) => (
           <div className="nav-menu" key={nav?._key}>
             <p className="title">{nav?.title}</p>
@@ -28,21 +49,9 @@ const Footer = ({ data, socialMedias }: Props) => {
             </ul>
           </div>
         ))}
-        <div className="social-media-links">
-          <ul>
-            {socialMedias?.map((socialMedia) => (
-              <li key={socialMedia?._key}>
-                <a
-                  href={socialMedia?.url ?? "#"}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="social-media-link"
-                >
-                  <SanityIcon data={socialMedia?.icon} />
-                </a>
-              </li>
-            ))}
-          </ul>
+        <div className="newsletter">
+          <h5>Subscribe to our newsletter</h5>
+          <KlaviyoEmbed />
         </div>
       </div>
       <div className="footer-bottom">
@@ -69,6 +78,14 @@ const Wrapper = styled.footer`
   background: var(--gradient-footer);
   background-size: 400% 400%;
   animation: gradient 15s ease infinite;
+
+  .footer-excerpt {
+    width: 300rwd;
+  }
+
+  .newsletter {
+    text-align: right;
+  }
 
   &::before {
     content: "";
@@ -130,7 +147,7 @@ const Wrapper = styled.footer`
 
   .nav-menus {
     display: flex;
-    gap: 24rwd;
+    gap: 64rwd;
 
     @media --base-down {
       gap: 16rwm;

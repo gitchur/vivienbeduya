@@ -1153,7 +1153,6 @@ type Footer = Document & {
   readonly _type: Maybe<Scalars['String']['output']>;
   /** Date the document was last modified */
   readonly _updatedAt: Maybe<Scalars['DateTime']['output']>;
-  readonly bottomLinks: Maybe<ReadonlyArray<Maybe<Link>>>;
   readonly copyright: Maybe<Heading>;
   readonly navigation: Maybe<ReadonlyArray<Maybe<FooterNavMenu>>>;
 };
