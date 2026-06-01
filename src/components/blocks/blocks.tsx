@@ -6,6 +6,7 @@ import BlockGap from "@flight-digital/flightdeck/blocks/gap";
 import BlockGrid from "@flight-digital/flightdeck/blocks/grid";
 import RichText from "../molecules/richText";
 import BlockArticlesList from "./articlesList/articlesList";
+import { ArticlesListSearchParams } from "./articlesList/searchParams";
 import { FeaturedPost } from "./featuredPost";
 // import { BlockStaggerProvider } from "./animatedBlockWrapper";
 import { Marquee } from "./marquee";
@@ -13,9 +14,10 @@ import PrimitiveBlock from "./primitiveBlocks";
 
 interface Props {
   data?: Sanity.Maybe<Partial<Sanity.Blocks>>;
+  searchParams?: ArticlesListSearchParams;
 }
 
-const Blocks = ({ data }: Props) => {
+const Blocks = ({ data, searchParams }: Props) => {
   if (!data?.list?.length) return null;
 
   return (
@@ -59,12 +61,12 @@ const Blocks = ({ data }: Props) => {
       />
       <CustomBlock<Sanity.Component>
         blockType="component"
-        element={(elData) => <Blocks data={{ list: elData as any }} />}
+        element={(elData) => <Blocks data={{ list: elData as any }} searchParams={searchParams} />}
       />
       {/* --- End of internal blocks, custom blocks below --- */}
       <CustomBlock<Sanity.BlockArticlesList>
         blockType="block.articlesList"
-        element={(elData) => <BlockArticlesList data={elData} />}
+        element={(elData) => <BlockArticlesList data={elData} searchParams={searchParams} />}
       />
       <CustomBlock<Sanity.BlockFeaturedPost>
         blockType="block.featuredPost"

@@ -17,6 +17,8 @@ const getProjection = (type: string) => {
 };
 
 export default async function PreviewPage({ searchParams }: PageProps<"/preview">) {
+  const loadedSearchParams = await searchParams;
+
   return (
     <NextPreview
       searchParams={searchParams}
@@ -27,7 +29,7 @@ export default async function PreviewPage({ searchParams }: PageProps<"/preview"
         logActions: true,
       }}
     >
-      {(data) => <TemplateRenderer data={data} />}
+      {(data) => <TemplateRenderer data={data} searchParams={loadedSearchParams} />}
     </NextPreview>
   );
 }

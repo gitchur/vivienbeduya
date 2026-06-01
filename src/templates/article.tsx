@@ -1,4 +1,5 @@
 import Blocks from "@/components/blocks/blocks";
+import { ArticlesListSearchParams } from "@/components/blocks/articlesList/searchParams";
 import PostTitle from "@/components/molecules/postTitle";
 import { ArticleExpandButton } from "@/components/molecules/articleExpandButton";
 import { styled } from "@linaria/react";
@@ -8,9 +9,10 @@ import { AlternativeText } from "@/components/atoms/altText";
 
 interface Props {
   data: Sanity.Article;
+  searchParams?: ArticlesListSearchParams;
 }
 
-export default async function ArticleTemplate({ data }: Props) {
+export default async function ArticleTemplate({ data, searchParams }: Props) {
   const nextRead = await getNextReadPost(data?._id);
 
   const NextRead = () => (
@@ -29,7 +31,7 @@ export default async function ArticleTemplate({ data }: Props) {
         </div>
       </PostTitle>
       <div className="article-content-area">
-        <Blocks data={data?.blocks} />
+        <Blocks data={data?.blocks} searchParams={searchParams} />
       </div>
       <div className="next-read-mobile">
         <NextRead />

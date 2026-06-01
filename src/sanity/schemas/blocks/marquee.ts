@@ -1,11 +1,11 @@
 import { defineBlock } from "@flight-digital/sanity-plugin-flightdeck";
-import { MdViewHeadline } from "react-icons/md";
+import { PiFlagBanner } from "react-icons/pi";
 import { defineField } from "sanity";
 
 export default defineBlock({
   name: "marquee",
   title: "Marquee",
-  icon: MdViewHeadline,
+  icon: PiFlagBanner,
   fields: [
     defineField({
       name: "items",

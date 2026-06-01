@@ -50,7 +50,7 @@ const Footer = ({ data, socialMedias }: Props) => {
           </div>
         ))}
         <div className="newsletter">
-          <h5>Subscribe to our newsletter</h5>
+          <h5>Get the banter in your inbox</h5>
           <KlaviyoEmbed />
         </div>
       </div>
@@ -85,6 +85,9 @@ const Wrapper = styled.footer`
 
   .newsletter {
     text-align: right;
+    display: flex;
+    flex-direction: column;
+    gap: 8rwd;
   }
 
   &::before {

@@ -125,7 +125,7 @@ const Wrapper = styled.div`
 
   .articles-list {
     display: grid;
-    grid-template-columns: repeat(3, minmax(1px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(350rwd, 1fr));
     column-gap: 24rwd;
     row-gap: 48rwd;
     transition: opacity 300ms;

@@ -84,12 +84,11 @@ export async function generateStaticParams(): Promise<{ slug: string[] }[]> {
   return staticParams;
 }
 
-export default async function Page({ params }: PageProps<"/[[...slug]]">) {
+export default async function Page({ params, searchParams }: PageProps<"/[[...slug]]">) {
   const loadedParams = await params;
+  const loadedSearchParams = await searchParams;
   const data = await getPage(loadedParams?.slug);
   const jsonLd = getJsonLd(data);
-
-  console.log(data);
 
   if (!data) return notFound();
 
@@ -97,10 +96,10 @@ export default async function Page({ params }: PageProps<"/[[...slug]]">) {
 
   return (
     <>
-      {jsonLd ? (
+      {jsonLd &&
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd as string }} />
-      ) : null}
-      <TemplateRenderer data={data} />
+      }
+      <TemplateRenderer data={data} searchParams={loadedSearchParams} />
       {customPageCode ? (
         <div
           className="custom-page-code"
