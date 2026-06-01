@@ -244,6 +244,7 @@ export const globals = css`
       .h6 {
         font-weight: var(--font-weight-regular);
         line-height: 1; 
+        padding-bottom: 16rwd;
       }
 
       .h1,

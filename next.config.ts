@@ -29,7 +29,7 @@ const config: LinariaConfig = {
         headers: [
           {
             key: "Content-Security-Policy",
-            value: "frame-ancestors 'self' http://localhost:3000 https://localhost:3000",
+            value: "frame-ancestors 'self' http://localhost:3000 https://bisayabanter.netlify.app",
           },
         ],
       },

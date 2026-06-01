@@ -94,8 +94,8 @@ const FilterList = styled.nav`
   }
 
   .category-filters__tag--active {
-    background-color: var(--color-violet);
-    color: var(--color-fg-muted);
+    background-color: var(--color-bg-inverted);
+    color: var(--color-white);
   }
 
   @media --base-down {
