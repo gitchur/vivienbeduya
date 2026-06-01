@@ -1,11 +1,11 @@
 import { sanityFetch } from "@/lib/sanityClient";
 import { buildPagePath } from "@/utils/helpers";
 import { defineQuery } from "next-sanity";
+import { cache } from "react";
 import {
   draftsFilter,
   imageFields,
   pagePreviewFields,
-  richTextFields,
   seoFields,
   slugWithPrefixFields,
   typeIsInAllPagesTypes,
@@ -28,9 +28,23 @@ export const pageFields = defineQuery(`
   },
 `);
 
+export const pageSeoFields = defineQuery(`
+  ${pagePreviewFields},
+  seo { ${seoFields} },
+  _type == "article" => {
+    image { ${imageFields} }
+  },
+`);
+
 export const pageBySlugQuery = defineQuery(`
   *[${typeIsInAllPagesTypes} && ${draftsFilter} && slug.current == $slug] {
     ${pageFields}
+  }
+`);
+
+export const pageSeoBySlugQuery = defineQuery(`
+  *[${typeIsInAllPagesTypes} && ${draftsFilter} && slug.current == $slug] {
+    ${pageSeoFields}
   }
 `);
 
@@ -41,15 +55,29 @@ export const allPagesSlugsQuery = defineQuery(`
   }
 `);
 
-/**
- * Fetches the page (or article) for the given URL path.
- * @param path - Full path segments from the URL, e.g. ["blog", "my-article"] for /blog/my-article.
- *               Must match the path built from the document's slug + prefix chain so prefixed pages resolve correctly.
- */
-export const getPage = async (path: string[] | undefined) => {
+const resolvePageByPath = <T extends Sanity.Page | Sanity.Article>(
+  path: string[] | undefined,
+  pages: Sanity.Maybe<T[]>,
+): T | null => {
   const isHome = !path || path.length === 0;
 
-  // Ignore Chrome DevTools JSON file
+  if (!pages?.length) return null;
+
+  const pageData = isHome
+    ? pages[0]
+    : pages.find((p) => JSON.stringify(buildPagePath(p)) === JSON.stringify(path));
+
+  if (!pageData?._type) return null;
+
+  return pageData;
+};
+
+const fetchPagesByPath = async <T extends Sanity.Page | Sanity.Article>(
+  path: string[] | undefined,
+  query: string,
+): Promise<T | null> => {
+  const isHome = !path || path.length === 0;
+
   if (path && ["com.chrome.devtools.json"].includes(path[path.length - 1])) {
     return null;
   }
@@ -57,22 +85,30 @@ export const getPage = async (path: string[] | undefined) => {
   const lastSlug = isHome ? "/" : path[path.length - 1];
 
   const pages = (await sanityFetch({
-    query: pageBySlugQuery,
+    query,
     params: { slug: lastSlug },
     tags: [`slug:${lastSlug}`],
-  })) as Sanity.Maybe<Sanity.Page[]>;
+  })) as Sanity.Maybe<T[]>;
 
-  if (!pages?.length) return null;
-
-  // Match by full path so prefixed pages (e.g. /blog/my-article) are not confused with root pages (e.g. /my-article).
-  const pageData = (
-    isHome ? pages[0] : pages.find((p) => JSON.stringify(buildPagePath(p)) === JSON.stringify(path))
-  ) as AllPagesData;
-
-  if (!pageData?._type) return null;
-
-  return pageData;
+  return resolvePageByPath(path, pages);
 };
+
+/**
+ * Fetches the page (or article) for the given URL path.
+ * @param path - Full path segments from the URL, e.g. ["blog", "my-article"] for /blog/my-article.
+ *               Must match the path built from the document's slug + prefix chain so prefixed pages resolve correctly.
+ */
+export const getPage = cache(async (path: string[] | undefined): Promise<AllPagesData | null> => {
+  return fetchPagesByPath<AllPagesData>(path, pageBySlugQuery);
+});
+
+export type PageSeoData = Pick<Sanity.Page, "_type" | "title" | "description" | "seo" | "slug"> &
+  Partial<Pick<Sanity.Article, "image">>;
+
+export const getPageSeo = cache(async (path: string[] | undefined): Promise<PageSeoData | null> => {
+  const page = await fetchPagesByPath<Sanity.Page | Sanity.Article>(path, pageSeoBySlugQuery);
+  return page as PageSeoData | null;
+});
 
 export const getAllPagesSlugs = async () => {
   const res = (await sanityFetch({

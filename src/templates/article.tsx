@@ -3,6 +3,7 @@ import { ArticlesListSearchParams } from "@/components/blocks/articlesList/searc
 import PostTitle from "@/components/molecules/postTitle";
 import { ArticleExpandButton } from "@/components/molecules/articleExpandButton";
 import { styled } from "@linaria/react";
+import { Suspense } from "react";
 import { getNextReadPost } from "@/queries/global";
 import { ArticleCard } from "@/components/blocks/articlesList/articleCard";
 import { AlternativeText } from "@/components/atoms/altText";
@@ -10,36 +11,56 @@ import { AlternativeText } from "@/components/atoms/altText";
 interface Props {
   data: Sanity.Article;
   searchParams?: ArticlesListSearchParams;
+  searchParamsPromise?: Promise<ArticlesListSearchParams | undefined>;
 }
 
-export default async function ArticleTemplate({ data, searchParams }: Props) {
-  const nextRead = await getNextReadPost(data?._id);
+interface NextReadProps {
+  articleId?: Sanity.Maybe<string>;
+}
 
-  const NextRead = () => (
+const ArticleNextRead = async ({ articleId }: NextReadProps): Promise<React.JSX.Element | null> => {
+  if (!articleId) return null;
+
+  const nextRead = await getNextReadPost(articleId);
+
+  return (
     <div className="next-read">
       <AlternativeText text="Next Read" altText="Sunod nga basahonon" />
       <ArticleCard data={nextRead} horizontal />
     </div>
-  )
+  );
+};
 
+export default function ArticleTemplate({
+  data,
+  searchParams,
+  searchParamsPromise,
+}: Props): React.JSX.Element {
   return (
     <Wrapper className="article-wrapper">
       <PostTitle data={data}>
-        <NextRead />
+        <Suspense fallback={null}>
+          <ArticleNextRead articleId={data._id} />
+        </Suspense>
         <div className="expand-btn-track">
           <ArticleExpandButton />
         </div>
       </PostTitle>
       <div className="article-content-area">
-        <Blocks data={data?.blocks} searchParams={searchParams} />
+        <Blocks
+          data={data?.blocks}
+          searchParams={searchParams}
+          searchParamsPromise={searchParamsPromise}
+        />
       </div>
       <div className="next-read-mobile">
-        <NextRead />
+        <Suspense fallback={null}>
+          <ArticleNextRead articleId={data._id} />
+        </Suspense>
       </div>
     </Wrapper>
   );
-};
-
+}
 
 const Wrapper = styled.div`
   display: grid;

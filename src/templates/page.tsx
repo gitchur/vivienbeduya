@@ -4,10 +4,17 @@ import { ArticlesListSearchParams } from "@/components/blocks/articlesList/searc
 interface Props {
   data: Sanity.Page;
   searchParams?: ArticlesListSearchParams;
+  searchParamsPromise?: Promise<ArticlesListSearchParams | undefined>;
 }
 
-const PageTemplate = ({ data, searchParams }: Props) => {
-  return <Blocks data={data?.blocks} searchParams={searchParams} />;
+const PageTemplate = ({ data, searchParams, searchParamsPromise }: Props) => {
+  return (
+    <Blocks
+      data={data?.blocks}
+      searchParams={searchParams}
+      searchParamsPromise={searchParamsPromise}
+    />
+  );
 };
 
 export default PageTemplate;

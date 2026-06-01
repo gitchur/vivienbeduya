@@ -7,6 +7,7 @@ import ThemeClasses from "@flight-digital/flightdeck/pebbles/themeClasses";
 import { Fraunces, DM_Sans } from "next/font/google";
 import "./style.linaria.global";
 import KlaviyoProvider from "@/components/organisms/klaviyoProvider";
+import { NavigationPending } from "@/components/organisms/navigationPending";
 
 // Replace with your fonts, also update the font-family in the style.linaria.global.tsx file
 export const fraunces = Fraunces({
@@ -26,7 +27,9 @@ export default async function Layout({ children }: LayoutProps<"/">) {
       <SmoothScroll />
       <Header data={navigation.header} />
       <KlaviyoProvider>
-        <main>{children}</main>
+        <main>
+          <NavigationPending>{children}</NavigationPending>
+        </main>
       </KlaviyoProvider>
       <Footer data={navigation.footer} socialMedias={navigation.settings?.socialMedias} />
     </div>

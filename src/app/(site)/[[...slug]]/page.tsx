@@ -1,6 +1,6 @@
 import TemplateRenderer from "@/components/organisms/templateRenderer";
 import { getSiteSettings } from "@/queries/global";
-import { getAllPagesSlugs, getPage } from "@/queries/pages";
+import { getAllPagesSlugs, getPage, getPageSeo } from "@/queries/pages";
 import { siteName } from "@/utils/constants";
 import { buildPagePath, getJsonLd } from "@/utils/helpers";
 import { Metadata } from "next";
@@ -10,7 +10,7 @@ type Props = PageProps<"/[[...slug]]">;
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const loadedParams = await params;
-  const data = await getPage(loadedParams?.slug);
+  const data = await getPageSeo(loadedParams?.slug);
   const settings = await getSiteSettings();
   const path = loadedParams?.slug;
   const isHome = !path || path.length === 0;
@@ -86,7 +86,6 @@ export async function generateStaticParams(): Promise<{ slug: string[] }[]> {
 
 export default async function Page({ params, searchParams }: PageProps<"/[[...slug]]">) {
   const loadedParams = await params;
-  const loadedSearchParams = await searchParams;
   const data = await getPage(loadedParams?.slug);
   const jsonLd = getJsonLd(data);
 
@@ -96,10 +95,10 @@ export default async function Page({ params, searchParams }: PageProps<"/[[...sl
 
   return (
     <>
-      {jsonLd &&
+      {jsonLd && (
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd as string }} />
-      }
-      <TemplateRenderer data={data} searchParams={loadedSearchParams} />
+      )}
+      <TemplateRenderer data={data} searchParamsPromise={searchParams} />
       {customPageCode ? (
         <div
           className="custom-page-code"

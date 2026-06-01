@@ -4,21 +4,36 @@ import BlockContainer from "@flight-digital/flightdeck/blocks/container";
 import CustomBlock from "@flight-digital/flightdeck/blocks/customBlock";
 import BlockGap from "@flight-digital/flightdeck/blocks/gap";
 import BlockGrid from "@flight-digital/flightdeck/blocks/grid";
+import { Suspense } from "react";
 import RichText from "../molecules/richText";
 import BlockArticlesList from "./articlesList/articlesList";
+import { ArticlesListSkeleton } from "./articlesList/articlesListSkeleton";
+import { BlockArticlesListWithSearchParams } from "./articlesList/articlesListWithSearchParams";
 import { ArticlesListSearchParams } from "./articlesList/searchParams";
 import { FeaturedPost } from "./featuredPost";
-// import { BlockStaggerProvider } from "./animatedBlockWrapper";
 import { Marquee } from "./marquee";
 import PrimitiveBlock from "./primitiveBlocks";
 
 interface Props {
   data?: Sanity.Maybe<Partial<Sanity.Blocks>>;
   searchParams?: ArticlesListSearchParams;
+  searchParamsPromise?: Promise<ArticlesListSearchParams | undefined>;
 }
 
-const Blocks = ({ data, searchParams }: Props) => {
+const Blocks = ({ data, searchParams, searchParamsPromise }: Props) => {
   if (!data?.list?.length) return null;
+
+  const renderArticlesList = (elData: Sanity.BlockArticlesList): React.JSX.Element => {
+    if (elData.showAll && searchParamsPromise) {
+      return (
+        <Suspense fallback={<ArticlesListSkeleton />}>
+          <BlockArticlesListWithSearchParams data={elData} searchParams={searchParamsPromise} />
+        </Suspense>
+      );
+    }
+
+    return <BlockArticlesList data={elData} searchParams={searchParams} />;
+  };
 
   return (
     <BlocksList data={data.list}>
@@ -61,12 +76,18 @@ const Blocks = ({ data, searchParams }: Props) => {
       />
       <CustomBlock<Sanity.Component>
         blockType="component"
-        element={(elData) => <Blocks data={{ list: elData as any }} searchParams={searchParams} />}
+        element={(elData) => (
+          <Blocks
+            data={{ list: elData as any }}
+            searchParams={searchParams}
+            searchParamsPromise={searchParamsPromise}
+          />
+        )}
       />
       {/* --- End of internal blocks, custom blocks below --- */}
       <CustomBlock<Sanity.BlockArticlesList>
         blockType="block.articlesList"
-        element={(elData) => <BlockArticlesList data={elData} searchParams={searchParams} />}
+        element={(elData) => renderArticlesList(elData)}
       />
       <CustomBlock<Sanity.BlockFeaturedPost>
         blockType="block.featuredPost"
