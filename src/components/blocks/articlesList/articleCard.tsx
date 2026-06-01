@@ -36,7 +36,7 @@ export const ArticleCard = ({ data, className, horizontal = false }: Props) => {
       <div className="article-card__image-wrapper">
         <Image data={data?.image} />
         {firstTag?.name && (
-          <span className="article-card__tag small">{firstTag.name}</span>
+          <span className="article-card__tag category-filters__tag small">{firstTag.name}</span>
         )}
       </div>
       <ContentBlock>
@@ -112,10 +112,6 @@ const Card = styled(Link)`
     position: absolute;
     top: 12rwd;
     left: 12rwd;
-    padding: 4rwd 10rwd;
-    border-radius: 999px;
-    background-color: var(--color-bg-recessed);
-    color: var(--bark-700);
     pointer-events: none;
   }
 

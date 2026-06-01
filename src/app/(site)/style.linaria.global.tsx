@@ -533,6 +533,31 @@ export const globals = css`
         animation: translation-reveal 0.6s ease-out forwards;
       }
 
+      .category-filters__tag {
+        padding: 4rwd 12rwd;
+        border-radius: 999px;
+        background-color: var(--color-bg-recessed);
+        color: var(--bark-700);
+        text-decoration: none;
+        transition:
+          background-color 0.2s ease,
+          color 0.2s ease;
+
+        @media --base-down {
+          padding: 4rwm 12rwm;
+        }
+      }
+
+      .category-filters__tag:hover {
+        background-color: var(--bark-700);
+        color: var(--color-white);
+      }
+
+      .category-filters__tag--active {
+        background-color: var(--color-bg-inverted);
+        color: var(--color-white);
+      }
+
       @keyframes translation-reveal {
         from {
           opacity: 0;

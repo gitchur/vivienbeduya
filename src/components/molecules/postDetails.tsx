@@ -1,5 +1,7 @@
 import { styled } from "@linaria/react";
 import Image from "@/components/atoms/image";
+import NextLink from "next/link";
+import { buildArticlesListHref, slugifyCategory } from "../blocks/articlesList/searchParams";
 
 interface Props {
   data: Maybe<Sanity.Article>;
@@ -9,13 +11,25 @@ export default function PostDetails({ data }: Props) {
   if (!data) return null;
   const { tags, author, suggestedReadTime } = data;
 
+
   return (
     <Wrapper>
       <div className="tags">
-        {/* TODO: Add tags logic */}
-        {tags?.map((tag, index) => (
-          <span key={tag?._key || index} className="tag-item">{tag?.name}</span>
-        ))}
+        {tags?.map((tag, index) => {
+          if (!tag?.name) return null;
+          const categoryHref = buildArticlesListHref({ page: 1, category: slugifyCategory(tag?.name) });
+          if (!categoryHref) return null;
+          return (
+            <NextLink
+              key={tag?._key || index}
+              className="tag-item category-filters__tag"
+              href={`/articles${categoryHref}`}
+              scroll={false}
+            >
+              {tag?.name}
+            </NextLink>
+          );
+        })}
       </div>
 
       <div className="author-info">
@@ -36,11 +50,6 @@ const Wrapper = styled.div`
     margin: 8rwd 0;
   }
 
-  .tag-item {
-    padding: 0rwd 8rwd;
-    border: 1px solid var(--color-fg-on-dark);
-  }
-
   .author-info {
     display: flex;
     align-items: center;
@@ -54,5 +63,4 @@ const Wrapper = styled.div`
     border-radius: 50%;
     object-fit: cover;
   }
-
 `;

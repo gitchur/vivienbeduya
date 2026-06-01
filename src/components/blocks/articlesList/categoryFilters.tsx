@@ -77,35 +77,10 @@ const FilterList = styled.nav`
   flex-shrink: 0;
   max-width: 50%;
 
-  .category-filters__tag {
-    padding: 4rwd 12rwd;
-    border-radius: 999px;
-    background-color: var(--color-bg-recessed);
-    color: var(--bark-700);
-    text-decoration: none;
-    transition:
-      background-color 0.2s ease,
-      color 0.2s ease;
-  }
-
-  .category-filters__tag:hover {
-    background-color: var(--bark-700);
-    color: var(--color-white);
-  }
-
-  .category-filters__tag--active {
-    background-color: var(--color-bg-inverted);
-    color: var(--color-white);
-  }
-
   @media --base-down {
     gap: 8rwm;
     justify-content: flex-start;
     max-width: 100%;
     width: 100%;
-
-    .category-filters__tag {
-      padding: 4rwm 12rwm;
-    }
   }
 `;
