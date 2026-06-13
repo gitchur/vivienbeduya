@@ -1,6 +1,6 @@
 import { mergeClassNames } from "@flight-digital/flightdeck/helpers";
 
-export const PageLoadingSkeleton = (): React.JSX.Element => {
+export const PageLoadingSkeleton = () => {
   return (
     <div
       className={mergeClassNames("page-loading")}

@@ -33,7 +33,8 @@ const headerFields = defineQuery(`
   _type,
   logo { ${imageFields} },
   navigation[] { ${headerNavigationFields} },
-  hideOnScroll
+  hideOnScroll,
+  bannerText { ${richTextFields} }
 `);
 
 const footerFields = defineQuery(`

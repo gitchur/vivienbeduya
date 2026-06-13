@@ -1339,6 +1339,7 @@ type Header = Document & {
   readonly _type: Maybe<Scalars['String']['output']>;
   /** Date the document was last modified */
   readonly _updatedAt: Maybe<Scalars['DateTime']['output']>;
+  readonly bannerText: Maybe<RichText>;
   /** Hides the header on scroll down to leave more space for user */
   readonly hideOnScroll: Maybe<Scalars['Boolean']['output']>;
   readonly logo: Maybe<AdaptiveImage>;
@@ -1354,6 +1355,7 @@ type HeaderFilter = {
   readonly _rev: InputMaybe<StringFilter>;
   readonly _type: InputMaybe<StringFilter>;
   readonly _updatedAt: InputMaybe<DatetimeFilter>;
+  readonly bannerText: InputMaybe<RichTextFilter>;
   readonly hideOnScroll: InputMaybe<BooleanFilter>;
   readonly logo: InputMaybe<AdaptiveImageFilter>;
 };
@@ -1387,6 +1389,7 @@ type HeaderSorting = {
   readonly _rev: InputMaybe<SortOrder>;
   readonly _type: InputMaybe<SortOrder>;
   readonly _updatedAt: InputMaybe<SortOrder>;
+  readonly bannerText: InputMaybe<RichTextSorting>;
   readonly hideOnScroll: InputMaybe<SortOrder>;
   readonly logo: InputMaybe<AdaptiveImageSorting>;
 };

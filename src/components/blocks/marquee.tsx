@@ -30,7 +30,6 @@ export const Marquee = ({ data, className }: Props): React.JSX.Element | null =>
 
 
 const Wrapper = styled.div`
-  background-color: var(--bark-700);
   border-top: 1px solid var(--color-border-strong);
   border-bottom: 1px solid var(--color-border-strong);
   overflow: hidden;

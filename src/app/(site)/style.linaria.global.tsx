@@ -630,7 +630,7 @@ export const globals = css`
         display: flex;
         flex-direction: column;
         gap: 32rwd;
-        min-height: 50vh;
+        min-height: 100dvh;
         padding: 64rwd var(--theme-page-horizontal-padding);
       }
 

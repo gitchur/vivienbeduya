@@ -100,6 +100,8 @@ const Wrapper = styled.div`
     }
   }
 
+  padding-bottom: 32rwd;
+
   .load-more-button {
     margin: 48rwd auto;
 

@@ -11,6 +11,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import Nav from "./nav";
 import SearchMenu from "./searchMenu";
+import RichText from "@/components/molecules/richText";
 
 interface Props {
   data?: Sanity.Maybe<Sanity.Header>;
@@ -50,6 +51,8 @@ const Header = ({ data }: Props) => {
   }, [pathname]);
 
   if (!data) return null;
+  const { bannerText, logo, navigation } = data;
+
   return (
     <Wrapper
       className={mergeClassNames("header", scrolled && "scrolled", headerVisible && "visible")}
@@ -57,17 +60,19 @@ const Header = ({ data }: Props) => {
       onTouchMove={(e) => e.stopPropagation()}
     >
       <div className="header-bar">
-
-        <Nav data={data.navigation} sideMenuOpen={sideMenuOpen} />
-        <Link data={{ url: "/" }} aria-label="Go to Homepage" className="logo-area">
-          <Image data={data.logo} loading="eager" width={230} className="logo" alt="Logo" />
-        </Link>
-        <button
-          className="search-button"
-          onClick={() => handleChangeSearchMenuVisibility(true)}
-          aria-label="Search">
-          <IconSearch size={36} />
-        </button>
+        <div className="header-bar-content">
+          <Nav data={navigation} sideMenuOpen={sideMenuOpen} />
+          <Link data={{ url: "/" }} aria-label="Go to Homepage" className="logo-area">
+            <Image data={logo} loading="eager" width={230} className="logo" alt="Logo" />
+          </Link>
+          <button
+            className="search-button"
+            onClick={() => handleChangeSearchMenuVisibility(true)}
+            aria-label="Search">
+            <IconSearch size={36} />
+          </button>
+          {bannerText && <RichText data={bannerText} />}
+        </div>
         <div className="mobile-menu">
           <button
             className="mobile-menu-button"
@@ -111,16 +116,13 @@ const Wrapper = styled.header`
     left: 0;
     width: 100%;
     z-index: 20;
-    min-height: var(--header-height);
+    
     transform: translateY(-102%);
     transition:
       transform 300ms cubic-bezier(0.77, 0.2, 0.5, 1),
       background-color 300ms cubic-bezier(0.77, 0.2, 0.5, 1);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 32rwd;
-    padding: 0 var(--theme-page-horizontal-padding);
+    display: block;
+
     color: var(--color-fg);
     background: color-mix(in oklch, var(--color-bg) 75%, transparent);
     backdrop-filter: blur(14px);
@@ -132,6 +134,33 @@ const Wrapper = styled.header`
       display: flex;
       justify-content: space-between;
       align-items: center;
+    }
+  }
+
+  .header-bar-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32rwd;
+    position: relative;
+    width: 100%;
+    padding: 0 var(--theme-page-horizontal-padding);
+    min-height: var(--header-height);
+
+    .rich-text {
+      position: absolute;
+      top: var(--header-height);
+      left: 0;
+      right: 0;
+      width: 100%;
+      height: fit-content;
+      z-index: 1;
+      background-color: var(--color-highlight);
+      color: white;
+      text-align: center;
+      p {
+        margin: 8rwd;
+      }
     }
   }
 

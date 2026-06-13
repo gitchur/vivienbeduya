@@ -29,6 +29,10 @@ export default defineType({
       type: "boolean",
       initialValue: true,
     }),
+    defineField({
+      name: "bannerText",
+      type: "richText",
+    }),
   ],
   preview: {
     prepare() {
