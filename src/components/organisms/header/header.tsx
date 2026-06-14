@@ -116,7 +116,6 @@ const Wrapper = styled.header`
     left: 0;
     width: 100%;
     z-index: 20;
-    padding: 0 var(--theme-page-horizontal-padding);
     transform: translateY(-102%);
     transition:
       transform 300ms cubic-bezier(0.77, 0.2, 0.5, 1),
@@ -145,6 +144,7 @@ const Wrapper = styled.header`
     position: relative;
     width: 100%;
     min-height: var(--header-height);
+    padding: 0 var(--theme-page-horizontal-padding);
 
     .rich-text {
       position: absolute;
@@ -166,6 +166,7 @@ const Wrapper = styled.header`
       padding: 0 16rwm;
       p {
         margin: 0;
+        font-size: 12rwm;
       }
     }
   }
