@@ -1,6 +1,5 @@
 import Footer from "@/components/organisms/footer";
 import Header from "@/components/organisms/header/header";
-import SmoothScroll from "@/components/organisms/smoothScroll";
 import { getLayoutRelatedData } from "@/queries/global";
 import { mergeClassNames } from "@flight-digital/flightdeck/helpers";
 import ThemeClasses from "@flight-digital/flightdeck/pebbles/themeClasses";
@@ -24,7 +23,6 @@ export default async function Layout({ children }: LayoutProps<"/">) {
   return (
     <div className={mergeClassNames("global-layout", fraunces.className, dm_sans.className)}>
       <ThemeClasses data={navigation?.theme?.classNames as any} />
-      <SmoothScroll />
       <Header data={navigation.header} />
       <KlaviyoProvider>
         <main>
