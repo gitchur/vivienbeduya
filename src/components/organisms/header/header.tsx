@@ -72,19 +72,19 @@ const Header = ({ data }: Props) => {
             <IconSearch size={36} />
           </button>
           {bannerText && <RichText data={bannerText} />}
-        </div>
-        <div className="mobile-menu">
-          <button
-            className="mobile-menu-button"
-            onClick={() => handleChangeSideMenuVisibility(!sideMenuOpen)}
-            aria-label="toggle side menu"
-          >
-            {sideMenuOpen ? (
-              <IconClose size={24} color="var(--color-fg)" />
-            ) : (
-              <IconHamburger size={24} color="var(--color-fg)" />
-            )}
-          </button>
+          <div className="mobile-menu">
+            <button
+              className="mobile-menu-button"
+              onClick={() => handleChangeSideMenuVisibility(!sideMenuOpen)}
+              aria-label="toggle side menu"
+            >
+              {sideMenuOpen ? (
+                <IconClose size={24} color="var(--color-fg)" />
+              ) : (
+                <IconHamburger size={24} color="var(--color-fg)" />
+              )}
+            </button>
+          </div>
         </div>
       </div>
       <SearchMenu open={searchMenuOpen} onClose={() => handleChangeSearchMenuVisibility(false)} />
@@ -116,7 +116,7 @@ const Wrapper = styled.header`
     left: 0;
     width: 100%;
     z-index: 20;
-    
+    padding: 0 var(--theme-page-horizontal-padding);
     transform: translateY(-102%);
     transition:
       transform 300ms cubic-bezier(0.77, 0.2, 0.5, 1),
@@ -129,7 +129,7 @@ const Wrapper = styled.header`
     border-bottom: 1px solid var(--color-border);
 
     @media --base-down {
-      padding: 0 16rwm;
+      padding: 0;
       gap: 16rwm;
       display: flex;
       justify-content: space-between;
@@ -144,7 +144,6 @@ const Wrapper = styled.header`
     gap: 32rwd;
     position: relative;
     width: 100%;
-    padding: 0 var(--theme-page-horizontal-padding);
     min-height: var(--header-height);
 
     .rich-text {
@@ -160,6 +159,13 @@ const Wrapper = styled.header`
       text-align: center;
       p {
         margin: 8rwd;
+      }
+    }
+
+    @media --base-down {
+      padding: 0 16rwm;
+      p {
+        margin: 0;
       }
     }
   }
@@ -187,9 +193,7 @@ const Wrapper = styled.header`
     }
 
     @media --base-down {
-      width: 150rwm;
-      min-width: 130rwm;
-      height: 34rwm;
+      height: 50rwm;
     }
 
     .image {
