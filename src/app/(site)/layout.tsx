@@ -7,6 +7,7 @@ import { Fraunces, DM_Sans } from "next/font/google";
 import "./style.linaria.global";
 import KlaviyoProvider from "@/components/organisms/klaviyoProvider";
 import { NavigationPending } from "@/components/organisms/navigationPending";
+import { GoogleAnalytics } from '@next/third-parties/google'
 
 // Replace with your fonts, also update the font-family in the style.linaria.global.tsx file
 export const fraunces = Fraunces({
@@ -22,6 +23,7 @@ export default async function Layout({ children }: LayoutProps<"/">) {
 
   return (
     <div className={mergeClassNames("global-layout", fraunces.className, dm_sans.className)}>
+      <GoogleAnalytics gaId="G-4C83XW1081" />
       <ThemeClasses data={navigation?.theme?.classNames as any} />
       <Header data={navigation.header} />
       <KlaviyoProvider>
