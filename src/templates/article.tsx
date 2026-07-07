@@ -6,7 +6,7 @@ import { styled } from "@linaria/react";
 import { Suspense } from "react";
 import { getNextReadPost } from "@/queries/global";
 import { ArticleCard } from "@/components/blocks/articlesList/articleCard";
-import { AlternativeText } from "@/components/atoms/altText";
+import TextType from "@/components/atoms/textType";
 
 interface Props {
   data: Sanity.Article;
@@ -25,7 +25,7 @@ const ArticleNextRead = async ({ articleId }: NextReadProps): Promise<React.JSX.
 
   return (
     <div className="next-read">
-      <AlternativeText text="Next Read" altText="Sunod nga basahonon" />
+      <TextType text={["Next Read", "Sunod nga basahonon"]} />
       <ArticleCard data={nextRead} horizontal />
     </div>
   );

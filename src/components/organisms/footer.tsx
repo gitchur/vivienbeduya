@@ -3,6 +3,7 @@ import { styled } from "@linaria/react";
 import Link from "../atoms/link";
 import RichText from "../molecules/richText";
 import KlaviyoEmbed from "../molecules/klaviyoEmbed";
+import CircularText from "../atoms/circurlarText";
 
 interface Props {
   data: Sanity.Maybe<Sanity.Footer>;
@@ -53,6 +54,11 @@ const Footer = ({ data, socialMedias }: Props) => {
           <h5>Get the banter in your inbox</h5>
           <KlaviyoEmbed />
         </div>
+        <CircularText
+          text="GET*WITH*THE*BANTER*"
+          onHover="speedUp"
+          spinDuration={20}
+        />
       </div>
       <div className="footer-bottom">
         <span className="small">&copy; {copyrightYear} Bisaya Banter</span>
