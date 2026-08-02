@@ -33,7 +33,10 @@ export const internalLinkFields = defineQuery(`
   _id,
   _type,
   title,
-  slug { ${slugWithPrefixFields} }
+  slug { ${slugWithPrefixFields} },
+  _type == "author" => {
+    firstName
+  }
 `);
 
 export const linkFields = defineQuery(`

@@ -152,7 +152,7 @@ type ArticleFilter = {
   readonly title: InputMaybe<StringFilter>;
 };
 
-type ArticleOrPage = Article | Page;
+type ArticleOrAuthorOrPage = Article | Author | Page;
 
 type ArticleSorting = {
   readonly _createdAt: InputMaybe<SortOrder>;
@@ -703,7 +703,7 @@ type Button = {
   readonly design: Maybe<Scalars['String']['output']>;
   readonly endIcon: Maybe<IconPicker>;
   readonly externalLink: Maybe<Scalars['String']['output']>;
-  readonly internalLink: Maybe<ArticleOrPage>;
+  readonly internalLink: Maybe<ArticleOrAuthorOrPage>;
   readonly openInNewTab: Maybe<Scalars['Boolean']['output']>;
   /** Add custom params to URL (e.g. ?key1=value1&key2=value2 or #anchor-id). MUST start with '#' or '?' */
   readonly params: Maybe<Scalars['String']['output']>;
@@ -1570,7 +1570,7 @@ type Link = {
   /** Add a hidden descriptive text to the link to avoid Lighthouse issues */
   readonly descriptiveText: Maybe<Scalars['String']['output']>;
   readonly externalLink: Maybe<Scalars['String']['output']>;
-  readonly internalLink: Maybe<ArticleOrPage>;
+  readonly internalLink: Maybe<ArticleOrAuthorOrPage>;
   readonly openInNewTab: Maybe<Scalars['Boolean']['output']>;
   /** Add custom params to URL (e.g. ?key1=value1&key2=value2 or #anchor-id). MUST start with '#' or '?' */
   readonly params: Maybe<Scalars['String']['output']>;
@@ -1610,7 +1610,7 @@ type LinkWithoutText = {
   /** Add a hidden descriptive text to the link to avoid Lighthouse issues */
   readonly descriptiveText: Maybe<Scalars['String']['output']>;
   readonly externalLink: Maybe<Scalars['String']['output']>;
-  readonly internalLink: Maybe<ArticleOrPage>;
+  readonly internalLink: Maybe<ArticleOrAuthorOrPage>;
   readonly openInNewTab: Maybe<Scalars['Boolean']['output']>;
   /** Add custom params to URL (e.g. ?key1=value1&key2=value2 or #anchor-id). MUST start with '#' or '?' */
   readonly params: Maybe<Scalars['String']['output']>;

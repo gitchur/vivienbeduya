@@ -44,7 +44,7 @@ const formattedAllPageTypes = allPageTypes.map((type) => ({ type }));
 
 // Shared fields for button, link and link without text
 const defButtonFields = {
-  internalReferenceTypes: [{ type: "page" }, { type: "article" }],
+  internalReferenceTypes: formattedAllPageTypes,
 };
 
 const flightDeckPlugin = flightDeck({
