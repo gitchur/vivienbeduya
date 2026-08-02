@@ -110,7 +110,9 @@ const flightDeckPlugin = flightDeck({
     button: {
       ...defButtonFields,
       // Customize the design options field based on your needs, update the styles in style.linaria.global.tsx
-      designOptions: [{ title: "Bark", value: "bark" }],
+      designOptions: [{ title: "Default", value: "bark" }],
+      disableEndIcon: true,
+      disableStartIcon: true,
     },
     ctaCard: {
       // Customize the design options field based on your needs
