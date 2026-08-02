@@ -33,7 +33,6 @@ export const StickyImagePanel = styled.div`
   min-height: 100dvh;
   height: fit-content;
   padding: 32rwd;
-  color: var(--color-fg-on-dark);
 
   .background-image {
     position: absolute;
@@ -44,8 +43,6 @@ export const StickyImagePanel = styled.div`
     height: 100%;
     object-fit: cover;
     z-index: -1;
-    object-position: center;
-    filter: brightness(0.6);
   }
 
   @media --base-down {
@@ -53,6 +50,9 @@ export const StickyImagePanel = styled.div`
     gap: 16rwm;
     position: relative;
     justify-content: flex-end;
+    /* Leave a sliver of viewport height for the content area to peek into,
+       hinting to the user that there's more to scroll to. */
+    min-height: calc(100dvh - 256rwm);
 
     .background-image {
       position: fixed;

@@ -31,7 +31,7 @@ export default function AuthorTemplate({ data }: Props): React.JSX.Element {
         {bio && <RichText data={bio} className="author-profile__bio" />}
         <TextType
           className="author-articles-area__label h5"
-          text={[`Stories by ${fullName}`, `Mga Sinulat ng ${fullName}`]}
+          text={[`Stories by ${firstName}`, `Mga Sinulat ng ${firstName}`]}
         />
         {articles.length ? (
           <div className="articles-list-grid">
@@ -65,6 +65,7 @@ const Wrapper = styled(SplitPageLayout)`
 
   @media --base-down {
     .author-articles-area {
+      z-index: 1;
       padding: 16rwm;
       margin: 0 8rwm;
       background-color: var(--color-bg);

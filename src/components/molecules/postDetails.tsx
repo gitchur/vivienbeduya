@@ -37,16 +37,19 @@ export default function PostDetails({ data }: Props) {
           <div className="author-info">
             {author.image && <Image data={author.image} loading="eager" className="author-image" />}
             {author.firstName && <b>Written by {author.firstName} {author?.lastName || ""}</b>}
-            {Boolean(suggestedReadTime) && <> • {suggestedReadTime} min read</>}
           </div>
         </NextLink>
       )}
+      {Boolean(suggestedReadTime) && <p> • {suggestedReadTime} min read</p>}
     </Wrapper>
   );
 }
 
 
 const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 16rwd;
   .tags {
     display: flex;
     gap: 8rwd;

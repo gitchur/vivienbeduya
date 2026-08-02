@@ -25,6 +25,9 @@ export default function AuthorProfile({ data, children }: Props): React.JSX.Elem
 }
 
 const Wrapper = styled(StickyImagePanel)`
+  .background-image {
+    object-position: top !important;
+  }
 
   .author-profile__bio {
     max-width: 480rwd;

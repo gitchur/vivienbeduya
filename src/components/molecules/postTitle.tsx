@@ -38,6 +38,12 @@ export default async function PostTitle({ data, children }: Props) {
 
 
 const Wrapper = styled(StickyImagePanel)`
+  color: var(--color-fg-on-dark);
+
+  .background-image {
+    filter: brightness(0.6);
+  }
+
   .date-and-read-time {
     display: flex;
     align-items: center;
