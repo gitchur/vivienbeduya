@@ -67,4 +67,9 @@ const Wrapper = styled.div`
     border-radius: 50%;
     object-fit: cover;
   }
+
+  a:hover {
+    color: var(--color-white);
+    text-decoration: underline;
+  }
 `;

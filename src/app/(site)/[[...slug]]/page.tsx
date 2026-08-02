@@ -2,7 +2,7 @@ import TemplateRenderer from "@/components/organisms/templateRenderer";
 import { getSiteSettings } from "@/queries/global";
 import { getAllPagesSlugs, getPage, getPageSeo } from "@/queries/pages";
 import { siteName } from "@/utils/constants";
-import { buildPagePath, getJsonLd } from "@/utils/helpers";
+import { buildPagePath, getJsonLd, truncateText } from "@/utils/helpers";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
@@ -16,10 +16,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isHome = !path || path.length === 0;
 
   const pageUrl = `${process.env.NEXT_PUBLIC_WEBSITE_URL}${isHome ? "" : `/${loadedParams?.slug?.join("/")}`}`;
+  const isArticle = data?._type === "article";
+  const isAuthor = data?._type === "author";
+
   const title = data?.seo?.pageTitle || data?.title || settings?.defaultSEO?.pageTitle || undefined;
   const description =
     data?.seo?.pageDescription ||
     data?.description ||
+    // Authors have no "description" field, so fall back to a plain-text excerpt of their bio.
+    (isAuthor && data?.bioExcerpt ? truncateText(data.bioExcerpt) : undefined) ||
     settings?.defaultSEO?.pageDescription ||
     undefined;
   const rawImage =
@@ -28,7 +33,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     settings?.defaultSEO?.image?.asset?.url ||
     undefined;
   const image = rawImage ? `${rawImage}?auto=format&fit=max&q=75&w=1000` : undefined;
-  const isArticle = data?._type === "article";
   const titleWithSuffix = settings?.defaultSEO?.pageTitleSuffix
     ? `${title} | ${settings.defaultSEO.pageTitleSuffix}`
     : undefined;
@@ -43,7 +47,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title,
       images: image,
       description,
-      type: isArticle ? "article" : "website",
+      ...(isAuthor
+        ? { type: "profile", firstName: data?.firstName, lastName: data?.lastName }
+        : { type: isArticle ? "article" : "website" }),
       siteName: siteName,
       url: pageUrl,
     },

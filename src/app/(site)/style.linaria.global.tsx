@@ -113,6 +113,39 @@ export const globals = css`
       color: var(--color-fg);
       line-height: 1.5;
 
+      .articles-list-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350rwd, 1fr));
+        column-gap: 24rwd;
+        row-gap: 48rwd;
+        transition: opacity 300ms;
+
+        @media --base-down {
+          grid-template-columns: 1fr;
+          row-gap: 24rwm;
+        }
+      } 
+
+      .expand-btn-track {
+        grid-column: 1;
+        grid-row: 1;
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-start;
+        pointer-events: none;
+        z-index: 10;
+        position: absolute;
+        right: -18rwd;
+        bottom: 50%;
+        align-self: start;
+        height: 0;
+        overflow: visible;
+
+        @media --base-down {
+          display: none;
+        }
+      }
+
       .modal{
         z-index: 1000;
       }

@@ -69,7 +69,7 @@ const List = ({ data, initialList }: Props) => {
         }
       </div>
       {listData?.length ? (
-        <div className="articles-list">
+        <div className="articles-list-grid">
           {listData?.map((article) => (
             <ArticleCard key={article?._id} data={article} />
           ))}
@@ -95,7 +95,7 @@ export default List;
 
 const Wrapper = styled.div`
   &.loading {
-    .articles-list {
+    .articles-list-grid {
       opacity: 0.6;
     }
   }
@@ -124,18 +124,4 @@ const Wrapper = styled.div`
       flex-direction: column;
     }
   }
-
-  .articles-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350rwd, 1fr));
-    column-gap: 24rwd;
-    row-gap: 48rwd;
-    transition: opacity 300ms;
-
-    @media --base-down {
-      grid-template-columns: 1fr;
-      row-gap: 24rwm;
-    }
-  }
-
 `;

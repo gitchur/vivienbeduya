@@ -38,7 +38,7 @@ export default function ArticleTemplate({
   searchParamsPromise,
 }: Props): React.JSX.Element {
   return (
-    <Wrapper className="article-wrapper">
+    <Wrapper className="page-wrapper">
       <PostTitle data={data}>
         <Suspense fallback={null}>
           <ArticleNextRead articleId={data._id} />
@@ -66,26 +66,6 @@ export default function ArticleTemplate({
 const Wrapper = styled(SplitPageLayout)`
   &[data-expanded] {
     grid-template-columns: 1fr 3fr;
-  }
-
-  .expand-btn-track {
-    grid-column: 1;
-    grid-row: 1;
-    display: flex;
-    justify-content: flex-end;
-    align-items: flex-start;
-    pointer-events: none;
-    z-index: 10;
-    position: absolute;
-    right: -18rwd;
-    bottom: 50%;
-    align-self: start;
-    height: 0;
-    overflow: visible;
-
-    @media --base-down {
-      display: none;
-    }
   }
 
   .article-content-area {
@@ -194,7 +174,7 @@ const Wrapper = styled(SplitPageLayout)`
       margin: 0 8rwm;
       background-color: var(--color-bg);
     }
-    &.article-wrapper {
+    &.page-wrapper {
       padding-bottom: 32rwm;
     }
   }

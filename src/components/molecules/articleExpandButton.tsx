@@ -10,7 +10,7 @@ export const ArticleExpandButton = () => {
   const toggle = useCallback(() => {
     const next = !expanded;
     setExpanded(next);
-    const wrapper = ref.current?.closest<HTMLElement>(".article-wrapper");
+    const wrapper = ref.current?.closest<HTMLElement>(".page-wrapper");
     if (!wrapper) return;
     if (next) {
       wrapper.setAttribute("data-expanded", "true");
@@ -23,7 +23,7 @@ export const ArticleExpandButton = () => {
     <Button
       ref={ref}
       onClick={toggle}
-      aria-label={expanded ? "Collapse article" : "Expand article to full width"}
+      aria-label={expanded ? "Collapse article" : "Expand article wider"}
       aria-pressed={expanded}
       data-expanded={expanded || undefined}
     >

@@ -5,6 +5,7 @@ import { SplitPageLayout } from "@/templates/pageLayout.styles";
 import ErrorFeedback from "@flight-digital/flightdeck/pebbles/errorFeedback";
 import { styled } from "@linaria/react";
 import RichText from "@/components/molecules/richText";
+import { ArticleExpandButton } from "@/components/molecules/articleExpandButton";
 
 interface Props {
   data: AuthorPageData;
@@ -17,8 +18,11 @@ export default function AuthorTemplate({ data }: Props): React.JSX.Element {
   const fullName = [firstName, lastName].filter(Boolean).join(" ");
 
   return (
-    <Wrapper className="author-wrapper">
+    <Wrapper className="page-wrapper">
       <AuthorProfile data={data} />
+      <div className="expand-btn-track">
+        <ArticleExpandButton />
+      </div>
       <div className="author-articles-area">
         <span className="eyebrow">Author</span>
         <h1 className="h2">{fullName}</h1>
@@ -29,7 +33,7 @@ export default function AuthorTemplate({ data }: Props): React.JSX.Element {
           text={[`Stories by ${fullName}`, `Mga Sinulat ng ${fullName}`]}
         />
         {articles.length ? (
-          <div className="author-articles-grid">
+          <div className="articles-list-grid">
             {articles.map((article) => (
               <ArticleCard key={article?._id} data={article} />
             ))}
@@ -58,13 +62,6 @@ const Wrapper = styled(SplitPageLayout)`
     text-transform: uppercase;
   }
 
-  .author-articles-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, 1fr);
-    column-gap: 24rwd;
-    row-gap: 48rwd;
-  }
-
   @media --base-down {
     .author-articles-area {
       padding: 16rwm;
@@ -74,11 +71,6 @@ const Wrapper = styled(SplitPageLayout)`
 
     .author-articles-area__label {
       margin-bottom: 16rwm;
-    }
-
-    .author-articles-grid {
-      grid-template-columns: 1fr;
-      row-gap: 24rwm;
     }
   }
 `;

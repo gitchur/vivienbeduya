@@ -39,6 +39,8 @@ export const pageFields = defineQuery(`
     role,
     image { ${imageFields} },
     bio { ${richTextFields} },
+    // Plain-text version of bio, used as a JSON-LD/meta description fallback (authors have no "description" field).
+    "bioExcerpt": pt::text(bio.blocks),
     "articles": *[_type == "article" && ${draftsFilter} && references(^._id)]
       | order(coalesce(publishDate, _createdAt) desc) { ${articlePreviewFields} }
   },
@@ -52,7 +54,13 @@ export const pageSeoFields = defineQuery(`
   },
   _type == "author" => {
     "title": ${authorNameField},
-    image { ${imageFields} }
+    // firstName is required by buildPagePath() to resolve the author's URL (authors have no slug field);
+    // without it, resolvePageByPath() can't match this document and getPageSeo() silently returns null.
+    firstName,
+    lastName,
+    image { ${imageFields} },
+    // Plain-text version of bio, used as a meta description fallback (authors have no "description" field).
+    "bioExcerpt": pt::text(bio.blocks)
   },
 `);
 
@@ -132,7 +140,8 @@ export const getPage = cache(async (path: string[] | undefined): Promise<AllPage
 });
 
 export type PageSeoData = Pick<Sanity.Page, "_type" | "title" | "description" | "seo" | "slug"> &
-  Partial<Pick<Sanity.Article, "image">>;
+  Partial<Pick<Sanity.Article, "image">> &
+  Partial<Pick<AuthorPageData, "firstName" | "lastName" | "bioExcerpt">>;
 
 export const getPageSeo = cache(async (path: string[] | undefined): Promise<PageSeoData | null> => {
   const page = await fetchPagesByPath<AllPagesData>(path, pageSeoBySlugQuery);

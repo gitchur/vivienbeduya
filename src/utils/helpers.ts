@@ -1,5 +1,7 @@
 import validateType from "@/utils/validateType";
 
+const SEO_DESCRIPTION_MAX_LENGTH = 160;
+
 const ROOT_SLUG_VALUES = ["", "/"];
 
 function isRootSegment(segment: string | undefined | null): boolean {
@@ -64,8 +66,47 @@ export function buildPagePath(page: AllPagesData): string[] {
   return parts.filter(Boolean);
 }
 
-export const getJsonLd = (data?: Sanity.Maybe<AllPagesData>) => {
+/**
+ * Truncates plain text to a max length for SEO meta descriptions/JSON-LD, breaking at a word
+ * boundary instead of mid-word.
+ */
+export function truncateText(text: string, maxLength = SEO_DESCRIPTION_MAX_LENGTH): string {
+  if (text.length <= maxLength) return text;
+
+  const truncated = text.slice(0, maxLength - 1);
+  const lastSpace = truncated.lastIndexOf(" ");
+
+  return `${(lastSpace > 0 ? truncated.slice(0, lastSpace) : truncated).trimEnd()}…`;
+}
+
+function buildAuthorJsonLd(author: AuthorPageData): string | null {
+  const fullName = [author.firstName, author.lastName].filter(Boolean).join(" ");
+  if (!fullName) return null;
+
+  const path = buildPagePath(author);
+  const imageUrl = author.image?.desktopImage?.asset?.url;
+  const bio = author.bioExcerpt?.trim();
+
+  return JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: fullName,
+    ...(author.role ? { jobTitle: author.role } : {}),
+    ...(bio ? { description: truncateText(bio, 300) } : {}),
+    ...(imageUrl ? { image: imageUrl } : {}),
+    ...(path.length
+      ? { url: `${process.env.NEXT_PUBLIC_WEBSITE_URL}/${path.join("/")}` }
+      : {}),
+  });
+}
+
+export const getJsonLd = (data?: Sanity.Maybe<AllPagesData>): string | null => {
   if (data?.seo?.jsonLD) return data.seo.jsonLD;
+
+  // Authors have no `seo` field in the schema, so fall back to a generated Person schema
+  // (helps EEAT signals/rich results for author pages).
+  if (validateType.isAuthor(data)) return buildAuthorJsonLd(data);
+
   // You can create conditional jsonLD based on the data type here (e.g. if (data?._type === "product") return some new object)
   return null;
 };

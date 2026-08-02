@@ -9,6 +9,8 @@ declare global {
     title?: Sanity.Maybe<string>;
     /** Authors have no `seo` field in the schema; always null, kept here so generic page code can optional-chain into it. */
     seo?: Sanity.Maybe<Sanity.Seo>;
+    /** Plain-text version of `bio`, query-computed via `pt::text()` as an SEO description fallback. */
+    bioExcerpt?: Sanity.Maybe<string>;
     articles?: Sanity.Maybe<readonly Sanity.Maybe<Sanity.Article>[]>;
   };
 
