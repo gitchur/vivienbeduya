@@ -19,10 +19,11 @@ export default function AuthorTemplate({ data }: Props): React.JSX.Element {
 
   return (
     <Wrapper className="page-wrapper">
-      <AuthorProfile data={data} />
-      <div className="expand-btn-track">
-        <ArticleExpandButton />
-      </div>
+      <AuthorProfile data={data}>
+        <div className="expand-btn-track">
+          <ArticleExpandButton />
+        </div>
+      </AuthorProfile>
       <div className="author-articles-area">
         <span className="eyebrow">Author</span>
         <h1 className="h2">{fullName}</h1>

@@ -5,9 +5,10 @@ import { styled } from "@linaria/react";
 
 interface Props {
   data: Maybe<AuthorPageData>;
+  children?: React.ReactNode;
 }
 
-export default function AuthorProfile({ data }: Props): React.JSX.Element | null {
+export default function AuthorProfile({ data, children }: Props): React.JSX.Element | null {
   if (!data) return null;
 
   const { firstName, lastName, image, bio } = data;
@@ -18,6 +19,7 @@ export default function AuthorProfile({ data }: Props): React.JSX.Element | null
       {image?.desktopImage?.asset && (
         <Image data={image} loading="eager" className="background-image" />
       )}
+      {children}
     </Wrapper>
   );
 }

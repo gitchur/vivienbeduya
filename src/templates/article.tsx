@@ -64,10 +64,6 @@ export default function ArticleTemplate({
 }
 
 const Wrapper = styled(SplitPageLayout)`
-  &[data-expanded] {
-    grid-template-columns: 1fr 3fr;
-  }
-
   .article-content-area {
     padding-top: 64rwd;
     display: flex;

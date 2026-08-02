@@ -10,6 +10,10 @@ export const SplitPageLayout = styled.div`
   grid-template-columns: 1fr 1fr;
   transition: grid-template-columns 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 
+  &[data-expanded] {
+    grid-template-columns: 1fr 3fr;
+  }
+
   @media --base-down {
     display: flex;
     flex-direction: column;
