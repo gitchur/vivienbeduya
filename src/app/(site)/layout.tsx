@@ -5,7 +5,6 @@ import { mergeClassNames } from "@flight-digital/flightdeck/helpers";
 import ThemeClasses from "@flight-digital/flightdeck/pebbles/themeClasses";
 import { Fraunces, DM_Sans } from "next/font/google";
 import "./style.linaria.global";
-import KlaviyoProvider from "@/components/organisms/klaviyoProvider";
 import { NavigationPending } from "@/components/organisms/navigationPending";
 import { GoogleAnalytics } from '@next/third-parties/google'
 
@@ -26,11 +25,9 @@ export default async function Layout({ children }: LayoutProps<"/">) {
       <GoogleAnalytics gaId="G-4C83XW1081" />
       <ThemeClasses data={navigation?.theme?.classNames as any} />
       <Header data={navigation.header} />
-      <KlaviyoProvider>
-        <main>
-          <NavigationPending>{children}</NavigationPending>
-        </main>
-      </KlaviyoProvider>
+      <main>
+        <NavigationPending>{children}</NavigationPending>
+      </main>
       <Footer data={navigation.footer} socialMedias={navigation.settings?.socialMedias} />
     </div>
   );

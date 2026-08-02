@@ -269,7 +269,7 @@ For padding/gap/margin, use a value from this list converted to `rwd` (desktop) 
 src/components/
 ├── atoms/        # image.tsx, icon.tsx, link.tsx, altText.tsx
 ├── molecules/    # accordion, ctaCard, richText, sharing, postTitle, translationMark, etc.
-├── organisms/    # header/{header,nav}.tsx, footer.tsx, klaviyoProvider, smoothScroll
+├── organisms/    # header/{header,nav}.tsx, footer.tsx, smoothScroll
 └── blocks/       # CMS-driven blocks. registered in blocks/blocks.tsx
 ```
 
