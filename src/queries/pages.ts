@@ -3,14 +3,20 @@ import { buildPagePath } from "@/utils/helpers";
 import { defineQuery } from "next-sanity";
 import { cache } from "react";
 import {
+  articlePreviewFields,
   draftsFilter,
   imageFields,
   pagePreviewFields,
+  richTextFields,
   seoFields,
   slugWithPrefixFields,
   typeIsInAllPagesTypes,
 } from "./_general";
 import { blocksFields } from "./blocks";
+
+// Authors don't have a "title" field (they have firstName/lastName instead), so it's
+// computed here to keep the generic `title` field (from pagePreviewFields) populated.
+const authorNameField = `select(defined(lastName) => firstName + " " + lastName, firstName)`;
 
 // Create different queries for different page types here
 // Do not use "..." in the article branch: it would overwrite slug with the raw document slug (prefix stays reference).
@@ -26,6 +32,16 @@ export const pageFields = defineQuery(`
     image { ${imageFields} },
     author->{ firstName, lastName, image { ${imageFields} } }
   },
+  _type == "author" => {
+    "title": ${authorNameField},
+    firstName,
+    lastName,
+    role,
+    image { ${imageFields} },
+    bio { ${richTextFields} },
+    "articles": *[_type == "article" && ${draftsFilter} && references(^._id)]
+      | order(coalesce(publishDate, _createdAt) desc) { ${articlePreviewFields} }
+  },
 `);
 
 export const pageSeoFields = defineQuery(`
@@ -34,28 +50,41 @@ export const pageSeoFields = defineQuery(`
   _type == "article" => {
     image { ${imageFields} }
   },
+  _type == "author" => {
+    "title": ${authorNameField},
+    image { ${imageFields} }
+  },
 `);
 
+// Authors have no manually managed slug field: their URL is derived from firstName instead
+// (see buildPagePath), so they're matched here by firstName rather than slug.current.
+const matchesRequestedSlug = `(
+  (_type == "author" && lower(firstName) == lower($slug)) ||
+  (_type != "author" && slug.current == $slug)
+)`;
+
 export const pageBySlugQuery = defineQuery(`
-  *[${typeIsInAllPagesTypes} && ${draftsFilter} && slug.current == $slug] {
+  *[${typeIsInAllPagesTypes} && ${draftsFilter} && ${matchesRequestedSlug}] {
     ${pageFields}
   }
 `);
 
 export const pageSeoBySlugQuery = defineQuery(`
-  *[${typeIsInAllPagesTypes} && ${draftsFilter} && slug.current == $slug] {
+  *[${typeIsInAllPagesTypes} && ${draftsFilter} && ${matchesRequestedSlug}] {
     ${pageSeoFields}
   }
 `);
 
 export const allPagesSlugsQuery = defineQuery(`
   *[${typeIsInAllPagesTypes} && ${draftsFilter}] {
+    _type,
     _updatedAt,
+    firstName,
     slug { ${slugWithPrefixFields} }
   }
 `);
 
-const resolvePageByPath = <T extends Sanity.Page | Sanity.Article>(
+const resolvePageByPath = <T extends AllPagesData>(
   path: string[] | undefined,
   pages: Sanity.Maybe<T[]>,
 ): T | null => {
@@ -72,7 +101,7 @@ const resolvePageByPath = <T extends Sanity.Page | Sanity.Article>(
   return pageData;
 };
 
-const fetchPagesByPath = async <T extends Sanity.Page | Sanity.Article>(
+const fetchPagesByPath = async <T extends AllPagesData>(
   path: string[] | undefined,
   query: string,
 ): Promise<T | null> => {
@@ -106,13 +135,13 @@ export type PageSeoData = Pick<Sanity.Page, "_type" | "title" | "description" | 
   Partial<Pick<Sanity.Article, "image">>;
 
 export const getPageSeo = cache(async (path: string[] | undefined): Promise<PageSeoData | null> => {
-  const page = await fetchPagesByPath<Sanity.Page | Sanity.Article>(path, pageSeoBySlugQuery);
+  const page = await fetchPagesByPath<AllPagesData>(path, pageSeoBySlugQuery);
   return page as PageSeoData | null;
 });
 
 export const getAllPagesSlugs = async () => {
   const res = (await sanityFetch({
     query: allPagesSlugsQuery,
-  })) as Sanity.Maybe<Sanity.Page[]>;
+  })) as Sanity.Maybe<AllPagesData[]>;
   return res;
 };

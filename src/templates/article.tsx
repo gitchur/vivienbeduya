@@ -7,6 +7,7 @@ import { Suspense } from "react";
 import { getNextReadPost } from "@/queries/global";
 import { ArticleCard } from "@/components/blocks/articlesList/articleCard";
 import TextType from "@/components/atoms/textType";
+import { SplitPageLayout } from "@/templates/pageLayout.styles";
 
 interface Props {
   data: Sanity.Article;
@@ -62,11 +63,7 @@ export default function ArticleTemplate({
   );
 }
 
-const Wrapper = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  transition: grid-template-columns 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-
+const Wrapper = styled(SplitPageLayout)`
   &[data-expanded] {
     grid-template-columns: 1fr 3fr;
   }
@@ -168,8 +165,6 @@ const Wrapper = styled.div`
   }
 
   @media --base-down {
-    display: flex;
-    flex-direction: column;
     .next-read-mobile {
       display: flex;
       margin: 0 16rwm;

@@ -4,6 +4,7 @@ const validateType = {
   ...(defaultValidatedTypes || {}),
   isArticle: assertType<Sanity.Article>("article"),
   isPage: assertType<Sanity.Page>("page"),
+  isAuthor: assertType<AuthorPageData>("author"),
   isComponentBlueprint: assertType<Sanity.ComponentBlueprint>("componentBlueprint"),
   isCodeBlock: assertType<Sanity.CodeBlock>("codeBlock"),
   // Create your custom validation types here

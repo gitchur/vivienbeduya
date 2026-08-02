@@ -17,6 +17,10 @@ export default defineType({
       type: "string",
     }),
     defineField({
+      name: "role",
+      type: "string",
+    }),
+    defineField({
       name: "image",
       type: "adaptiveImage",
       validation: (Rule) => Rule.required(),

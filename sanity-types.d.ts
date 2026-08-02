@@ -191,6 +191,7 @@ type Author = Document & {
   readonly firstName: Maybe<Scalars['String']['output']>;
   readonly image: Maybe<AdaptiveImage>;
   readonly lastName: Maybe<Scalars['String']['output']>;
+  readonly role: Maybe<Scalars['String']['output']>;
 };
 
 type AuthorFilter = {
@@ -206,6 +207,7 @@ type AuthorFilter = {
   readonly firstName: InputMaybe<StringFilter>;
   readonly image: InputMaybe<AdaptiveImageFilter>;
   readonly lastName: InputMaybe<StringFilter>;
+  readonly role: InputMaybe<StringFilter>;
 };
 
 type AuthorSorting = {
@@ -219,6 +221,7 @@ type AuthorSorting = {
   readonly firstName: InputMaybe<SortOrder>;
   readonly image: InputMaybe<AdaptiveImageSorting>;
   readonly lastName: InputMaybe<SortOrder>;
+  readonly role: InputMaybe<SortOrder>;
 };
 
 type Block = {

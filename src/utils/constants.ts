@@ -3,7 +3,7 @@ export const siteName = "Bisaya Banter";
 export const mobileBreakpoint = 768;
 
 // Add all the page types you want to be available in the website here
-export const allPageTypes = ["page", "article"];
+export const allPageTypes = ["page", "article", "author"];
 
 // Add your custom blocks here to be available in the CMS, create the schema in @/sanity/schemas/blocks/yourBlock.ts
 export const blocksTypes = [{ type: "block.articlesList" }, { type: "block.featuredPost" }, { type: "block.marquee" }];

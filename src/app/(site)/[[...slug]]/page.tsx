@@ -78,8 +78,9 @@ export async function generateStaticParams(): Promise<{ slug: string[] }[]> {
   const pages = await getAllPagesSlugs();
 
   const staticParams = (pages ?? [])
-    .filter((page: any) => page?.slug?.current)
-    .map((page: any) => ({ slug: buildPagePath(page) }));
+    .map((page: any) => buildPagePath(page))
+    .filter((slug: string[]) => slug.length > 0)
+    .map((slug: string[]) => ({ slug }));
 
   return staticParams;
 }

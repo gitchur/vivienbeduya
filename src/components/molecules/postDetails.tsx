@@ -32,11 +32,15 @@ export default function PostDetails({ data }: Props) {
         })}
       </div>
 
-      <div className="author-info">
-        {author?.image && <Image data={author?.image} loading="eager" className="author-image" />}
-        {author?.firstName && <b>Written by {author?.firstName} {author?.lastName || ""}</b>}
-        {Boolean(suggestedReadTime) && <> • {suggestedReadTime} min read</>}
-      </div>
+      {author && (
+        <NextLink href={`/author/${author.firstName?.toLowerCase()}`}>
+          <div className="author-info">
+            {author.image && <Image data={author.image} loading="eager" className="author-image" />}
+            {author.firstName && <b>Written by {author.firstName} {author?.lastName || ""}</b>}
+            {Boolean(suggestedReadTime) && <> • {suggestedReadTime} min read</>}
+          </div>
+        </NextLink>
+      )}
     </Wrapper>
   );
 }

@@ -1,5 +1,5 @@
 import { getAllPagesSlugs } from "@/queries/pages";
-import { formatLinkPath } from "@flight-digital/flightdeck/helpers";
+import { buildPagePath } from "@/utils/helpers";
 import type { MetadataRoute } from "next";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -7,15 +7,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const pages = await getAllPagesSlugs();
     const sitemap =
       pages?.map((page) => {
-        const isHome = page?.slug?.current === "/" && !page?.slug?.prefix;
-        const path = isHome
-          ? ""
-          : "/" +
-            formatLinkPath({
-              slug: page?.slug?.current,
-              prefix: page?.slug?.prefix,
-              addStartAndEndSlash: false,
-            });
+        const segments = buildPagePath(page);
+        const path = segments.length ? `/${segments.join("/")}` : "";
         return {
           url: `${process.env.NEXT_PUBLIC_WEBSITE_URL}${path}`,
           lastModified: new Date(page?._updatedAt),

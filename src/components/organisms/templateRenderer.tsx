@@ -1,5 +1,6 @@
 import { ArticlesListSearchParams } from "@/components/blocks/articlesList/searchParams";
 import ArticleTemplate from "@/templates/article";
+import AuthorTemplate from "@/templates/author";
 import PageTemplate from "@/templates/page";
 import validateType from "@/utils/validateType";
 import Blocks from "../blocks/blocks";
@@ -28,6 +29,9 @@ const TemplateRenderer = ({ data, searchParams, searchParamsPromise }: Props) =>
         searchParamsPromise={searchParamsPromise}
       />
     );
+  }
+  if (validateType.isAuthor(data)) {
+    return <AuthorTemplate data={data} />;
   }
   return (
     <PageTemplate
