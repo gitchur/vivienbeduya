@@ -25,15 +25,20 @@ const authorNameField = `select(defined(lastName) => firstName + " " + lastName,
 export const pageProjection = `
   ...${pagePreview.call()},
   ${seo.field("seo")},
+  // Used by the generated JSON-LD (dates and breadcrumb parent)
+  _createdAt,
+  _updatedAt,
+  "parentTitle": slug.prefix->title,
   blocks {
     ${pageBlocks.field("list")}
   },
   _type == "article" => {
+    alternativeTitle,
     publishDate,
     suggestedReadTime,
     tags[]->{ name },
     ${image.field("image")},
-    author->{ firstName, lastName, ${image.field("image")} }
+    author->{ _type, firstName, lastName, ${image.field("image")} }
   },
   _type == "author" => {
     "title": ${authorNameField},

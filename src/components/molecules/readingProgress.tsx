@@ -1,5 +1,6 @@
 "use client";
 
+import { Paraw } from "@/components/atoms/paraw";
 import { mergeClassNames } from "@flight-digital/flightdeck/helpers";
 import { styled } from "@linaria/react";
 import { useEffect, useRef } from "react";
@@ -56,15 +57,7 @@ export const ReadingProgress = ({ className }: Props): React.JSX.Element => {
       <div className="reading-progress__track">
         <div className="reading-progress__wake" />
         <div className="reading-progress__boat">
-          <svg className="reading-progress__paraw" viewBox="0 0 48 32" fill="none">
-            <path className="reading-progress__sail" d="M21 2c6 5 11 11 15 19H21Z" />
-            <path d="M21 1v23" />
-            <path d="M2 29h44M12 24v5M36 24v5" />
-            <path
-              className="reading-progress__hull"
-              d="M4 21c4 4 12 4 20 4s16 0 20-4c-3 6-11 7-20 7S7 27 4 21Z"
-            />
-          </svg>
+          <Paraw className="reading-progress__paraw" />
         </div>
       </div>
       <span className="reading-progress__label reading-progress__label--end">
@@ -154,25 +147,9 @@ const Wrapper = styled.div`
   }
 
   .reading-progress__paraw {
-    display: block;
-    width: 100%;
-    height: auto;
-    overflow: visible;
-    stroke: var(--color-accent);
-    stroke-width: 1.4;
-    stroke-linecap: round;
-    stroke-linejoin: round;
     filter: drop-shadow(0 0 2px var(--color-bg));
     transform-origin: 50% 85%;
     animation: paraw-bob 3.2s ease-in-out infinite alternate;
-  }
-
-  .reading-progress__sail {
-    fill: var(--color-bg-warm);
-  }
-
-  .reading-progress__hull {
-    fill: var(--color-accent);
   }
 
   @keyframes paraw-bob {

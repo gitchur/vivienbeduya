@@ -1,8 +1,9 @@
 import TemplateRenderer from "@/components/organisms/templateRenderer";
-import { getSiteSettings } from "@/queries/global";
+import { getLayoutRelatedData, getSiteSettings } from "@/queries/global";
 import { getAllPagesSlugs, getPage, getPageSeo } from "@/queries/pages";
 import { siteName } from "@/utils/constants";
-import { buildPagePath, getJsonLd, truncateText } from "@/utils/helpers";
+import { buildPagePath, truncateText } from "@/utils/helpers";
+import { buildJsonLd } from "@/utils/jsonLd";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
@@ -19,7 +20,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isArticle = data?._type === "article";
   const isAuthor = data?._type === "author";
 
-  const title = data?.seo?.pageTitle || data?.title || settings?.defaultSEO?.pageTitle || undefined;
+  const title =
+    data?.seo?.pageTitle ||
+    data?.title ||
+    // No page matched: this title is shown on the not-found page
+    (!data ? "Nawala ka, bai?" : undefined) ||
+    settings?.defaultSEO?.pageTitle ||
+    undefined;
   const description =
     data?.seo?.pageDescription ||
     data?.description ||
@@ -33,7 +40,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     settings?.defaultSEO?.image?.asset?.url ||
     undefined;
   const image = rawImage ? `${rawImage}?auto=format&fit=max&q=75&w=1000` : undefined;
-  const titleWithSuffix = settings?.defaultSEO?.pageTitleSuffix
+  const titleWithSuffix = title && settings?.defaultSEO?.pageTitleSuffix
     ? `${title} | ${settings.defaultSEO.pageTitleSuffix}`
     : undefined;
 
@@ -93,18 +100,18 @@ export async function generateStaticParams(): Promise<{ slug: string[] }[]> {
 
 export default async function Page({ params, searchParams }: PageProps<"/[[...slug]]">) {
   const loadedParams = await params;
-  const data = await getPage(loadedParams?.slug);
-  const jsonLd = getJsonLd(data);
+  const [data, layout] = await Promise.all([getPage(loadedParams?.slug), getLayoutRelatedData()]);
 
   if (!data) return notFound();
 
+  const jsonLd = buildJsonLd(data, layout);
   const customPageCode = data?.seo?.customPageCode;
 
   return (
     <>
-      {jsonLd && (
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd as string }} />
-      )}
+      {jsonLd.map((json, index) => (
+        <script key={index} type="application/ld+json" dangerouslySetInnerHTML={{ __html: json }} />
+      ))}
       <TemplateRenderer data={data} searchParamsPromise={searchParams} />
       {customPageCode ? (
         <div

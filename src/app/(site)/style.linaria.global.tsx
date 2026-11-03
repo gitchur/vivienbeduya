@@ -885,32 +885,12 @@ export const globals = css`
       }
     }
 
-    /* Scroll reveal (see ScrollReveal). Only applies once the script has run, so
-     * content stays visible without JS and to crawlers. */
-    html.reveal-ready [data-reveal="pending"] {
-      opacity: 0;
-    }
-
-    html.reveal-ready [data-reveal="in"] {
+    /* How far content rises as it fades in (read by ScrollReveal) */
+    :root {
       --reveal-distance: 32rwd;
-      animation: reveal-up 800ms cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms) both;
 
       @media --base-down {
         --reveal-distance: 24rwm;
-      }
-    }
-
-    @keyframes reveal-up {
-      from {
-        opacity: 0;
-        transform: translateY(var(--reveal-distance));
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce), print {
-      html.reveal-ready [data-reveal] {
-        opacity: 1;
-        animation: none;
       }
     }
   }

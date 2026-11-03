@@ -2,7 +2,7 @@ import { spaceOptions } from "@/sanity/utils/constants";
 import { allPageTypes, blocksTypes, primitiveBlocksTypes } from "@/utils/constants";
 import { flightDeck } from "@flight-digital/sanity-plugin-flightdeck";
 import { RiTranslate } from "react-icons/ri";
-import { defineField } from "sanity";
+import { defineField, FieldDefinition, Rule } from "sanity";
 
 // Example of how to add a custom decorator to rich text + heading
 // Create a annotation component file in @/sanity/utils/annotations.tsx and import it here
@@ -41,6 +41,33 @@ const defRichTextFields = {
 };
 
 const formattedAllPageTypes = allPageTypes.map((type) => ({ type }));
+
+// Organisation, website, article, author and breadcrumb markup is generated in code
+// (src/utils/jsonLd.ts), so this field is only for extras and must be valid JSON.
+const seoFields = {
+  overwriteFields(current: FieldDefinition[]): FieldDefinition[] {
+    return current.map((field) =>
+      field.name === "jsonLD"
+        ? {
+            ...field,
+            description:
+              "Optional extra schema.org JSON-LD (e.g. AboutPage). Organization, WebSite, WebPage, BlogPosting, ProfilePage, Person and BreadcrumbList are generated automatically and will be ignored here.",
+            validation: (rule: Rule) =>
+              rule.custom((value: unknown) => {
+                const json = typeof value === "string" ? value : (value as { code?: string })?.code;
+                if (!json?.trim()) return true;
+                try {
+                  JSON.parse(json);
+                  return true;
+                } catch (error) {
+                  return `Not valid JSON, so it won't be added to the page: ${(error as Error).message}`;
+                }
+              }),
+          }
+        : field,
+    );
+  },
+};
 
 // Shared fields for button, link and link without text
 const defButtonFields = {
@@ -125,6 +152,7 @@ const flightDeckPlugin = flightDeck({
     linkWithoutText: { ...defButtonFields },
     heading: { ...defRichTextFields },
     richText: { ...defRichTextFields },
+    seo: { ...seoFields },
     slugWithPrefix: {
       source: "title",
       prefixReferenceTypes: [{ type: "page" }], // If you need other types as prefix, add them here
