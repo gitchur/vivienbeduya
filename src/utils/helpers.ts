@@ -12,7 +12,7 @@ function isRootSegment(segment: string | undefined | null): boolean {
  * Basic slugify for deriving a URL segment from a plain text field (e.g. author firstName)
  * that doesn't have a manually managed Sanity slug field.
  */
-function slugify(value: string): string {
+export function slugify(value: string): string {
   return value
     .trim()
     .toLowerCase()
