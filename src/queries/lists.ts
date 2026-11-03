@@ -1,14 +1,18 @@
 import { sanityFetch } from "@/lib/sanityClient";
 import { defineQuery } from "next-sanity";
-import { articlePreviewFields, draftsFilter, imageFields, slugWithPrefixFields } from "./_general";
+import { articlePreview, draftsFilter, image, slug } from "./_general";
+import { withProjections } from "./groq";
 
-const articlesListQuery = defineQuery(`
+const articlesListQuery = defineQuery(
+  withProjections(`
   *[_type == "article" && ${draftsFilter} && (!defined($articleId) || _id != $articleId)] | order(publishDate desc)[$start...$end] {
-    ${articlePreviewFields}
+    ...${articlePreview.call()}
   }
-`);
+`),
+);
 
-const paginatedArticlesListQuery = defineQuery(`
+const paginatedArticlesListQuery = defineQuery(
+  withProjections(`
   {
     "articles": *[
       _type == "article" &&
@@ -16,7 +20,7 @@ const paginatedArticlesListQuery = defineQuery(`
       (!defined($articleId) || _id != $articleId) &&
       (!defined($tagId) || references($tagId))
     ] | order(publishDate desc) [$start...$end] {
-      ${articlePreviewFields}
+      ...${articlePreview.call()}
     },
     "total": count(*[
       _type == "article" &&
@@ -25,7 +29,8 @@ const paginatedArticlesListQuery = defineQuery(`
       (!defined($tagId) || references($tagId))
     ])
   }
-`);
+`),
+);
 
 const articleTagsQuery = defineQuery(`
   *[
@@ -37,7 +42,8 @@ const articleTagsQuery = defineQuery(`
   }
 `);
 
-const searchQuery = defineQuery(`
+const searchQuery = defineQuery(
+  withProjections(`
   *[
     _type in ["article", "page"] &&
     (!defined(seo.indexing) || !("noindex" in seo.indexing)) &&
@@ -54,10 +60,11 @@ const searchQuery = defineQuery(`
     title,
     description,
     suggestedReadTime,
-    image { ${imageFields} },
-    slug { ${slugWithPrefixFields} }
+    ${image.field("image")},
+    ${slug.field("slug")}
   }
-`);
+`),
+);
 
 export const getArticlesList = async (
   page: number,

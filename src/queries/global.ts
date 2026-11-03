@@ -1,14 +1,16 @@
 import { sanityFetch } from "@/lib/sanityClient";
 import { defineQuery } from "next-sanity";
 import {
-  articlePreviewFields,
+  articlePreview,
   draftsFilter,
-  imageFields,
-  linkFields,
-  richTextFields,
-  seoFields,
-  slugWithPrefixFields,
+  featuredArticle,
+  image,
+  link,
+  links,
+  richText,
+  seo,
 } from "./_general";
+import { withProjections } from "./groq";
 
 interface GetNavigationResponse {
   header: Sanity.Maybe<Sanity.Header>;
@@ -17,45 +19,43 @@ interface GetNavigationResponse {
   theme: Sanity.Maybe<Sanity.Theme>;
 }
 
-const headerNavigationFields = defineQuery(`
-  _type == 'link' => {
-    ${linkFields}
-  },
+const headerNavigationFields = `
+  _type == 'link' => ${link.call()},
   _type == 'headerNavMenu' => {
     _key,
     title,
-    links[] { ${linkFields} }
+    ${links.field("links")}
   }
-`);
+`;
 
-const headerFields = defineQuery(`
+const headerFields = `
   _id,
   _type,
-  logo { ${imageFields} },
+  ${image.field("logo")},
   navigation[] { ${headerNavigationFields} },
   hideOnScroll,
-  bannerText { ${richTextFields} }
-`);
+  ${richText.field("bannerText")}
+`;
 
-const footerFields = defineQuery(`
+const footerFields = `
   _id,
   _type,
   navigation[] {
     _key,
     title,
-    links[] { ${linkFields} }
+    ${links.field("links")}
   },
-  copyright { ${richTextFields} }
-`);
+  ${richText.field("copyright")}
+`;
 
-const siteSettingsFields = defineQuery(`
+const siteSettingsFields = `
   _id,
   _type,
   defaultSEO {
     pageTitleSuffix,
-    ${seoFields}
+    ...${seo.call()}
   },
-  notFoundPageContent { ${richTextFields} },
+  ${richText.field("notFoundPageContent")},
   socialMedias[] {
     _key,
     _type,
@@ -66,15 +66,18 @@ const siteSettingsFields = defineQuery(`
       svg
     }
   }
-`);
+`;
 
-const siteSettingsQuery = defineQuery(`
+const siteSettingsFilter = `
   *[_type == "settings"][0] {
     ${siteSettingsFields}
   }
-`);
+`;
 
-const layoutRelatedDataQuery = defineQuery(`
+const siteSettingsQuery = defineQuery(withProjections(siteSettingsFilter));
+
+const layoutRelatedDataQuery = defineQuery(
+  withProjections(`
   {
     "header": *[_type == "header"][0] {
       ${headerFields}
@@ -82,18 +85,21 @@ const layoutRelatedDataQuery = defineQuery(`
     "footer": *[_type == "footer"][0] {
       ${footerFields}
     },
-    "settings": ${siteSettingsQuery},
+    "settings": ${siteSettingsFilter},
     "theme": *[_type == "theme"][0] {
       classNames[] { ... }
     }
   }
-`);
+`),
+);
 
-const nextReadPostQuery = defineQuery(`
+const nextReadPostQuery = defineQuery(
+  withProjections(`
   *[_type == "article" && ${draftsFilter} && (!defined($articleId) || _id != $articleId)] | order(publishDate desc)[0] {
-    ${articlePreviewFields}
+    ...${articlePreview.call()}
   }
-`);
+`),
+);
 
 export const getNextReadPost = async (articleId?: Sanity.Maybe<string>) => {
   if (!articleId) return null;
@@ -113,26 +119,13 @@ export const getSiteSettings = async () => {
   return data as Sanity.Maybe<Sanity.Settings>;
 };
 
-const latestArticleQuery = defineQuery(`
+const latestArticleQuery = defineQuery(
+  withProjections(`
   *[_type == "article" && ${draftsFilter}] | order(publishDate desc)[0] {
-    _id,
-    _type,
-    title,
-    alternativeTitle,
-    description,
-    alternativeDescription,
-    image { ${imageFields} },
-    slug { ${slugWithPrefixFields} },
-    "publishDate": coalesce(publishDate, _createdAt),
-    suggestedReadTime,
-    tags[] -> { _id, name },
-    author -> {
-      firstName,
-      lastName,
-      image { ${imageFields} }
-    }
+    ...${featuredArticle.call()}
   }
-`);
+`),
+);
 
 export const getLatestArticle = async (): Promise<Sanity.Maybe<Sanity.Article>> => {
   const data = await sanityFetch({

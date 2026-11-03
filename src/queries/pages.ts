@@ -3,16 +3,17 @@ import { buildPagePath } from "@/utils/helpers";
 import { defineQuery } from "next-sanity";
 import { cache } from "react";
 import {
-  articlePreviewFields,
+  articlePreview,
   draftsFilter,
-  imageFields,
-  pagePreviewFields,
-  richTextFields,
-  seoFields,
-  slugWithPrefixFields,
+  image,
+  pagePreview,
+  richText,
+  seo,
+  slug,
   typeIsInAllPagesTypes,
 } from "./_general";
-import { blocksFields } from "./blocks";
+import { pageBlocks } from "./blocks";
+import { withProjections } from "./groq";
 
 // Authors don't have a "title" field (they have firstName/lastName instead), so it's
 // computed here to keep the generic `title` field (from pagePreviewFields) populated.
@@ -20,37 +21,39 @@ const authorNameField = `select(defined(lastName) => firstName + " " + lastName,
 
 // Create different queries for different page types here
 // Do not use "..." in the article branch: it would overwrite slug with the raw document slug (prefix stays reference).
-// Only add article-specific fields so slug keeps the expanded prefix from pagePreviewFields.
-export const pageFields = defineQuery(`
-  ${pagePreviewFields},
-  seo { ${seoFields} },
-  blocks { ${blocksFields} },
+// Only add article-specific fields so slug keeps the expanded prefix from pagePreview.
+export const pageProjection = `
+  ...${pagePreview.call()},
+  ${seo.field("seo")},
+  blocks {
+    ${pageBlocks.field("list")}
+  },
   _type == "article" => {
     publishDate,
     suggestedReadTime,
     tags[]->{ name },
-    image { ${imageFields} },
-    author->{ firstName, lastName, image { ${imageFields} } }
+    ${image.field("image")},
+    author->{ firstName, lastName, ${image.field("image")} }
   },
   _type == "author" => {
     "title": ${authorNameField},
     firstName,
     lastName,
     role,
-    image { ${imageFields} },
-    bio { ${richTextFields} },
+    ${image.field("image")},
+    ${richText.field("bio")},
     // Plain-text version of bio, used as a JSON-LD/meta description fallback (authors have no "description" field).
     "bioExcerpt": pt::text(bio.blocks),
     "articles": *[_type == "article" && ${draftsFilter} && references(^._id)]
-      | order(coalesce(publishDate, _createdAt) desc) { ${articlePreviewFields} }
-  },
-`);
+      | order(coalesce(publishDate, _createdAt) desc) { ...${articlePreview.call()} }
+  }
+`;
 
-export const pageSeoFields = defineQuery(`
-  ${pagePreviewFields},
-  seo { ${seoFields} },
+const pageSeoProjection = `
+  ...${pagePreview.call()},
+  ${seo.field("seo")},
   _type == "article" => {
-    image { ${imageFields} }
+    ${image.field("image")}
   },
   _type == "author" => {
     "title": ${authorNameField},
@@ -58,11 +61,11 @@ export const pageSeoFields = defineQuery(`
     // without it, resolvePageByPath() can't match this document and getPageSeo() silently returns null.
     firstName,
     lastName,
-    image { ${imageFields} },
+    ${image.field("image")},
     // Plain-text version of bio, used as a meta description fallback (authors have no "description" field).
     "bioExcerpt": pt::text(bio.blocks)
-  },
-`);
+  }
+`;
 
 // Authors have no manually managed slug field: their URL is derived from firstName instead
 // (see buildPagePath), so they're matched here by firstName rather than slug.current.
@@ -71,26 +74,32 @@ const matchesRequestedSlug = `(
   (_type != "author" && slug.current == $slug)
 )`;
 
-export const pageBySlugQuery = defineQuery(`
+export const pageBySlugQuery = defineQuery(
+  withProjections(`
   *[${typeIsInAllPagesTypes} && ${draftsFilter} && ${matchesRequestedSlug}] {
-    ${pageFields}
+    ${pageProjection}
   }
-`);
+`),
+);
 
-export const pageSeoBySlugQuery = defineQuery(`
+export const pageSeoBySlugQuery = defineQuery(
+  withProjections(`
   *[${typeIsInAllPagesTypes} && ${draftsFilter} && ${matchesRequestedSlug}] {
-    ${pageSeoFields}
+    ${pageSeoProjection}
   }
-`);
+`),
+);
 
-export const allPagesSlugsQuery = defineQuery(`
+export const allPagesSlugsQuery = defineQuery(
+  withProjections(`
   *[${typeIsInAllPagesTypes} && ${draftsFilter}] {
     _type,
     _updatedAt,
     firstName,
-    slug { ${slugWithPrefixFields} }
+    ${slug.field("slug")}
   }
-`);
+`),
+);
 
 const resolvePageByPath = <T extends AllPagesData>(
   path: string[] | undefined,

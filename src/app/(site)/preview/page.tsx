@@ -1,6 +1,5 @@
 import TemplateRenderer from "@/components/organisms/templateRenderer";
-import { componentBuilderPreviewFields } from "@/queries/blocks";
-import { pageFields } from "@/queries/pages";
+import { componentBuilderPreviewFields, pageFields } from "@/queries/previewProjections";
 import NextPreview from "@flight-digital/flightdeck/boulders/nextPreview/nextPreview";
 import { Metadata } from "next";
 

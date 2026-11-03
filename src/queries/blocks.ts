@@ -1,23 +1,23 @@
-import { defineQuery } from "next-sanity";
-import {
-  accordionFields,
-  ctaCardFields,
-  imageFields,
-  linkFields,
-  richTextFields,
-  slugWithPrefixFields,
-} from "./_general";
+import { accordion, ctaCard, featuredArticleRef, image, link, links, richText } from "./_general";
+import { defineProjection } from "./groq";
 
-const defaultBlockFields = defineQuery(`
+export const blockMeta = defineProjection(
+  "blockMeta",
+  "object",
+  `
   _type,
   _key,
   layoutEditor,
-  backgroundImage { ${imageFields} },
+  ${image.field("backgroundImage")},
   classNames,
   customCss
-`);
+`,
+);
 
-const primitiveBlocksFields = defineQuery(`
+export const primitive = defineProjection(
+  "primitive",
+  "object",
+  `
   _type,
   _key,
   _type == "codeBlock" => {
@@ -25,23 +25,13 @@ const primitiveBlocksFields = defineQuery(`
     _key,
     _type
   },
-  _type == "button" => {
-    ${linkFields}
-  },
-  _type == "link" => {
-    ${linkFields}
-  },
-  _type == "ctaCard" => {
-    ${ctaCardFields}
-  },
-  _type == "adaptiveImage" => {
-    ${imageFields}
-  },
-  _type == "accordion" => {
-    ${accordionFields}
-  },
+  _type == "button" => ${link.call()},
+  _type == "link" => ${link.call()},
+  _type == "ctaCard" => ${ctaCard.call()},
+  _type == "adaptiveImage" => ${image.call()},
+  _type == "accordion" => ${accordion.call()},
   _type == "buttonsList" => {
-    buttons[] { ${linkFields} },
+    ${links.field("buttons")},
     spaceBetween,
     direction,
     align
@@ -51,152 +41,121 @@ const primitiveBlocksFields = defineQuery(`
     showSeparator,
     separatorColor
   },
-  _type == "richText" => {
-    ${richTextFields} 
-  }
+  _type == "richText" => ${richText.call()}
   // Add your custom primitive objects fields here
   // _type == "customObject" => {
-  //   ... 
+  //   ...
   // },
-`);
-
-const defineBlockQuery = (blockType: string) => (query: string) =>
-  defineQuery(`
-  _type == "${blockType}" => {
-    ${defaultBlockFields},
-    ${query}
-  }
-`);
-
-// FLIGHTDECK DEFAULT BLOCKS QUERIES
-const blockParagraphFields = defineBlockQuery("block.paragraph")(
-  `
-  content { ${richTextFields} }
 `,
 );
 
-const blockGapFields = defineBlockQuery("block.gap")(
+export const primitives = defineProjection(
+  "primitives",
+  "array",
   `
-  amount,
-  showSeparator,
-  separatorColor
+  ...${primitive.call()}
 `,
 );
 
-const blockGridFields = defineBlockQuery("block.grid")(
+export const gridColumns = defineProjection(
+  "gridColumns",
+  "array",
   `
-  gridColumns[] {
-    ${defaultBlockFields},
-    columnItems[] {
-      ${primitiveBlocksFields}
-    },
+  ...${blockMeta.call()},
+  ${primitives.field("columnItems")},
+  rowGap,
+  columnSize,
+  verticalAlign,
+  horizontalAlign,
+  reverseOnMobile
+`,
+);
+
+export const block = defineProjection(
+  "block",
+  "object",
+  `
+  ...${blockMeta.call()},
+  // FLIGHTDECK DEFAULT BLOCKS QUERIES
+  _type == "block.paragraph" => {
+    ${richText.field("content")}
+  },
+  _type == "block.gap" => {
+    amount,
+    showSeparator,
+    separatorColor
+  },
+  _type == "block.grid" => {
+    ${gridColumns.field("gridColumns")},
+    fluidGrid,
+    columnGap,
     rowGap,
-    columnSize,
-    verticalAlign,
-    horizontalAlign,
     reverseOnMobile
   },
-  fluidGrid,
-  columnGap,
-  rowGap,
-  reverseOnMobile
-`,
-);
-
-const blockContainerFields = defineBlockQuery("block.container")(
-  `
-  containerItems[] {
-    ${primitiveBlocksFields}
+  _type == "block.container" => {
+    ${primitives.field("containerItems")},
+    rowGap,
+    reverseOnMobile
   },
-  rowGap,
-  reverseOnMobile
-`,
-);
-// ------------------------------
-
-// Add your custom blocks queries below
-
-const blockArticlesListFields = defineBlockQuery("block.articlesList")(
-  `
-  showAll,
-  content { ${richTextFields} }
-`,
-);
-
-const blockFeaturedPostFields = defineBlockQuery("block.featuredPost")(
-  `
-  getLatest,
-  post -> {
-    _id,
-    _type,
-    title,
-    alternativeTitle,
-    description,
-    alternativeDescription,
-    image { ${imageFields} },
-    slug { ${slugWithPrefixFields} },
-    "publishDate": coalesce(publishDate, _createdAt),
-    suggestedReadTime,
-    tags[] -> { _id, name },
-    author -> {
-      firstName,
-      lastName,
-      image { ${imageFields} }
-    }
+  // Add your custom blocks queries below
+  _type == "block.articlesList" => {
+    showAll,
+    ${richText.field("content")}
+  },
+  _type == "block.featuredPost" => {
+    getLatest,
+    ${featuredArticleRef.field("post")}
+  },
+  _type == "block.marquee" => {
+    items[]
   }
 `,
 );
 
-const blockMarqueeFields = defineBlockQuery("block.marquee")(
+export const blueprintBlocks = defineProjection(
+  "blueprintBlocks",
+  "array",
   `
-  items[]
+  ...${block.call()}
 `,
 );
 
-const blocksListFields = defineQuery(`
-  ${blockGapFields},
-  ${blockParagraphFields},
-  ${blockGridFields},
-  ${blockContainerFields},
-  ${blockArticlesListFields},
-  ${blockFeaturedPostFields},
-  ${blockMarqueeFields}
-`);
-
-const componentFields = defineQuery(`
-  _type == "component" => {
-    _type,
-    _key,
-    componentBlueprint -> {
-      variables[] { ... },
-      blocks[] { ${blocksListFields} }
-    },
-    values[] {
-      ...,
-      image { ${imageFields} },
-      link { ${linkFields} },
-      buttons[] { ${linkFields} },
-      ${primitiveBlocksFields},
-      _type == "componentPrimitiveValue" => {
-        arrayOfObject[] {
-          ${primitiveBlocksFields},
-        }
-      }
+export const component = defineProjection(
+  "component",
+  "object",
+  `
+  _type,
+  _key,
+  componentBlueprint -> {
+    variables[] { ... },
+    ${blueprintBlocks.field("blocks")}
+  },
+  values[] {
+    ...,
+    ${image.field("image")},
+    ${link.field("link")},
+    ${links.field("buttons")},
+    ...${primitive.call()},
+    _type == "componentPrimitiveValue" => {
+      ${primitives.field("arrayOfObject")}
     }
   }
-`);
+`,
+);
 
 // Used for the page query to get the content blocks
-export const blocksFields = defineQuery(`
-  list[] {
-    ${blocksListFields},
-    ${componentFields}
-  }
-`);
+export const pageBlocks = defineProjection(
+  "pageBlocks",
+  "array",
+  `
+  _type == "component" => ${component.call()},
+  _type != "component" => ${block.call()}
+`,
+);
 
-// Only for the preview page query
-export const componentBuilderPreviewFields = defineQuery(`
+/** Compact projection. Preview expands this because Flightdeck wraps it in `{ }`. */
+export const componentBuilderProjection = `
   _type,
   _id,
-  blocks[] {  ${blocksListFields} }
-`);
+  ${blueprintBlocks.field("blocks")}
+`;
