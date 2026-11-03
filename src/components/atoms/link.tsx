@@ -10,7 +10,7 @@ type DefaultProps = Omit<ComponentProps<typeof FlightLink>, "LinkComponent">;
 interface Props extends DefaultProps { }
 
 const ValidLinkProps = (props: React.AnchorHTMLAttributes<HTMLAnchorElement>) => {
-  return <NextLink {...props} href={props.href ?? ""} scroll={false} />;
+  return <NextLink {...props} href={props.href ?? ""} />;
 };
 
 /**

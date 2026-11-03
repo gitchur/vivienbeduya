@@ -24,7 +24,6 @@ export default function PostDetails({ data }: Props) {
               key={tag?._key || index}
               className="tag-item category-filters__tag"
               href={`/articles${categoryHref}`}
-              scroll={false}
             >
               {tag?.name}
             </NextLink>
