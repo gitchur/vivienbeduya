@@ -1,4 +1,5 @@
 import { sanityFetchLive } from "@/lib/sanityClient";
+import { LLMS_TXT_CACHE_TAG } from "@/queries/llms";
 import { slugify, slugToCacheTag } from "@/utils/helpers";
 import { parseBody } from "next-sanity/webhook";
 import { revalidatePath, revalidateTag } from "next/cache";
@@ -68,6 +69,10 @@ export async function POST(req: NextRequest): Promise<Response> {
 
     const { _type, paths, slug } = body;
     const revalidated = new Set<string>();
+
+    // llms.txt lists pages, articles, authors and settings, so any change refreshes it
+    revalidateTag(LLMS_TXT_CACHE_TAG, "max");
+    revalidated.add(LLMS_TXT_CACHE_TAG);
 
     switch (_type) {
       case "article":

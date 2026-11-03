@@ -22,7 +22,7 @@ interface SiteData {
 }
 
 // Copied from the original Home page markup in Sanity
-const ORGANIZATION_DETAILS = {
+export const ORGANIZATION_DETAILS = {
   description:
     "Bisaya Banter is a community media platform for young Filipinos in Aotearoa and the wider diaspora, amplifying Bisaya identity and language and challenging the flattening of Filipino identity into a Tagalog-centric monolith.",
   foundingDate: "2021",
