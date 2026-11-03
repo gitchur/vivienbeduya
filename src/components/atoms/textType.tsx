@@ -19,6 +19,8 @@ interface TextTypeProps {
   deletingSpeed?: number;
   loop?: boolean;
   textColors?: string[];
+  /** BCP 47 language per entry in `text`, e.g. ['en', 'ceb'] */
+  textLangs?: string[];
   variableSpeed?: { min: number; max: number };
   onSentenceComplete?: (sentence: string, index: number) => void;
   startOnVisible?: boolean;
@@ -40,6 +42,7 @@ const TextType = ({
   cursorClassName = '',
   cursorBlinkDuration = 0.5,
   textColors = [],
+  textLangs = [],
   variableSpeed,
   onSentenceComplete,
   startOnVisible = false,
@@ -178,7 +181,11 @@ const TextType = ({
       className: `text-type ${className}`,
       ...props
     },
-    <span className="text-type__content" style={{ color: getCurrentTextColor() || 'inherit' }}>
+    <span
+      className="text-type__content"
+      lang={textLangs[currentTextIndex] || undefined}
+      style={{ color: getCurrentTextColor() || 'inherit' }}
+    >
       {displayedText}
     </span>,
     showCursor && (

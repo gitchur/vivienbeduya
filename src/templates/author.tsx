@@ -31,7 +31,8 @@ export default function AuthorTemplate({ data }: Props): React.JSX.Element {
         {bio && <RichText data={bio} className="author-profile__bio" />}
         <TextType
           className="author-articles-area__label h5"
-          text={[`Stories by ${firstName}`, `Mga Sinulat ng ${firstName}`]}
+          text={[`Stories by ${firstName}`, `Mga Sinulat ni ${firstName}`]}
+          textLangs={["en", "ceb"]}
         />
         {articles.length ? (
           <div className="articles-list-grid">

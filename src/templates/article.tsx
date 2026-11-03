@@ -26,7 +26,7 @@ const ArticleNextRead = async ({ articleId }: NextReadProps): Promise<React.JSX.
 
   return (
     <div className="next-read">
-      <TextType text={["Next Read", "Sunod nga basahonon"]} />
+      <TextType text={["Next Read", "Sunod nga basahonon"]} textLangs={["en", "ceb"]} />
       <ArticleCard data={nextRead} horizontal />
     </div>
   );

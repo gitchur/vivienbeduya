@@ -37,7 +37,7 @@ export const TranslationMark = ({
   return (
     <span ref={rootRef} className="translation-mark">
       {showTranslation ? (
-        <span className="translation-mark__translated" aria-label={translatedText}>
+        <span className="translation-mark__translated" lang="en" aria-label={translatedText}>
           {translatedText}
         </span>
       ) : (
@@ -45,7 +45,7 @@ export const TranslationMark = ({
           children={children}
           rootValue={rootValue}
           callback={(child, childProps) => (
-            <span className="translation-mark__original" {...childProps}>
+            <span className="translation-mark__original" lang="ceb" {...childProps}>
               {child}
             </span>
           )}
