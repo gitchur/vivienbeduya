@@ -5,6 +5,7 @@ import { mergeClassNames } from "@flight-digital/flightdeck/helpers";
 import ThemeClasses from "@flight-digital/flightdeck/pebbles/themeClasses";
 import { Fraunces, DM_Sans } from "next/font/google";
 import "./style.linaria.global";
+import { ScrollReveal } from "@/components/organisms/scrollReveal";
 import { GoogleAnalytics } from '@next/third-parties/google'
 
 // Replace with your fonts, also update the font-family in the style.linaria.global.tsx file
@@ -25,6 +26,7 @@ export default async function Layout({ children }: LayoutProps<"/">) {
       <ThemeClasses data={navigation?.theme?.classNames as any} />
       <Header data={navigation.header} />
       <main>{children}</main>
+      <ScrollReveal />
       <Footer data={navigation.footer} socialMedias={navigation.settings?.socialMedias} />
     </div>
   );
