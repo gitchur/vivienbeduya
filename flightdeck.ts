@@ -34,9 +34,12 @@ const defRichTextFields = {
       },
     ];
   },
-
   overwriteFields(current: any) {
-    return [...current, defineField({ name: "customField", type: "string" })];
+    return current;
+  },
+  overwriteExtraBlocks(current: any) {
+    console.log("overwriteExtraBlocks", current);
+    return [{ type: "video" }, ...current];
   },
 };
 

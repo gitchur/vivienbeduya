@@ -111,6 +111,22 @@ export const image = defineProjection(
 `,
 );
 
+export const video = defineProjection(
+  "video",
+  "object",
+  `
+  _type,
+  _key,
+  url,
+  autoplay,
+  loop,
+  thumbnail {
+    ...,
+    ${imageAsset.field("asset")}
+  }
+`,
+);
+
 export const richText = defineProjection(
   "richText",
   "object",
@@ -124,7 +140,8 @@ export const richText = defineProjection(
         ${internalLink.field("internalLink")}
       }
     },
-    _type == "adaptiveImage" => ${image.call()}
+    _type == "adaptiveImage" => ${image.call()},
+    _type == "video" => ${video.call()}
   }
 `,
 );

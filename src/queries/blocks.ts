@@ -1,4 +1,13 @@
-import { accordion, ctaCard, featuredArticleRef, image, link, links, richText } from "./_general";
+import {
+  accordion,
+  ctaCard,
+  featuredArticleRef,
+  image,
+  link,
+  links,
+  richText,
+  video,
+} from "./_general";
 import { defineProjection } from "./groq";
 
 export const blockMeta = defineProjection(
@@ -41,11 +50,8 @@ export const primitive = defineProjection(
     showSeparator,
     separatorColor
   },
-  _type == "richText" => ${richText.call()}
-  // Add your custom primitive objects fields here
-  // _type == "customObject" => {
-  //   ...
-  // },
+  _type == "richText" => ${richText.call()},
+  _type == "video" => ${video.call()}
 `,
 );
 

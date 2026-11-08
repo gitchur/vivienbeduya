@@ -452,9 +452,7 @@ export const globals = css`
             column-gap: 8rwm;
             padding: 8rwm 16rwm;
             height: 24rwm;
-            min-height: 24rwm;
-            border-radius: 6rwm;
-            font-size: 10rwm;
+            min-height: 36rwm;
 
             &:hover::after,
             &:hover > * {

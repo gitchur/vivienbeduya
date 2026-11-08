@@ -2506,6 +2506,7 @@ type Seo = {
   readonly customPageCode: Maybe<Scalars['String']['output']>;
   readonly image: Maybe<Image>;
   readonly indexing: Maybe<ReadonlyArray<Maybe<Scalars['String']['output']>>>;
+  /** Optional extra schema.org JSON-LD (e.g. AboutPage). Organization, WebSite, WebPage, BlogPosting, ProfilePage, Person and BreadcrumbList are generated automatically and will be ignored here. */
   readonly jsonLD: Maybe<Scalars['String']['output']>;
   /** This will appear underneath the title in Google search results */
   readonly pageDescription: Maybe<Scalars['String']['output']>;
