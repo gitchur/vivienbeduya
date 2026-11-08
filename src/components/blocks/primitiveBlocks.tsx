@@ -8,6 +8,7 @@ import ButtonsList from "../molecules/buttonsList";
 import CtaCard from "../molecules/ctaCard";
 import RichText from "../molecules/richText";
 import { Code } from "../molecules/code";
+import { Video } from "../molecules/video";
 
 interface Props {
   data: Maybe<Sanity.AccordionOrAdaptiveImageOrButtonsListOrCodeBlockOrCtaCardOrGapOrRichTextOrVideo>;
@@ -63,6 +64,10 @@ const PrimitiveBlock = async ({ data, columnSpaces }: Props) => {
       return (
         <Code data={data as Sanity.CodeBlock} />
       );
+    }
+
+    if (validateType.isVideo(data)) {
+      return <Video data={data} />;
     }
 
     return (

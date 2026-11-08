@@ -2,6 +2,7 @@ import FlightRichText from "@flight-digital/flightdeck/rocks/richText";
 import { ComponentProps } from "react";
 import Link from "../atoms/link";
 import { RichTextClient } from "./richTextClient";
+import { Video } from "./video";
 
 interface Props extends Omit<ComponentProps<typeof FlightRichText>, "LinkComponent" | "data"> {
   data?: Sanity.Maybe<Sanity.RichText | Sanity.Heading>;
@@ -23,7 +24,12 @@ function hasTranslationMark(data: Props["data"]): boolean {
 }
 
 const serverPortableTextComponents = {
-  types: { undefined: () => null },
+  types: {
+    undefined: () => null,
+    video: ({ value }: { value?: Sanity.Video | null }) => (
+      <Video data={value} sanityPath={value?._key ? `{${value._key}}` : undefined} />
+    ),
+  },
 };
 
 const RichText = (props: Props) => {
